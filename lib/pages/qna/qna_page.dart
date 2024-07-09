@@ -37,7 +37,6 @@ class _QAndATabState extends State<QAndAPage> with SingleTickerProviderStateMixi
           Expanded(child: TabBarView(
             controller: _tabController,
             children: [
-              ,
               Container(color: Colors.blue),
             ],
           ),
