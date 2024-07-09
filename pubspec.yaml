@@ -38,6 +38,7 @@ dependencies:
   google_fonts: ^6.1.0
   font_awesome_flutter: ^10.5.0
   intl: ^0.18.1
+  flutter_quill: ^8.4.3
 
 dev_dependencies:
   flutter_test:
