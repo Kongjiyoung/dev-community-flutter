@@ -1,10 +1,9 @@
 import 'package:dev_community/pages/home/home_page.dart';
 import 'package:dev_community/pages/my/my_page.dart';
 import 'package:dev_community/pages/qna/qna_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../common/bottom_navigation_bar.dart';
 
+import '../common/bottom_navigation_bar.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -37,22 +36,19 @@ class _MainPageState extends State<MainPage> {
         },
       ),
     );
-  }AppBar _buildProfileAppBar() {
-    return AppBar(
+  }
 
+  AppBar _buildProfileAppBar() {
+    return AppBar(
       actions: <Widget>[
         IconButton(
-          icon: Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: Icon(Icons.notifications_outlined,size: 30),
-
+          icon: const Padding(
+            padding: EdgeInsets.only(right: 20),
+            child: Icon(Icons.notifications_outlined, size: 30),
           ), // 종 모양 아이콘
-          onPressed: () {
-          },
+          onPressed: () {},
         ),
       ],
     );
   }
-
 }
-
