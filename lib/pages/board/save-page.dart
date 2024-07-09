@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_quill/flutter_quill.dart' as quill;
+
 
 class SavePage extends StatelessWidget {
   TextEditingController titleController = TextEditingController();
   TextEditingController contentController = TextEditingController();
-  quill.QuillController controller = quill.QuillController.basic();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
