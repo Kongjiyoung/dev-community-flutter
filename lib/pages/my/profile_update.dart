@@ -1,3 +1,4 @@
+import 'package:dev_community/_core/constants/custom-widgets.dart';
 import 'package:flutter/material.dart';
 
 class ProfileUpdatePage extends StatelessWidget {
@@ -9,11 +10,7 @@ class ProfileUpdatePage extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "프로필 편집",
-          style: TextStyle(
-            fontSize: 25,
-            color: Colors.black,
-            fontWeight: FontWeight.w900,
-          ),
+          style: inputTitleStyle(size: 25),
         ),
         actions: [
           TextButton(
@@ -30,13 +27,15 @@ class ProfileUpdatePage extends StatelessWidget {
             style: TextButton.styleFrom(
               backgroundColor: Colors.red, // 배경색 설정
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(2.0), // 둥근 모서리 설정
+                borderRadius: BorderRadius.circular(5.0), // 둥근 모서리 설정
               ),
               padding: EdgeInsets.symmetric(
                   horizontal: 15.0, vertical: 15.0), // 버튼 패딩 설정
             ),
           ),
+          SizedBox(width: 25), // 아이콘 버튼과 다른 액션 사이에 공간 추가
         ],
+
       ),
       body: Container(
         padding: const EdgeInsets.fromLTRB(25, 10, 25, 25),
@@ -81,52 +80,33 @@ class ProfileUpdatePage extends StatelessWidget {
             ),
             Text(
               "이름",
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w900,
-                fontSize: 17,
-              ),
+              style: inputTitleStyle(),
             ),
             SizedBox(
               height: 10,
             ),
             TextFormField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                hintText: "nickname",
-              ),
+                decoration: authInputDeco(hintText: "홍길동"),
             ),
             SizedBox(
               height: 20,
             ),
             Text(
               "대표직함",
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w900,
-                fontSize: 17,
-              ),
+              style: inputTitleStyle(),
             ),
             SizedBox(
               height: 10,
             ),
             TextFormField(
-              decoration: InputDecoration(
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                hintText: "뭐시기",
-              ),
+              decoration: authInputDeco(hintText: "무슨대학교 무슨전공"),
             ),
             SizedBox(
               height: 20,
             ),
             Text(
               "자기소개",
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w900,
-                fontSize: 17,
-              ),
+              style: inputTitleStyle(),
             ),
             SizedBox(
               height: 10,
