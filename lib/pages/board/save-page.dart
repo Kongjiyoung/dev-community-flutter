@@ -1,9 +1,59 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_quill/flutter_quill.dart' as quill;
+import 'package:image_picker/image_picker.dart';
 
+class SavePage extends StatefulWidget {
+  @override
+  _SavePageState createState() => _SavePageState();
+}
 
-class SavePage extends StatelessWidget {
-  TextEditingController titleController = TextEditingController();
-  TextEditingController contentController = TextEditingController();
+class _SavePageState extends State<SavePage> {
+  final TextEditingController titleController = TextEditingController();
+  final quill.QuillController quillController = quill.QuillController.basic();
+  final ScrollController _editorScrollController = ScrollController();
+  final FocusNode _editorFocusNode = FocusNode();
+  final picker = ImagePicker();
+  List<XFile> images = [];
+  List<ImageProvider<Object>> _profileImages = [];
+
+  Future<void> _pickImage() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        images.add(pickedFile);
+        _profileImages.add(FileImage(File(pickedFile.path)));
+      });
+    }
+  }
+
+  void _removeImage(int index) {
+    setState(() {
+      images.removeAt(index);
+      _profileImages.removeAt(index);
+    });
+  }
+
+  void _showImageDialog(ImageProvider<Object> imageProvider) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: GestureDetector(
+            onTap: () => Navigator.of(context).pop(),
+            child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              child: Image(
+                image: imageProvider,
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,14 +63,14 @@ class SavePage extends StatelessWidget {
           BoardSaveAppBar(),
         ],
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(3.0),
+          preferredSize: Size.fromHeight(20.0),
           child: Container(
             decoration: BoxDecoration(
               border: Border(
                 top: BorderSide(
                   width: 1.0,
                   color: Colors.grey[300]!,
-                ), // 윤곽선 스타일 및 색상
+                ),
               ),
             ),
           ),
@@ -34,53 +84,129 @@ class SavePage extends StatelessWidget {
             TextField(
               controller: titleController,
               decoration: InputDecoration(
-                hintText: "제목을 입력하여주세요.",
+                hintText: "제목을 입력하세요.",
                 hintStyle: TextStyle(
                   fontSize: 20,
                   color: Colors.black54,
                   fontWeight: FontWeight.bold,
-                ), // 힌트 텍스트 스타일
+                ),
                 border: InputBorder.none,
               ),
               style: TextStyle(
                 fontSize: 20,
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
-              ), // 입력한 텍스트 스타일
+              ),
             ),
-            SizedBox(height: 10), // 제목과 내용 사이에 공간 추가
-            Divider(thickness: 1, color: Colors.grey), // 제목과 내용 사이의 밑줄
-            SizedBox(height: 10), // 밑줄과 내용 사이에 공간 추가
+            SizedBox(height: 10),
+            Divider(thickness: 1, color: Colors.grey),
+            SizedBox(height: 10),
             Expanded(
-              child: Scrollbar(
-                child: SingleChildScrollView(
-                  child: TextField(
-                    controller: contentController,
-                    maxLines: null, // 여러 줄 입력 가능
-                    decoration: InputDecoration(
-                      hintText: "내용을 입력하여주세요.",
-                      hintStyle: TextStyle(fontSize: 17, color: Colors.grey),
-                      // 힌트 텍스트 스타일
-                      border: InputBorder.none,
-                    ),
-                    style: TextStyle(
-                      fontSize: 17,
-                      color: Colors.black,
-                    ), // 입력한 텍스트 스타일
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: quill.QuillToolbar.simple(
+                          configurations: quill.QuillSimpleToolbarConfigurations(
+                            controller: quillController,
+                            showDividers: true,
+                            showFontFamily: false,
+                            showFontSize: false,
+                            showBoldButton: true,
+                            showItalicButton: true,
+                            showSmallButton: false,
+                            showUnderLineButton: true,
+                            showLineHeightButton: false,
+                            showStrikeThrough: true,
+                            showInlineCode: true,
+                            showColorButton: true,
+                            showBackgroundColorButton: false,
+                            showClearFormat: false,
+                            showAlignmentButtons: false,
+                            showLeftAlignment: false,
+                            showCenterAlignment: false,
+                            showRightAlignment: false,
+                            showJustifyAlignment: false,
+                            showHeaderStyle: false,
+                            showListNumbers: false,
+                            showListBullets: false,
+                            showListCheck: false,
+                            showCodeBlock: false,
+                            showQuote: false,
+                            showIndent: false,
+                            showLink: false,
+                            showUndo: false,
+                            showRedo: false,
+                            showDirection: false,
+                            showSearchButton: false,
+                            showSubscript: false,
+                            showSuperscript: false,
+                            showClipboardCut: false,
+                            showClipboardCopy: false,
+                            showClipboardPaste: false,
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: _pickImage,
+                        icon: Icon(Icons.image),
+                        tooltip: '이미지 삽입',
+                      ),
+                    ],
                   ),
-                ),
+                  SizedBox(height: 10),
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                      ),
+                      child: quill.QuillEditor(
+                        configurations: quill.QuillEditorConfigurations(
+                          controller: quillController,
+                          customStyles: quill.DefaultStyles(
+                            paragraph: quill.DefaultTextBlockStyle(
+                              TextStyle(
+                                fontSize: 17,
+                                color: Colors.black,
+                              ),
+                              const quill.VerticalSpacing(0, 0),
+                              const quill.VerticalSpacing(0, 0),
+                              null,
+                            ),
+                          ),
+                        ),
+                        scrollController: _editorScrollController,
+                        focusNode: _editorFocusNode,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  if (_profileImages.isNotEmpty)
+                    Container(
+                      height: 100,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: _profileImages.map((imageProvider) {
+                          return Container(
+                            margin: EdgeInsets.symmetric(horizontal: 5),
+                            width: 100,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                ],
               ),
             ),
           ],
-        ),
-      ),
-      bottomNavigationBar: Container(
-        margin: EdgeInsets.only(bottom: 50),
-        child: Container(
-          child: Divider(
-            thickness: 1,
-            color: Colors.black,
-          ),
         ),
       ),
     );
@@ -91,14 +217,15 @@ class BoardSaveAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(top: 16, right: 25),
       child: InkWell(
         onTap: () {},
         child: Row(
           children: [
-            BoardSaveAppBarBtn(55, Colors.black54, "완료"),
-            SizedBox(width: 10),
-            BoardSaveAppBarBtn(65, Colors.red, "신고하기"),
+            SizedBox(
+              width: 60,
+              child: BoardSaveAppBarBtn(55, Colors.black54, "완료"),
+            ),
           ],
         ),
       ),
@@ -107,9 +234,9 @@ class BoardSaveAppBar extends StatelessWidget {
 }
 
 class BoardSaveAppBarBtn extends StatelessWidget {
-  double width;
-  final color;
-  final text;
+  final double width;
+  final Color color;
+  final String text;
 
   BoardSaveAppBarBtn(this.width, this.color, this.text);
 
@@ -117,13 +244,12 @@ class BoardSaveAppBarBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      height: 50,
+      height: 60,
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Center(
-        // 텍스트를 중앙 정렬
         child: Text(
           text,
           style: TextStyle(
