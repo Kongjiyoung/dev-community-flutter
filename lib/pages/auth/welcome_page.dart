@@ -1,4 +1,5 @@
 import 'package:dev_community/_core/constants/move.dart';
+import 'package:dev_community/pages/auth/login.dart';
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -66,7 +67,12 @@ class WelcomePage extends StatelessWidget {
             ),
             SizedBox(height: 20),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                );
+              },
               child: Text(
                 "다른방법으로시작하기",
                 style: TextStyle(
