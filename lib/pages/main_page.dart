@@ -23,8 +23,8 @@ class _MainPageState extends State<MainPage> {
         index: _selectedIndex,
         children: [
           HomePage(),
-          MyPage(),
           QAndAPage(),
+          MyPage(),
         ],
       ),
       bottomNavigationBar: CustomBottomNavigationBar(
