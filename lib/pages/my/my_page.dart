@@ -1,6 +1,8 @@
 import 'dart:math';
 
+import 'package:dev_community/pages/my/widgets/my-profile-sliver-app-bar.dart';
 import 'package:dev_community/pages/my/widgets/my-profile-sliver-header.dart';
+import 'package:dev_community/pages/my/widgets/my-profile-tab-bar-view.dart';
 import 'package:flutter/material.dart';
 
 class MyPage extends StatelessWidget {
@@ -8,61 +10,24 @@ class MyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: DefaultTabController(
-        length: 2,
-        child: NestedScrollView(
-          headerSliverBuilder: (context, innerBoxIsScrolled) {
-            return [
-              SliverPadding(
-                padding: EdgeInsets.fromLTRB(25, 20, 25, 0),
-                sliver: SliverPersistentHeader(
-                    delegate: _SliverMyPageHeaderDelegate(
-                        // SliverPersistentHeaderDelegate 타입을 요구하지만 추상 클래스이기 때문에 상속받는 클래스 별도로 생성 필요
-                        minHeight: 180,
-                        maxHeight: 180,
-                        child: MyProfileSliverHeader())),
-              ),
-              SliverAppBar(
-                pinned: true,
-                bottom: TabBar(
-                  labelColor: Colors.black,
-                  indicatorColor: Colors.black,
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  unselectedLabelColor: Colors.grey[300],
-                  tabs: [
-                    Tab(child: Text("게시물", style: TextStyle(fontSize: 20))),
-                    Tab(child: Text("댓글", style: TextStyle(fontSize: 20))),
-                  ],
-                ),
-              ),
-            ];
-          },
-          body: TabBarView(
-            children: [
-              ListView.builder(
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text("제목${index}"),
-                    subtitle: Text("내용${index}"),
-                    trailing: Text("날짜${index}"),
-                  );
-                },
-              ),
-              ListView.builder(
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text("댓글${index}"),
-                    subtitle: Text("글 제목${index}"),
-                    trailing: Text("날짜${index}"),
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
+    return DefaultTabController(
+      length: 2,
+      child: NestedScrollView(
+        headerSliverBuilder: (context, innerBoxIsScrolled) {
+          return [
+            SliverPadding(
+              padding: EdgeInsets.fromLTRB(25, 20, 25, 0),
+              sliver: SliverPersistentHeader(
+                  delegate: _SliverMyPageHeaderDelegate(
+                      // SliverPersistentHeaderDelegate 타입을 요구하지만 추상 클래스이기 때문에 상속 받는 클래스 별도로 생성 필요
+                      minHeight: 180,
+                      maxHeight: 180,
+                      child: MyProfileSliverHeaderData())),
+            ),
+            MyProfileSliverAppBar(),
+          ];
+        },
+        body: MyProfileTabBarView(),
       ),
     );
   }
