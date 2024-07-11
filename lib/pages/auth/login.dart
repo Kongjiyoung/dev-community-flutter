@@ -1,4 +1,5 @@
 import 'package:dev_community/_core/constants/custom-widgets.dart';
+import 'package:dev_community/pages/auth/join.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -53,14 +54,21 @@ class LoginPage extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "고객센터",
-                  style: TextStyle(
-                    color: Colors.black,
-                    decoration: TextDecoration.underline, // 밑줄 설정
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => JoinPage()),
+                    );
+                  },
+                  child: Text(
+                    "회원가입",
+                    style: TextStyle(
+                      decoration: TextDecoration.underline,
+                    ),
                   ),
                 ),
                 Text(
