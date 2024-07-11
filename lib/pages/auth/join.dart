@@ -1,4 +1,5 @@
 import 'package:dev_community/_core/constants/custom-widgets.dart';
+import 'package:dev_community/_core/constants/move.dart';
 import 'package:flutter/material.dart';
 
 class JoinPage extends StatelessWidget {
@@ -95,7 +96,9 @@ class JoinPage extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, Move.loginPage);
+                },
                 style: authBtnStyle(),
                 child: const Text("이메일로 시작하기",
                     style: TextStyle(color: Colors.white)),
