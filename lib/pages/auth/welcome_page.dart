@@ -1,5 +1,5 @@
 import 'package:dev_community/_core/constants/move.dart';
-import 'package:dev_community/pages/auth/login.dart';
+import 'package:dev_community/pages/auth/widgets/welcome-widgets/oauth-login-button.dart';
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -21,16 +21,15 @@ class WelcomePage extends StatelessWidget {
             ),
             Container(
               width: 300,
-              child:
-                Text(
-                  "요즘 개발자들의 필수 커뮤니티",
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                  textAlign: TextAlign.start,
+              child: Text(
+                "요즘 개발자들의 필수 커뮤니티",
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
                 ),
+                textAlign: TextAlign.start,
+              ),
             ),
             Container(
               width: 330,
@@ -52,26 +51,13 @@ class WelcomePage extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min, // Column이 가능한 최소 크기만큼만 차지하도록 설정합니다.
           children: [
-            InkWell(
-              onTap: () {},
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.6,
-                height: MediaQuery.of(context).size.height * 0.07,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
-                  image: DecorationImage(
-                    image: AssetImage("assets/images/kakao_button.png"),
-                  ),
-                ),
-              ),
-            ),
+            OauthLoginButton("../assets/images/naver_button.png"),
+            SizedBox(height: 20),
+            OauthLoginButton("assets/images/kakao_button.png"),
             SizedBox(height: 20),
             InkWell(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
-                );
+                Navigator.pushNamed(context, Move.loginPage);
               },
               child: Text(
                 "다른방법으로시작하기",
