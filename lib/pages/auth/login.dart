@@ -1,5 +1,5 @@
 import 'package:dev_community/_core/constants/custom-widgets.dart';
-import 'package:dev_community/pages/auth/join.dart';
+import 'package:dev_community/_core/constants/move.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -45,7 +45,9 @@ class LoginPage extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, Move.mainPage);
+                },
                 style: authBtnStyle(),
                 child: const Text(
                     style: TextStyle(color: Colors.white), "이메일로 계속하기"),
@@ -59,10 +61,7 @@ class LoginPage extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => JoinPage()),
-                    );
+                    Navigator.pushNamed(context, Move.joinPage);
                   },
                   child: Text(
                     "회원가입",
