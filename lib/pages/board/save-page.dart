@@ -42,8 +42,6 @@ class _SavePageState extends State<SavePage> {
           child: GestureDetector(
             onTap: () => Navigator.of(context).pop(),
             child: Container(
-              width: double.infinity,
-              height: double.infinity,
               child: Image(
                 image: imageProvider,
                 fit: BoxFit.contain,
@@ -55,12 +53,62 @@ class _SavePageState extends State<SavePage> {
     );
   }
 
+  Widget _buildImagePreview(int index, ImageProvider<Object> imageProvider) {
+    return GestureDetector(
+      onTap: () => _showImageDialog(imageProvider),
+      child: Stack(
+        children: [
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 5),
+            width: 100,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Positioned(
+            width: 30,
+            height: 30,
+            top: 0,
+            right: 0,
+            child: GestureDetector(
+              onTap: () => _removeImage(index),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.close,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _printContent() {
+    final title = titleController.text;
+    final content = quillController.document.toDelta().toJson();
+    final imagePaths = images.map((image) => image.path).join(', ');
+
+    print('제목: $title');
+    print('내용: $content');
+    print('이미지 경로: $imagePaths');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          BoardSaveAppBar(),
+          BoardSaveAppBar(onSave: _printContent),
         ],
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(20.0),
@@ -81,23 +129,7 @@ class _SavePageState extends State<SavePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            TextField(
-              controller: titleController,
-              decoration: InputDecoration(
-                hintText: "제목을 입력하세요.",
-                hintStyle: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black54,
-                  fontWeight: FontWeight.bold,
-                ),
-                border: InputBorder.none,
-              ),
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            BoardTitle(titleController: titleController),
             SizedBox(height: 10),
             Divider(thickness: 1, color: Colors.grey),
             SizedBox(height: 10),
@@ -106,48 +138,7 @@ class _SavePageState extends State<SavePage> {
                 children: [
                   Row(
                     children: [
-                      Expanded(
-                        child: quill.QuillToolbar.simple(
-                          configurations: quill.QuillSimpleToolbarConfigurations(
-                            controller: quillController,
-                            showDividers: true,
-                            showFontFamily: false,
-                            showFontSize: false,
-                            showBoldButton: true,
-                            showItalicButton: true,
-                            showSmallButton: false,
-                            showUnderLineButton: true,
-                            showLineHeightButton: false,
-                            showStrikeThrough: true,
-                            showInlineCode: true,
-                            showColorButton: true,
-                            showBackgroundColorButton: false,
-                            showClearFormat: false,
-                            showAlignmentButtons: false,
-                            showLeftAlignment: false,
-                            showCenterAlignment: false,
-                            showRightAlignment: false,
-                            showJustifyAlignment: false,
-                            showHeaderStyle: false,
-                            showListNumbers: false,
-                            showListBullets: false,
-                            showListCheck: false,
-                            showCodeBlock: false,
-                            showQuote: false,
-                            showIndent: false,
-                            showLink: false,
-                            showUndo: false,
-                            showRedo: false,
-                            showDirection: false,
-                            showSearchButton: false,
-                            showSubscript: false,
-                            showSuperscript: false,
-                            showClipboardCut: false,
-                            showClipboardCopy: false,
-                            showClipboardPaste: false,
-                          ),
-                        ),
-                      ),
+                      BoardContent(quillController: quillController),
                       IconButton(
                         onPressed: _pickImage,
                         icon: Icon(Icons.image),
@@ -156,51 +147,16 @@ class _SavePageState extends State<SavePage> {
                     ],
                   ),
                   SizedBox(height: 10),
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                      ),
-                      child: quill.QuillEditor(
-                        configurations: quill.QuillEditorConfigurations(
-                          controller: quillController,
-                          customStyles: quill.DefaultStyles(
-                            paragraph: quill.DefaultTextBlockStyle(
-                              TextStyle(
-                                fontSize: 17,
-                                color: Colors.black,
-                              ),
-                              const quill.VerticalSpacing(0, 0),
-                              const quill.VerticalSpacing(0, 0),
-                              null,
-                            ),
-                          ),
-                        ),
-                        scrollController: _editorScrollController,
-                        focusNode: _editorFocusNode,
-                      ),
-                    ),
-                  ),
+                  BoardContent2(quillController: quillController, editorScrollController: _editorScrollController, editorFocusNode: _editorFocusNode),
                   SizedBox(height: 10),
                   if (_profileImages.isNotEmpty)
                     Container(
                       height: 100,
                       child: ListView(
                         scrollDirection: Axis.horizontal,
-                        children: _profileImages.map((imageProvider) {
-                          return Container(
-                            margin: EdgeInsets.symmetric(horizontal: 5),
-                            width: 100,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              image: DecorationImage(
-                                image: imageProvider,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          );
-                        }).toList(),
+                        children: List.generate(_profileImages.length, (index) {
+                          return _buildImagePreview(index, _profileImages[index]);
+                        }),
                       ),
                     ),
                 ],
@@ -213,13 +169,145 @@ class _SavePageState extends State<SavePage> {
   }
 }
 
+class BoardContent2 extends StatelessWidget {
+  const BoardContent2({
+    super.key,
+    required this.quillController,
+    required ScrollController editorScrollController,
+    required FocusNode editorFocusNode,
+  }) : _editorScrollController = editorScrollController, _editorFocusNode = editorFocusNode;
+
+  final quill.QuillController quillController;
+  final ScrollController _editorScrollController;
+  final FocusNode _editorFocusNode;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        padding: EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey),
+        ),
+        child: quill.QuillEditor(
+          configurations: quill.QuillEditorConfigurations(
+            controller: quillController,
+            customStyles: quill.DefaultStyles(
+              paragraph: quill.DefaultTextBlockStyle(
+                TextStyle(
+                  fontSize: 17,
+                  color: Colors.black,
+                ),
+                const quill.VerticalSpacing(0, 0),
+                const quill.VerticalSpacing(0, 0),
+                null,
+              ),
+            ),
+          ),
+          scrollController: _editorScrollController,
+          focusNode: _editorFocusNode,
+        ),
+      ),
+    );
+  }
+}
+
+class BoardContent extends StatelessWidget {
+  const BoardContent({
+    super.key,
+    required this.quillController,
+  });
+
+  final quill.QuillController quillController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: quill.QuillToolbar.simple(
+        configurations: quill.QuillSimpleToolbarConfigurations(
+          controller: quillController,
+          showDividers: true,
+          showFontFamily: false,
+          showFontSize: false,
+          showBoldButton: true,
+          showItalicButton: true,
+          showSmallButton: false,
+          showUnderLineButton: true,
+          showLineHeightButton: false,
+          showStrikeThrough: true,
+          showInlineCode: true,
+          showColorButton: true,
+          showBackgroundColorButton: false,
+          showClearFormat: false,
+          showAlignmentButtons: false,
+          showLeftAlignment: false,
+          showCenterAlignment: false,
+          showRightAlignment: false,
+          showJustifyAlignment: false,
+          showHeaderStyle: false,
+          showListNumbers: false,
+          showListBullets: false,
+          showListCheck: false,
+          showCodeBlock: false,
+          showQuote: false,
+          showIndent: false,
+          showLink: false,
+          showUndo: false,
+          showRedo: false,
+          showDirection: false,
+          showSearchButton: false,
+          showSubscript: false,
+          showSuperscript: false,
+          showClipboardCut: false,
+          showClipboardCopy: false,
+          showClipboardPaste: false,
+        ),
+      ),
+    );
+  }
+}
+
+class BoardTitle extends StatelessWidget {
+  const BoardTitle({
+    super.key,
+    required this.titleController,
+  });
+
+  final TextEditingController titleController;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: titleController,
+      decoration: InputDecoration(
+        hintText: "제목을 입력하세요.",
+        hintStyle: TextStyle(
+          fontSize: 20,
+          color: Colors.black54,
+          fontWeight: FontWeight.bold,
+        ),
+        border: InputBorder.none,
+      ),
+      style: TextStyle(
+        fontSize: 20,
+        color: Colors.black,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+}
+
 class BoardSaveAppBar extends StatelessWidget {
+  final VoidCallback onSave;
+
+  BoardSaveAppBar({required this.onSave});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 16, right: 25),
       child: InkWell(
-        onTap: () {},
+        onTap: onSave,
         child: Row(
           children: [
             SizedBox(
@@ -253,9 +341,9 @@ class BoardSaveAppBarBtn extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-            color: Colors.white, // 텍스트 색상
-            fontWeight: FontWeight.w600, // 글꼴 굵기
-            fontSize: 16.0, // 글꼴 크기
+            color: Colors.white,
+            fontWeight: FontWeight.w600,
+            fontSize: 16.0,
           ),
         ),
       ),
