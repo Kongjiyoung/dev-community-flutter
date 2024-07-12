@@ -1,4 +1,4 @@
-import 'package:dev_community/_core/constants/custom-widgets.dart';
+import 'package:dev_community/_core/constants/custom_widgets.dart';
 import 'package:dev_community/_core/constants/move.dart';
 import 'package:flutter/material.dart';
 
@@ -61,7 +61,11 @@ class LoginPage extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, Move.joinPage);
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      Move.joinPage,
+                      (route) => false,
+                    );
                   },
                   child: Text(
                     "회원가입",

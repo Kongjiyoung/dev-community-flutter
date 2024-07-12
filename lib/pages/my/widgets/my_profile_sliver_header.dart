@@ -1,5 +1,5 @@
-import 'package:dev_community/pages/my/widgets/my-edit-btn.dart';
-import 'package:dev_community/pages/my/widgets/my-info.dart';
+import 'package:dev_community/pages/my/widgets/my_edit_btn.dart';
+import 'package:dev_community/pages/my/widgets/my_info.dart';
 import 'package:flutter/material.dart';
 
 class MyProfileSliverHeaderData extends StatelessWidget {

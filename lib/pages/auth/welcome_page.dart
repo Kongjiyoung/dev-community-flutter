@@ -1,5 +1,5 @@
 import 'package:dev_community/_core/constants/move.dart';
-import 'package:dev_community/pages/auth/widgets/welcome-widgets/oauth-login-button.dart';
+import 'package:dev_community/pages/auth/widgets/welcome-widgets/oauth_login_button.dart';
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -51,7 +51,7 @@ class WelcomePage extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min, // Column이 가능한 최소 크기만큼만 차지하도록 설정합니다.
           children: [
-            OauthLoginButton("../assets/images/naver_button.png"),
+            OauthLoginButton("assets/images/naver_button.png"),
             SizedBox(height: 20),
             OauthLoginButton("assets/images/kakao_button.png"),
             SizedBox(height: 20),

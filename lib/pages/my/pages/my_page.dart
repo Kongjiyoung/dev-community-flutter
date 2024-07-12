@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:dev_community/pages/my/widgets/my-profile-sliver-app-bar.dart';
-import 'package:dev_community/pages/my/widgets/my-profile-sliver-header.dart';
-import 'package:dev_community/pages/my/widgets/my-profile-tab-bar-view.dart';
+import 'package:dev_community/pages/my/widgets/my_profile_sliver_header.dart';
+import 'package:dev_community/pages/my/widgets/my_profile_tab_bar_view.dart';
 import 'package:flutter/material.dart';
 
 class MyPage extends StatelessWidget {

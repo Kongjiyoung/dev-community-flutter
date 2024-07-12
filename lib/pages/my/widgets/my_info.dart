@@ -1,4 +1,4 @@
-import 'package:dev_community/_core/constants/custom-widgets.dart';
+import 'package:dev_community/_core/constants/custom_widgets.dart';
 import 'package:flutter/material.dart';
 
 class MyInfo extends StatelessWidget {
@@ -17,7 +17,7 @@ class MyInfo extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(50)),
           ),
           child: Image.asset(
-            "../assets/images/profile.jpeg",
+            "assets/images/profile.jpeg",
             fit: BoxFit.cover,
           ),
         ),
