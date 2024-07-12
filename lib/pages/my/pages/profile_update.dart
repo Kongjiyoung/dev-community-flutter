@@ -1,4 +1,4 @@
-import 'package:dev_community/_core/constants/custom-widgets.dart';
+import 'package:dev_community/_core/constants/custom_widgets.dart';
 import 'package:flutter/material.dart';
 
 class ProfileUpdatePage extends StatelessWidget {
@@ -35,7 +35,6 @@ class ProfileUpdatePage extends StatelessWidget {
           ),
           SizedBox(width: 25), // 아이콘 버튼과 다른 액션 사이에 공간 추가
         ],
-
       ),
       body: Container(
         padding: const EdgeInsets.fromLTRB(25, 10, 25, 25),
@@ -86,7 +85,7 @@ class ProfileUpdatePage extends StatelessWidget {
               height: 10,
             ),
             TextFormField(
-                decoration: authInputDeco(hintText: "홍길동"),
+              decoration: authInputDeco(hintText: "홍길동"),
             ),
             SizedBox(
               height: 20,

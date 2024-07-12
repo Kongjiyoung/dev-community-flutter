@@ -3,7 +3,7 @@ import 'package:dev_community/pages/auth/login.dart';
 import 'package:dev_community/pages/auth/welcome_page.dart';
 import 'package:dev_community/pages/home/home_page.dart';
 import 'package:dev_community/pages/main_page.dart';
-import 'package:dev_community/pages/my/my_page.dart';
+import 'package:dev_community/pages/my/pages/my_page.dart';
 import 'package:dev_community/pages/qna/qna_page.dart';
 import 'package:flutter/material.dart';
 

@@ -1,4 +1,4 @@
-import 'package:dev_community/_core/constants/custom-widgets.dart';
+import 'package:dev_community/_core/constants/custom_widgets.dart';
 import 'package:dev_community/_core/constants/move.dart';
 import 'package:flutter/material.dart';
 
