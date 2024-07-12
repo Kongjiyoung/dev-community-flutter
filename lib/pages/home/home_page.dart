@@ -1,4 +1,5 @@
 import 'package:dev_community/pages/board/detail_page.dart';
+import 'package:dev_community/pages/board/save_page.dart';
 import 'package:dev_community/pages/home/widgets/build-post.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -51,13 +52,13 @@ class HomePage extends StatelessWidget {
                   onPressed: () {},
                   style: TextButton.styleFrom(
                     // backgroundColor: Color(0xffd3ffba), // 배경색 설정
-                    side: BorderSide(color: Color(0xff727a72), width: 1.0), // 테두리 설정
+                    side: BorderSide(color: Color(0xff727a72), width: 1.0),
+                    // 테두리 설정
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0), // 둥근 모서리 설정
                     ),
                   ),
-                  child:
-                  Row(
+                  child: Row(
                     children: [
                       Icon(
                         Icons.whatshot,
@@ -74,13 +75,13 @@ class HomePage extends StatelessWidget {
                   onPressed: () {},
                   style: TextButton.styleFrom(
                     // backgroundColor: Color(0xffd3ffba), // 배경색 설정
-                    side: BorderSide(color: Color(0xff727a72), width: 1.0), // 테두리 설정
+                    side: BorderSide(color: Color(0xff727a72), width: 1.0),
+                    // 테두리 설정
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0), // 둥근 모서리 설정
                     ),
                   ),
-                  child:
-                  Row(
+                  child: Row(
                     children: [
                       Icon(
                         Icons.bookmark,
@@ -131,6 +132,21 @@ class HomePage extends StatelessWidget {
             views: "조회 698",
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SavePage(),
+            ),
+          );
+        },
+        child: Icon(
+          Icons.edit,
+          color: Colors.white,
+        ),
+        backgroundColor: Color(0xff7adc5a),
       ),
     );
   }
