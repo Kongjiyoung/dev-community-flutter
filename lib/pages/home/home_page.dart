@@ -1,5 +1,6 @@
 import 'package:dev_community/pages/board/detail_page.dart';
 import 'package:dev_community/pages/board/save_page.dart';
+import 'package:dev_community/pages/home/popular-post-page.dart';
 import 'package:dev_community/pages/home/saved-post-page.dart';
 import 'package:dev_community/pages/home/widgets/build-post.dart';
 import 'package:flutter/cupertino.dart';
@@ -85,7 +86,14 @@ class HomePage extends StatelessWidget {
               child: Row(
                 children: [
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PopularPostPage(),
+                        ),
+                      );
+                    },
                     style: TextButton.styleFrom(
                       // backgroundColor: Color(0xffd3ffba), // 배경색 설정
                       side: BorderSide(color: Color(0xff727a72), width: 1.0),

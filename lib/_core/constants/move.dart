@@ -2,6 +2,8 @@ import 'package:dev_community/pages/auth/join.dart';
 import 'package:dev_community/pages/auth/login.dart';
 import 'package:dev_community/pages/auth/welcome_page.dart';
 import 'package:dev_community/pages/home/home_page.dart';
+import 'package:dev_community/pages/home/popular-post-page.dart';
+import 'package:dev_community/pages/home/saved-post-page.dart';
 import 'package:dev_community/pages/main_page.dart';
 import 'package:dev_community/pages/my/pages/my_page.dart';
 import 'package:dev_community/pages/qna/qna_page.dart';
@@ -15,6 +17,8 @@ class Move {
   static String homePage = "/home";
   static String myPage = "/my";
   static String qnaPage = "/qna";
+  static String savedPostPage = "/savedPost";
+  static String popularPostPage = "/popularPost";
 }
 
 Map<String, Widget Function(BuildContext)> getRouters() {
@@ -26,5 +30,7 @@ Map<String, Widget Function(BuildContext)> getRouters() {
     Move.homePage: (context) => const HomePage(),
     Move.myPage: (context) => const MyPage(),
     Move.qnaPage: (context) =>  QAndAPage(),
+    Move.savedPostPage: (context) =>  SavedPostPage(),
+    Move.popularPostPage: (context) =>  PopularPostPage(),
   };
 }
