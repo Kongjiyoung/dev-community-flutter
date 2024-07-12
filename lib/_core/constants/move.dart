@@ -25,6 +25,6 @@ Map<String, Widget Function(BuildContext)> getRouters() {
     Move.mainPage: (context) => const MainPage(),
     Move.homePage: (context) => const HomePage(),
     Move.myPage: (context) => const MyPage(),
-    Move.qnaPage: (context) => const QAndAPage(),
+    Move.qnaPage: (context) =>  QAndAPage(),
   };
 }

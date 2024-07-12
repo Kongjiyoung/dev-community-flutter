@@ -21,7 +21,7 @@ class _MainPageState extends State<MainPage> {
       appBar: _buildProfileAppBar(),
       body: IndexedStack(
         index: _selectedIndex,
-        children: const [
+        children: [
           HomePage(),
           QAndAPage(),
           MyPage(),
