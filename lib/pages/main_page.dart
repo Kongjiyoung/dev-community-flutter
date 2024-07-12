@@ -1,5 +1,5 @@
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            import 'package:dev_community/pages/home/home_page.dart';
-import 'package:dev_community/pages/my/my_page.dart';
+import 'package:dev_community/pages/home/home_page.dart';
+import 'package:dev_community/pages/my/pages/my_page.dart';
 import 'package:dev_community/pages/qna/qna_page.dart';
 import 'package:flutter/material.dart';
 
@@ -40,6 +40,7 @@ class _MainPageState extends State<MainPage> {
 
   AppBar _buildProfileAppBar() {
     return AppBar(
+      automaticallyImplyLeading: false,
       actions: <Widget>[
         IconButton(
           icon: const Padding(

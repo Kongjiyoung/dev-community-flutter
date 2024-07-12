@@ -8,6 +8,7 @@ class MyProfileSliverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
+      automaticallyImplyLeading: false,
       pinned: true,
       bottom: TabBar(
         labelColor: Colors.black,
