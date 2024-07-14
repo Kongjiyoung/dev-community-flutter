@@ -1,3 +1,4 @@
+import 'package:dev_community/_core/constants/move.dart';
 import 'package:flutter/material.dart';
 
 class MyEditBtn extends StatelessWidget {
@@ -17,7 +18,9 @@ class MyEditBtn extends StatelessWidget {
           ),
         ),
       ),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pushNamed(context, Move.profileUpdatePage);
+      },
       child: Text("편집"),
     );
   }

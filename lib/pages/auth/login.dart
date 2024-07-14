@@ -63,7 +63,7 @@ class LoginPage extends StatelessWidget {
                   onTap: () {
                     Navigator.pushNamedAndRemoveUntil(
                       context,
-                      Move.joinPage,
+                      Move.mainPage,
                       (route) => false,
                     );
                   },
