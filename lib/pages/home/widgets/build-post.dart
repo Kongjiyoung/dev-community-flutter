@@ -106,6 +106,20 @@ class BuildPost extends StatelessWidget {
                 child: Row(
                   children: [
                     Icon(
+                      Icons.favorite,
+                      color: Color(0xFFafe897),
+                    ),
+                    SizedBox(width: 10),
+                  ],
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  // 댓글 아이콘 클릭 시 실행될 코드
+                },
+                child: Row(
+                  children: [
+                    Icon(
                       Icons.comment,
                       color: Color(0xFFafe897),
                     ),

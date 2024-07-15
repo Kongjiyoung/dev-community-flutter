@@ -1,5 +1,7 @@
 import 'package:dev_community/pages/board/detail_page.dart';
 import 'package:dev_community/pages/board/save_page.dart';
+import 'package:dev_community/pages/home/popular-post-page.dart';
+import 'package:dev_community/pages/home/saved-post-page.dart';
 import 'package:dev_community/pages/home/widgets/build-post.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -77,17 +79,21 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      body: ListView.builder(
-        itemCount: posts.length + 1, // 추가로 버튼들을 위해 +1
-        itemBuilder: (context, index) {
-          if (index == 0) {
-            // 첫 번째 항목으로 버튼들을 추가
-            return Padding(
+        body: Column(
+          children: [
+            Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               child: Row(
                 children: [
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PopularPostPage(),
+                        ),
+                      );
+                    },
                     style: TextButton.styleFrom(
                       // backgroundColor: Color(0xffd3ffba), // 배경색 설정
                       side: BorderSide(color: Color(0xff727a72), width: 1.0),
@@ -110,7 +116,14 @@ class HomePage extends StatelessWidget {
                   ),
                   SizedBox(width: 10),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SavedPostPage(),
+                        ),
+                      );
+                    },
                     style: TextButton.styleFrom(
                       side: BorderSide(color: Color(0xff727a72), width: 1.0),
                       // 테두리 설정
@@ -132,25 +145,30 @@ class HomePage extends StatelessWidget {
                   ),
                 ],
               ),
-            );
-          }
-          // 버튼들을 제외한 나머지 항목으로 게시물들 추가
-          final post = posts[index - 1]; // 첫 번째 항목이 버튼이므로 인덱스를 조정
-          return Column(
-            children: [
-              BuildPost(
-                name: post["name"]!,
-                job: post["position"]!,
-                time: post["time"]!,
-                title: post["title"]!,
-                content: post["content"]!,
-                views: post["views"]!,
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: posts.length,
+                itemBuilder: (context, index) {
+                  final post = posts[index];
+                  return Column(
+                    children: [
+                      BuildPost(
+                        name: post["name"]!,
+                        job: post["position"]!,
+                        time: post["time"]!,
+                        title: post["title"]!,
+                        content: post["content"]!,
+                        views: post["views"]!,
+                      ),
+                      SizedBox(height: 10),
+                    ],
+                  );
+                },
               ),
-              SizedBox(height: 10),
-            ],
-          );
-        },
-      ),
+            ),
+          ],
+        ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
