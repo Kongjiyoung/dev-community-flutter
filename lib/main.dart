@@ -1,4 +1,5 @@
 import 'package:dev_community/_core/constants/move.dart';
+import 'package:dev_community/pages/board/detail_page.dart';
 import 'package:dev_community/pages/main_page.dart';
 import 'package:dev_community/theme.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: theme(),
-      home: MainPage(),
+      home: BoardDetailPage(),
       routes: getRouters(),
     );
   }
