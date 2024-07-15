@@ -1,6 +1,5 @@
 import 'package:dev_community/pages/home/home_page.dart';
 import 'package:dev_community/pages/my/pages/my_page.dart';
-import 'package:dev_community/pages/qna/qna_page.dart';
 import 'package:flutter/material.dart';
 
 import '../common/bottom_navigation_bar.dart';
@@ -23,7 +22,6 @@ class _MainPageState extends State<MainPage> {
         index: _selectedIndex,
         children: [
           HomePage(),
-          QAndAPage(),
           MyPage(),
         ],
       ),

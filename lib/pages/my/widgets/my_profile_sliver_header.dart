@@ -7,15 +7,20 @@ class MyProfileSliverHeaderData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        MyInfo(),
-        Spacer(),
-        SizedBox(
-          width: double.infinity,
-          child: MyEditBtn(),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+      child: Container(
+        decoration: BoxDecoration(color: Colors.white),
+        child: Column(
+          children: [
+            MyInfo(),
+            SizedBox(
+              width: double.infinity,
+              child: MyEditBtn(),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
