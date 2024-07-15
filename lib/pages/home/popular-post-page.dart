@@ -39,7 +39,7 @@ class PopularPostPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("저장한 게시글"),
+        title: Text("인기 게시글"),
       ),
       body: Expanded(
         child: ListView.builder(
