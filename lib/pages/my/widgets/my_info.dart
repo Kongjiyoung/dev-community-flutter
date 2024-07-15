@@ -2,9 +2,14 @@ import 'package:dev_community/_core/constants/custom_widgets.dart';
 import 'package:flutter/material.dart';
 
 class MyInfo extends StatelessWidget {
-  const MyInfo({
-    super.key,
-  });
+  final profileImage;
+  final nickname;
+  final introduce;
+
+  MyInfo(
+      {this.profileImage = "assets/images/profile.jpeg",
+      required this.nickname,
+      this.introduce = "소개 없음"});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +22,7 @@ class MyInfo extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(50)),
           ),
           child: Image.asset(
-            "assets/images/profile.jpeg",
+            profileImage,
             fit: BoxFit.cover,
           ),
         ),
@@ -25,10 +30,10 @@ class MyInfo extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("지영", style: inputTitleStyle(size: 25)),
+            Text(nickname, style: inputTitleStyle(size: 25)),
             SizedBox(height: 10),
             Text(
-              "그냥대학교 컴퓨터공학과",
+              introduce,
               style: TextStyle(fontSize: 15),
             ),
           ],
