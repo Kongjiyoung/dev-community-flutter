@@ -10,6 +10,8 @@ class BuildPost extends StatelessWidget {
   final String title;
   final String content;
   final String views;
+  final String loveCount;
+  final String replyCount;
 
   const BuildPost({
     super.key,
@@ -19,6 +21,8 @@ class BuildPost extends StatelessWidget {
     required this.title,
     required this.content,
     required this.views,
+    required this.loveCount,
+    required this.replyCount,
   });
 
   @override
@@ -97,6 +101,7 @@ class BuildPost extends StatelessWidget {
           ),
           Row(
             children: [
+              Text("조회 "),
               Text(views),
               Spacer(),
               TextButton(
@@ -108,6 +113,13 @@ class BuildPost extends StatelessWidget {
                     Icon(
                       Icons.favorite,
                       color: Color(0xFFafe897),
+                    ),
+                    Text(
+                      loveCount,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Color(0xff323b27),
+                      ),
                     ),
                     SizedBox(width: 10),
                   ],
@@ -122,6 +134,13 @@ class BuildPost extends StatelessWidget {
                     Icon(
                       Icons.comment,
                       color: Color(0xFFafe897),
+                    ),
+                    Text(
+                      replyCount,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Color(0xff323b27),
+                      ),
                     ),
                     SizedBox(width: 10),
                   ],
