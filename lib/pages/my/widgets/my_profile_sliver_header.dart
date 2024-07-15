@@ -3,8 +3,6 @@ import 'package:dev_community/pages/my/widgets/my_info.dart';
 import 'package:flutter/material.dart';
 
 class MyProfileSliverHeaderData extends StatelessWidget {
-  MyProfileSliverHeaderData();
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -13,7 +11,10 @@ class MyProfileSliverHeaderData extends StatelessWidget {
         decoration: BoxDecoration(color: Colors.white),
         child: Column(
           children: [
-            MyInfo(),
+            MyInfo(
+              nickname: "지영",
+              introduce: "그냥대학교 컴퓨터공학과",
+            ),
             SizedBox(
               width: double.infinity,
               child: MyEditBtn(),

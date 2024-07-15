@@ -17,9 +17,9 @@ class ProfileSetting extends StatelessWidget {
       body: ListView(
         children: [
           ProfileSettingInfo(),
-          list_line(),
+          list_line(1.0),
           MyProfileSettingInput("이메일 :", "example@nate.com"),
-          list_line(),
+          list_line(1.0),
           MyProfileSettingInput("비밀번호 :", "password"),
           SizedBox(height: 20),
           MyProfileSettingSignBoard(),
