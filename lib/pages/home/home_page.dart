@@ -20,7 +20,9 @@ class HomePage extends StatelessWidget {
         "time": "3시간 전",
         "title": "제목 : FlashAttention3 공개",
         "content": "내용 : LLM의 속도 향상을 위해서 최근에 많은 방법들이 시도되고 있는데요,.. ",
-        "views": "조회 698",
+        "views": "698",
+        "loveCount": "58",
+        "replyCount": "5",
       },
       {
         "name": "공지영",
@@ -28,7 +30,9 @@ class HomePage extends StatelessWidget {
         "time": "3시간 전",
         "title": "제목 : FlashAttention3 공개",
         "content": "내용 : LLM의 속도 향상을 위해서 최근에 많은 방법들이 시도되고 있는데요,.. ",
-        "views": "조회 698",
+        "views": "698",
+        "loveCount": "58",
+        "replyCount": "5",
       },
       {
         "name": "공지영",
@@ -36,7 +40,9 @@ class HomePage extends StatelessWidget {
         "time": "3시간 전",
         "title": "제목 : FlashAttention3 공개",
         "content": "내용 : LLM의 속도 향상을 위해서 최근에 많은 방법들이 시도되고 있는데요,.. ",
-        "views": "조회 698",
+        "views": "698",
+        "loveCount": "58",
+        "replyCount": "5",
       },
       {
         "name": "공지영",
@@ -44,7 +50,9 @@ class HomePage extends StatelessWidget {
         "time": "3시간 전",
         "title": "제목 : FlashAttention3 공개",
         "content": "내용 : LLM의 속도 향상을 위해서 최근에 많은 방법들이 시도되고 있는데요,.. ",
-        "views": "조회 698",
+        "views": "698",
+        "loveCount": "58",
+        "replyCount": "5",
       },
     ];
 
@@ -160,6 +168,8 @@ class HomePage extends StatelessWidget {
                         title: post["title"]!,
                         content: post["content"]!,
                         views: post["views"]!,
+                        loveCount: post["loveCount"]!,
+                        replyCount: post["replyCount"]!,
                       ),
                       SizedBox(height: 10),
                     ],
