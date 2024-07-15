@@ -26,7 +26,6 @@ class CustomBottomNavigationBar extends StatelessWidget {
           topLeft: Radius.circular(20), //
           topRight: Radius.circular(20), //
         ),
-
         child: BottomNavigationBar(
           backgroundColor: Colors.white,
           type: BottomNavigationBarType.fixed,
@@ -36,10 +35,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
           items: const [
             BottomNavigationBarItem(
                 label: "홈", icon: Icon(CupertinoIcons.home)),
-            BottomNavigationBarItem(
-                label: "현직자 Q&A", icon: Icon(Icons.message)),
-            BottomNavigationBarItem(
-                label: "마이페이지", icon: Icon(Icons.people)),
+            BottomNavigationBarItem(label: "마이페이지", icon: Icon(Icons.people)),
           ],
         ),
       ),

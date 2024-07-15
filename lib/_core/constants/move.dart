@@ -5,7 +5,6 @@ import 'package:dev_community/pages/home/home_page.dart';
 import 'package:dev_community/pages/main_page.dart';
 import 'package:dev_community/pages/my/pages/my_page.dart';
 import 'package:dev_community/pages/my/pages/profile_update.dart';
-import 'package:dev_community/pages/qna/qna_page.dart';
 import 'package:flutter/material.dart';
 
 class Move {
@@ -15,7 +14,6 @@ class Move {
   static String mainPage = "/main";
   static String homePage = "/home";
   static String myPage = "/my";
-  static String qnaPage = "/qna";
   static String profileUpdatePage = "/profile-update-page";
 }
 
@@ -27,7 +25,6 @@ Map<String, Widget Function(BuildContext)> getRouters() {
     Move.mainPage: (context) => const MainPage(),
     Move.homePage: (context) => const HomePage(),
     Move.myPage: (context) => const MyPage(),
-    Move.qnaPage: (context) => QAndAPage(),
     Move.profileUpdatePage: (context) => const ProfileUpdatePage(),
   };
 }

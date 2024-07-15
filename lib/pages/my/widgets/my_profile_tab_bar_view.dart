@@ -14,10 +14,13 @@ class MyProfileTabBarView extends StatelessWidget {
           shrinkWrap: true,
           itemCount: 10,
           itemBuilder: (context, index) {
-            return ListTile(
-              title: Text("제목${index}"),
-              subtitle: Text("내용${index}"),
-              trailing: Text("날짜${index}"),
+            return InkWell(
+              onTap: () {},
+              child: ListTile(
+                title: Text("제목${index}"),
+                subtitle: Text("내용${index}"),
+                trailing: Text("날짜${index}"),
+              ),
             );
           },
         ),
@@ -26,10 +29,13 @@ class MyProfileTabBarView extends StatelessWidget {
           shrinkWrap: true,
           itemCount: 10,
           itemBuilder: (context, index) {
-            return ListTile(
-              title: Text("댓글${index}"),
-              subtitle: Text("글 제목${index}"),
-              trailing: Text("날짜${index}"),
+            return InkWell(
+              onTap: () {},
+              child: ListTile(
+                title: Text("댓글${index}"),
+                subtitle: Text("글 제목${index}"),
+                trailing: Text("날짜${index}"),
+              ),
             );
           },
         ),

@@ -1,3 +1,4 @@
+import 'package:dev_community/pages/my/widgets/my_profile_sliver_header.dart';
 import 'package:flutter/material.dart';
 
 class MyProfileSliverAppBar extends StatelessWidget {
@@ -8,8 +9,12 @@ class MyProfileSliverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
+      toolbarHeight: 20,
+      expandedHeight: 220,
       automaticallyImplyLeading: false,
       pinned: true,
+      backgroundColor: Colors.white,
+      flexibleSpace: FlexibleSpaceBar(background: MyProfileSliverHeaderData()),
       bottom: TabBar(
         labelColor: Colors.black,
         indicatorColor: Colors.black,
