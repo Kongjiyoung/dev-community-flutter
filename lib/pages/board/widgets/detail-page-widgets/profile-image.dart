@@ -1,3 +1,4 @@
+import 'package:dev_community/_core/constants/move.dart';
 import 'package:flutter/material.dart';
 
 class ProfileImage extends StatelessWidget {
@@ -8,7 +9,9 @@ class ProfileImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.pushNamed(context, Move.myPage);
+      },
       child: Container(
         child: Column(
           children: [

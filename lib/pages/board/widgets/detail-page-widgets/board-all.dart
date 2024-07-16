@@ -3,7 +3,7 @@ import 'package:dev_community/pages/board/widgets/detail-page-widgets/like-manag
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 
-import 'Board.dart';
+import 'board.dart';
 import 'profile.dart';
 
 class BoardAll extends StatelessWidget {

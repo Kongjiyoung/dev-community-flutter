@@ -44,7 +44,6 @@ class _BoardDetailPageState extends State<BoardDetailPage> {
     var title = "제목입니다.";
     return Scaffold(
       appBar: AppBar(
-        title: Text("게시글 상세 페이지"),
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(20.0),
           child: Container(
