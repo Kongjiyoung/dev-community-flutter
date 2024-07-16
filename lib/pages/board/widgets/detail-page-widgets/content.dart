@@ -1,3 +1,4 @@
+import 'package:dev_community/pages/board/widgets/detail-page-widgets/board-imgs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 
@@ -28,9 +29,12 @@ class Content extends StatelessWidget {
           scrollController: ScrollController(),
         ),
         SizedBox(height: 10),
+        BoardImgs(3, "assets/images/profile.jpeg"),
+        SizedBox(height: 10),
         LikeClass(likeManager: likeManager),
         SizedBox(height: 10),
       ],
     );
   }
 }
+

@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
 import '../../board/detail_page.dart';
 
 class BuildPost extends StatelessWidget {

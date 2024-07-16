@@ -14,11 +14,13 @@ class WelcomePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(height: 50),
             Image.asset(
-              "assets/images/Title.png",
+              "assets/images/fullogo.png",
               width: 200, // 이미지의 너비 조절
-              height: 100, // 이미지의 높이 조절
+              height: 120, // 이미지의 높이 조절
             ),
+            SizedBox(height: 10),
             Container(
               width: 300,
               child: Text(
@@ -31,6 +33,7 @@ class WelcomePage extends StatelessWidget {
                 textAlign: TextAlign.start,
               ),
             ),
+            SizedBox(height: 20),
             Container(
               width: 330,
               child: Text(
@@ -51,9 +54,9 @@ class WelcomePage extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min, // Column이 가능한 최소 크기만큼만 차지하도록 설정합니다.
           children: [
-            OauthLoginButton("assets/images/naver_button.png"),
+            OauthLoginButton("assets/images/naver_button.png", 64.0, 250.0),
             SizedBox(height: 20),
-            OauthLoginButton("assets/images/kakao_button.png"),
+            OauthLoginButton("assets/images/kakao_button.png", 60.0, 250.0),
             SizedBox(height: 20),
             InkWell(
               onTap: () {
@@ -63,6 +66,7 @@ class WelcomePage extends StatelessWidget {
                 "다른방법으로시작하기",
                 style: TextStyle(
                   decoration: TextDecoration.underline,
+                  fontSize: 18,
                 ),
               ),
             ),
