@@ -126,6 +126,7 @@ class HomePage extends ConsumerWidget {
                       return Column(
                         children: [
                           BuildPost(
+                            boardId: post.boardId,
                             name: post.userNickname!,
                             job: post.userPosition,
                             time: post.boardCreatedAtDuration!,

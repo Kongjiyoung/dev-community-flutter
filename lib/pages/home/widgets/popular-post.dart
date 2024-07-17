@@ -1,15 +1,15 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../../board/detail_page.dart';
 
 class PopularPost extends StatelessWidget {
+  final boardId;
   final String name;
   final String job;
   final String title;
 
   const PopularPost({
-    super.key,
+    required this.boardId,
     required this.name,
     required this.job,
     required this.title,
@@ -27,7 +27,7 @@ class PopularPost extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => BoardDetailPage(),
+                  builder: (context) => BoardDetailPage(boardId),
                 ),
               );
             },

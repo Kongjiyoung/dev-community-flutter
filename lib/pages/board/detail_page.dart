@@ -1,29 +1,34 @@
 import 'dart:convert';
+import 'package:dev_community/pages/board/viewmodal/board-detail-viewmodel.dart';
 import 'package:dev_community/pages/board/widgets/detail-page-widgets/board-all.dart';
-import 'package:dev_community/pages/board/widgets/detail-page-widgets/bookmark-manager.dart';
 import 'package:dev_community/pages/board/widgets/detail-page-widgets/reply-save.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class BoardDetailPage extends ConsumerStatefulWidget {
+  final boardId;
+
+  BoardDetailPage(this.boardId);
+
   @override
-  _BoardDetailPageState createState() => _BoardDetailPageState();
+  _BoardDetailPageState createState() => _BoardDetailPageState(boardId);
 }
 
 class _BoardDetailPageState extends ConsumerState<BoardDetailPage> {
+  final boardId;
+
   late quill.QuillController _quillController;
-  late String dynamicText; // dynamicText 변수 추가
+  late String dynamicText;
+
+  _BoardDetailPageState(this.boardId); // dynamicText 변수 추가
 
   @override
   void initState() {
     super.initState();
-    loadContent();
   }
 
-  void loadContent() {
-    var jsonString =
-        '[{"insert":"aa"}, {"insert":"aaaaaaaaa", "attributes":{"bold":true}}, {"insert":"aa", "attributes":{"underline":true}}, {"insert":"aa", "attributes":{"strike":true}}, {"insert":"a"}, {"insert":"\\n", "attributes":{"list":"ordered"}}, {"insert":"aaaaa"}, {"insert":"\\n", "attributes":{"list":"ordered"}}, {"insert":"aaaaaaaa"}, {"insert":"\\n", "attributes":{"code-block":true}}, {"insert":"aaa"}, {"insert":"\\n", "attributes":{"code-block":true}}]';
+  void loadContent(String jsonString) {
     var document = quill.Document.fromJson(jsonDecode(jsonString));
     _quillController = quill.QuillController(
       document: document,
@@ -37,9 +42,11 @@ class _BoardDetailPageState extends ConsumerState<BoardDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    var title = "제목입니다.";
-    final bookmarkManager = ref.watch(bookmarkManagerProvider);
-    final bookmarkManagerNotifier = ref.read(bookmarkManagerProvider.notifier);
+    BoardDetailModel? model = ref.watch(boardDetailProvider);
+    print("boardContent : ${model!.boardContent}");
+
+    final boardContent = model!.boardContent;
+    loadContent(boardContent); // Quill 컨트롤러를 초기화
 
     return Scaffold(
       appBar: AppBar(
@@ -59,7 +66,7 @@ class _BoardDetailPageState extends ConsumerState<BoardDetailPage> {
       ),
       body: Stack(
         children: [
-          BoardAll(title: title, quillController: _quillController),
+          BoardAll(title: model!.boardTitle, quillController: _quillController),
           ReplySave("assets/images/kakao_button.png"),
         ],
       ),

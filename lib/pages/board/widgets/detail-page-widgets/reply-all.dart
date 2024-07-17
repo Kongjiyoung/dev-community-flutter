@@ -11,16 +11,22 @@ class ReplyAll extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          "2024년 7월 10일 오전 12:00", // title 여기 들어감
-          style: TextStyle(
-            color: Colors.grey,
-            fontSize: 12,
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "2024년 7월 10일 오전 12:00",
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 12,
+              ),
+            ),
+            Text("조회수 : 100"),
+          ]
         ),
         Divider(
           color: Colors.grey, // 원하는 색상으로 설정 가능
-          thickness: 1.0, // 선의 두께
+          thickness: 5.0, // 선의 두께
           height: 20, // 선 위아래 여백 조정
         ),
         SizedBox(height: 10),
