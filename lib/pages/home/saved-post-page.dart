@@ -1,5 +1,4 @@
 import 'package:dev_community/pages/home/widgets/build-post.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SavedPostPage extends StatelessWidget {
@@ -67,6 +66,7 @@ class SavedPostPage extends StatelessWidget {
                   time: post["time"]!,
                   title: post["title"]!,
                   content: post["content"]!,
+                  profileImage: "",
                   views: post["views"]!,
                   loveCount: post["loveCount"]!,
                   replyCount: post["replyCount"]!,

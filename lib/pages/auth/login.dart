@@ -11,8 +11,8 @@ class LoginPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _formkey = GlobalKey<FormState>();
-    final _email = TextEditingController();
-    final _password = TextEditingController();
+    final _email = TextEditingController(text: "ssar@nate.com");
+    final _password = TextEditingController(text: "1234");
 
     return Scaffold(
       appBar: AppBar(
@@ -49,6 +49,7 @@ class LoginPage extends ConsumerWidget {
               TextFormField(
                 controller: _password,
                 decoration: authInputDeco(hintText: "password"),
+                obscureText: true,
               ),
               const SizedBox(
                 height: 20,

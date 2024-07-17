@@ -1,16 +1,18 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
 import '../../board/detail_page.dart';
 
 class BuildPost extends StatelessWidget {
   final String name;
-  final String job;
+  final String? job;
   final String time;
   final String title;
   final String content;
-  final String views;
-  final String loveCount;
-  final String replyCount;
+  final String profileImage;
+  final views;
+  final loveCount;
+  final replyCount;
 
   const BuildPost({
     super.key,
@@ -19,6 +21,7 @@ class BuildPost extends StatelessWidget {
     required this.time,
     required this.title,
     required this.content,
+    required this.profileImage,
     required this.views,
     required this.loveCount,
     required this.replyCount,
@@ -35,14 +38,14 @@ class BuildPost extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 20,
-                backgroundImage: AssetImage("assets/images/logo.png"),
+                backgroundImage: NetworkImage(profileImage),
               ),
               SizedBox(width: 16),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(name),
-                  Text(job),
+                  Text(job ?? "없음"),
                 ],
               ),
               Spacer(),
@@ -101,7 +104,7 @@ class BuildPost extends StatelessWidget {
           Row(
             children: [
               Text("조회 "),
-              Text(views),
+              Text("${views}"),
               Spacer(),
               TextButton(
                 onPressed: () {
@@ -114,7 +117,7 @@ class BuildPost extends StatelessWidget {
                       color: Color(0xFFafe897),
                     ),
                     Text(
-                      loveCount,
+                      "${loveCount}",
                       style: TextStyle(
                         fontSize: 14,
                         color: Color(0xff323b27),
@@ -135,7 +138,7 @@ class BuildPost extends StatelessWidget {
                       color: Color(0xFFafe897),
                     ),
                     Text(
-                      replyCount,
+                      "${replyCount}",
                       style: TextStyle(
                         fontSize: 14,
                         color: Color(0xff323b27),
