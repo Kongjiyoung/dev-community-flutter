@@ -1,27 +1,28 @@
-import 'package:dev_community/pages/board/widgets/detail-page-widgets/bookmark-manager.dart';
-import 'package:dev_community/pages/board/widgets/detail-page-widgets/like-manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'board.dart';
+import 'bookmark-manager.dart';
+import 'like-manager.dart';
 import 'profile.dart';
 
-class BoardAll extends StatelessWidget {
+
+class BoardAll extends ConsumerWidget {
   BoardAll({
     super.key,
-    required this.bookmarkManager,
     required this.title,
     required quill.QuillController quillController,
-
   }) : _quillController = quillController;
 
-  final BookmarkManager bookmarkManager;
   final String title;
   final quill.QuillController _quillController;
-  final LikeManager likeManager = LikeManager(); // 좋아요 상태 관리 객체
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final bookmarkManager = ref.watch(bookmarkManagerProvider.notifier);
+    final likeManager = ref.watch(likeManagerProvider.notifier);
+
     return Padding(
       padding: EdgeInsets.all(20),
       child: SingleChildScrollView(
@@ -30,7 +31,6 @@ class BoardAll extends StatelessWidget {
             Column(
               children: [
                 Profile(
-                  bookmarkManager: bookmarkManager,
                   content: "사용자 1번 입니다.",
                   name: "하승진",
                   profileImg: "assets/images/kakao_button.png",
