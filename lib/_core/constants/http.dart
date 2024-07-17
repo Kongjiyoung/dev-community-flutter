@@ -10,7 +10,7 @@ final dio = Dio(
     contentType: "application/json; charset=utf-8",
     validateStatus: (status) => true, // 200 이 아니어도 예외 발생안하게 설정
   ),
-);
+)..interceptors.add(interceptor);
 
 const secureStorage = FlutterSecureStorage();
 //인터셉터 생성
