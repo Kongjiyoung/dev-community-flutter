@@ -1,23 +1,19 @@
 import 'dart:convert';
-import 'dart:ui';
-
 import 'package:dev_community/pages/board/widgets/detail-page-widgets/board-all.dart';
 import 'package:dev_community/pages/board/widgets/detail-page-widgets/bookmark-manager.dart';
 import 'package:dev_community/pages/board/widgets/detail-page-widgets/reply-save.dart';
-import 'package:flutter/animation.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class BoardDetailPage extends StatefulWidget {
+class BoardDetailPage extends ConsumerStatefulWidget {
   @override
   _BoardDetailPageState createState() => _BoardDetailPageState();
 }
 
-class _BoardDetailPageState extends State<BoardDetailPage> {
+class _BoardDetailPageState extends ConsumerState<BoardDetailPage> {
   late quill.QuillController _quillController;
   late String dynamicText; // dynamicText 변수 추가
-  final BookmarkManager bookmarkManager = BookmarkManager(); // 북마크 상태 관리 객체
 
   @override
   void initState() {
@@ -42,6 +38,9 @@ class _BoardDetailPageState extends State<BoardDetailPage> {
   @override
   Widget build(BuildContext context) {
     var title = "제목입니다.";
+    final bookmarkManager = ref.watch(bookmarkManagerProvider);
+    final bookmarkManagerNotifier = ref.read(bookmarkManagerProvider.notifier);
+
     return Scaffold(
       appBar: AppBar(
         bottom: PreferredSize(
@@ -60,7 +59,7 @@ class _BoardDetailPageState extends State<BoardDetailPage> {
       ),
       body: Stack(
         children: [
-          BoardAll(bookmarkManager: bookmarkManager, title: title, quillController: _quillController),
+          BoardAll(title: title, quillController: _quillController),
           ReplySave("assets/images/kakao_button.png"),
         ],
       ),

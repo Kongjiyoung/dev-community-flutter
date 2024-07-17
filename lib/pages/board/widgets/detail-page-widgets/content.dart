@@ -31,7 +31,7 @@ class Content extends StatelessWidget {
         SizedBox(height: 10),
         BoardImgs(3, "assets/images/profile.jpeg"),
         SizedBox(height: 10),
-        LikeClass(likeManager: likeManager),
+        LikeClass(),
         SizedBox(height: 10),
       ],
     );

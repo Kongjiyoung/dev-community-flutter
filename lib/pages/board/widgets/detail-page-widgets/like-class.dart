@@ -1,33 +1,26 @@
 import 'package:flutter/material.dart';
-import 'like.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'like-manager.dart';
+import 'like.dart';
 
-class LikeClass extends StatefulWidget {
-  final LikeManager likeManager;
-
-  LikeClass({required this.likeManager});
-
+class LikeClass extends ConsumerWidget {
   @override
-  _LikeClass createState() => _LikeClass();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isLiked = ref.watch(likeManagerProvider);
+    final likeManagerNotifier = ref.read(likeManagerProvider.notifier);
 
-class _LikeClass extends State<LikeClass> {
-  @override
-  Widget build(BuildContext context) {
     return Row(
       children: [
         Like(
-          widget.likeManager.isLiked ? Icons.favorite : Icons.favorite_border,
+          isLiked ? Icons.favorite : Icons.favorite_border,
           30,
-          widget.likeManager.isLiked ? Colors.red : Colors.black,
+          isLiked ? Colors.red : Colors.black,
           onTap: () {
-            setState(() {
-              widget.likeManager.toggleLike();
-            });
+            likeManagerNotifier.toggleLike();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  widget.likeManager.isLiked ? '좋아요 하였습니다.' : '좋아요를 취소하였습니다.',
+                  isLiked ? '좋아요를 취소하였습니다.' : '좋아요 하였습니다.',
                 ),
                 duration: Duration(seconds: 2),
               ),
