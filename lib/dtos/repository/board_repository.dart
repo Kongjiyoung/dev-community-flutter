@@ -20,6 +20,23 @@ class BoardRepository {
     return responseDTO;
   }
 
+  Future<ResponseDTO> fetchPopularBoardList({int page = 1}) async {
+    final response = await dio.get("/api/boards/top10List");
+
+    ResponseDTO responseDTO = ResponseDTO.fromJson(response.data);
+
+    if (responseDTO.status == 200) {
+      List<dynamic> prevContentList = responseDTO.body;
+
+      List<TopTenContent> newContentList =
+      prevContentList.map((content) => TopTenContent.fromJson(content)).toList();
+
+      responseDTO.body = newContentList;
+    }
+
+    return responseDTO;
+  }
+
   Future<ResponseDTO> fetchBoardDetail({int boardId = 1}) async {
     try {
       final response = await dio.get("/api/boards/${boardId}/detail");

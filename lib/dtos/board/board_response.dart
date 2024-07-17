@@ -70,6 +70,55 @@ class Content {
       };
 }
 
+
+class TopTenContent {
+  final int boardId;
+  final String boardTitle;
+  final String boardCreatedAt;
+  final String boardCreatedAtDuration;
+  final int userId;
+  final String userNickname;
+  final String? userPosition;
+  final String userImage;
+  final int rank;
+
+  TopTenContent({
+    required this.boardId,
+    required this.boardTitle,
+    required this.boardCreatedAt,
+    required this.boardCreatedAtDuration,
+    required this.userId,
+    required this.userNickname,
+    required this.userPosition,
+    required this.userImage,
+    required this.rank,
+  });
+
+  factory TopTenContent.fromJson(Map<String, dynamic> json) => TopTenContent(
+    boardId: json["boardId"],
+    boardTitle: json["boardTitle"],
+    boardCreatedAt: json["boardCreatedAt"],
+    boardCreatedAtDuration: json["boardCreatedAtDuration"],
+    userId: json["userId"],
+    userNickname: json["userNickname"],
+    userPosition: json["userPosition"],
+    userImage: json["userImage"],
+    rank: json["rank"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "boardId": boardId,
+    "boardTitle": boardTitle,
+    "boardCreatedAt": boardCreatedAt,
+    "boardCreatedAtDuration": boardCreatedAtDuration,
+    "userId": userId,
+    "userNickname": userNickname,
+    "userPosition": userPosition,
+    "userImage": userImage,
+    "rank": rank,
+  };
+}
+
 // BoardDetail ==========================================================
 
 class BoardDetailDTO {

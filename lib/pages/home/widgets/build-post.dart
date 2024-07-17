@@ -14,6 +14,9 @@ class BuildPost extends StatelessWidget {
   final views;
   final loveCount;
   final replyCount;
+  final bookmarkCount;
+  final bool isLove;
+  final bool isBookmark;
 
   const BuildPost({
     required this.boardId,
@@ -26,6 +29,9 @@ class BuildPost extends StatelessWidget {
     required this.views,
     required this.loveCount,
     required this.replyCount,
+    required this.bookmarkCount,
+    required this.isLove,
+    required this.isBookmark,
   });
 
   @override
@@ -35,23 +41,33 @@ class BuildPost extends StatelessWidget {
       color: Color(0xFFF5FEF5),
       child: Column(
         children: [
-          Row(
-            children: [
-              CircleAvatar(
-                radius: 20,
-                backgroundImage: NetworkImage(profileImage),
-              ),
-              SizedBox(width: 16),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(name),
-                  Text(job ?? "없음"),
-                ],
-              ),
-              Spacer(),
-              Text(time),
-            ],
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BoardDetailPage(), //프로필페이지로 바꾸기
+                ),
+              );
+            },
+            child: Row(
+              children: [
+                CircleAvatar(
+                  radius: 20,
+                  backgroundImage: NetworkImage(profileImage),
+                ),
+                SizedBox(width: 16),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(name),
+                    Text(job ?? "없음"),
+                  ],
+                ),
+                Spacer(),
+                Text(time),
+              ],
+            ),
           ),
           SizedBox(height: 20),
           InkWell(
@@ -96,6 +112,10 @@ class BuildPost extends StatelessWidget {
                           },
                       ),
                     ],
+                    text: content.length > 40
+                        ? content.substring(0, 40)+ "..."
+                        : content,
+                    style: TextStyle(fontSize: 16, color: Colors.black),
                   ),
                 ),
                 SizedBox(height: 20),
@@ -113,10 +133,16 @@ class BuildPost extends StatelessWidget {
                 },
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.favorite,
-                      color: Color(0xFFafe897),
-                    ),
+                    if (isLove)
+                      Icon(
+                        Icons.favorite,
+                        color: Color(0xFFafe897),
+                      )
+                    else
+                      Icon(
+                        Icons.favorite_border,
+                        color: Color(0xFFafe897),
+                      ),
                     Text(
                       "${loveCount}",
                       style: TextStyle(
@@ -155,10 +181,23 @@ class BuildPost extends StatelessWidget {
                 },
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.bookmark,
-                      color: Color(0xFFafe897),
-                    ),
+                    if (isBookmark)
+                      Icon(
+                        Icons.bookmark,
+                        color: Color(0xFFafe897),
+                      )
+                    else
+                      Icon(
+                        Icons.bookmark_add_outlined,
+                        color: Color(0xFFafe897),
+                      ),
+                    Text(
+                      "${bookmarkCount}",
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Color(0xff323b27),
+                      ),
+                    )
                   ],
                 ),
               ),

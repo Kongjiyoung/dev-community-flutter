@@ -1,53 +1,15 @@
+import 'package:dev_community/pages/home/viewmodel/home_viewmodel.dart';
 import 'package:dev_community/pages/home/widgets/build-post.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SavedPostPage extends StatelessWidget {
+class SavedPostPage extends ConsumerWidget {
   const SavedPostPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final posts = [
-      {
-        "name": "공지영",
-        "position": "신입개발자",
-        "time": "3시간 전",
-        "title": "제목 : FlashAttention3 공개",
-        "content": "내용 : LLM의 속도 향상을 위해서 최근에 많은 방법들이 시도되고 있는데요,.. ",
-        "views": "698",
-        "loveCount": "58",
-        "replyCount": "5",
-      },
-      {
-        "name": "공지영",
-        "position": "신입개발자",
-        "time": "3시간 전",
-        "title": "제목 : FlashAttention3 공개",
-        "content": "내용 : LLM의 속도 향상을 위해서 최근에 많은 방법들이 시도되고 있는데요,.. ",
-        "views": "698",
-        "loveCount": "58",
-        "replyCount": "5",
-      },
-      {
-        "name": "공지영",
-        "position": "신입개발자",
-        "time": "3시간 전",
-        "title": "제목 : FlashAttention3 공개",
-        "content": "내용 : LLM의 속도 향상을 위해서 최근에 많은 방법들이 시도되고 있는데요,.. ",
-        "views": "698",
-        "loveCount": "58",
-        "replyCount": "5",
-      },
-      {
-        "name": "공지영",
-        "position": "신입개발자",
-        "time": "3시간 전",
-        "title": "제목 : FlashAttention3 공개",
-        "content": "내용 : LLM의 속도 향상을 위해서 최근에 많은 방법들이 시도되고 있는데요,.. ",
-        "views": "698",
-        "loveCount": "58",
-        "replyCount": "5",
-      },
-    ];
+  Widget build(BuildContext context, WidgetRef ref) {
+    HomeModel? model = ref.watch(homeBoardListProvider);
+
 
     return Scaffold(
       appBar: AppBar(
@@ -55,22 +17,25 @@ class SavedPostPage extends StatelessWidget {
       ),
       body: Expanded(
         child: ListView.builder(
-          itemCount: posts.length,
+          itemCount: model!.contentList!.length,
           itemBuilder: (context, index) {
-            final post = posts[index];
+            final post = model.contentList![index];
             return Column(
               children: [
                 BuildPost(
                   boardId: 1,
-                  name: post["name"]!,
-                  job: post["position"]!,
-                  time: post["time"]!,
-                  title: post["title"]!,
-                  content: post["content"]!,
-                  profileImage: "",
-                  views: post["views"]!,
-                  loveCount: post["loveCount"]!,
-                  replyCount: post["replyCount"]!,
+                  name: post.userNickname!,
+                  job: post.userPosition,
+                  time: post.boardCreatedAtDuration!,
+                  title: post.boardTitle!,
+                  content: post.boardContent!,
+                  profileImage: post.userImage,
+                  views: post.boardHit!,
+                  loveCount: post.likeCount!,
+                  replyCount: post.replyCount!,
+                  bookmarkCount: post.bookmarkCount!,
+                  isLove: post.myLike  == "true",
+                  isBookmark: post.myBookmark  == "true",
                 ),
                 SizedBox(height: 10),
               ],
