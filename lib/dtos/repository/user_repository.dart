@@ -16,4 +16,16 @@ class UserRepository {
       return (responseDTO, "");
     }
   }
+
+  Future<ResponseDTO> fetchJoin(JoinRequestDTO joinRequestDTO) async {
+    final response =
+        await dio.post("/api/users/join", data: joinRequestDTO.toJson());
+
+    ResponseDTO responseDTO = ResponseDTO.fromJson(response.data);
+    if (responseDTO.status == 200) {
+      return responseDTO;
+    } else {
+      return responseDTO;
+    }
+  }
 }
