@@ -42,6 +42,8 @@ class _ReplyState extends State<Reply> {
         ReplyUp(profileImage, user, content),
         ReplyDown(widget.comment),
         SizedBox(height: 10),
+        Divider(thickness: 1, color: Colors.grey,),
+        SizedBox(height: 10),
       ],
     );
   }

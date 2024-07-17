@@ -49,6 +49,7 @@ class PopularPostPage extends StatelessWidget {
             return Column(
               children: [
                 PopularPost(
+                  boardId: 1,
                   name: post["name"]!,
                   job: post["position"]!,
                   title: post["title"]!,

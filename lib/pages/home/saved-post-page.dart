@@ -61,6 +61,7 @@ class SavedPostPage extends StatelessWidget {
             return Column(
               children: [
                 BuildPost(
+                  boardId: 1,
                   name: post["name"]!,
                   job: post["position"]!,
                   time: post["time"]!,

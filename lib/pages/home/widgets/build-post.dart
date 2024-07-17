@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../board/detail_page.dart';
 
 class BuildPost extends StatelessWidget {
+  final int boardId;
   final String name;
   final String? job;
   final String time;
@@ -15,7 +16,7 @@ class BuildPost extends StatelessWidget {
   final replyCount;
 
   const BuildPost({
-    super.key,
+    required this.boardId,
     required this.name,
     required this.job,
     required this.time,
@@ -58,7 +59,7 @@ class BuildPost extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => BoardDetailPage(),
+                  builder: (context) => BoardDetailPage(boardId),
                 ),
               );
             },
@@ -89,7 +90,7 @@ class BuildPost extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => BoardDetailPage(),
+                                builder: (context) => BoardDetailPage(boardId),
                               ),
                             );
                           },
