@@ -11,3 +11,19 @@ class LoginRequestDTO {
     };
   }
 }
+
+class JoinRequestDTO {
+  final String nickname;
+  final String email;
+  final String password;
+
+  JoinRequestDTO(this.nickname, this.email, this.password);
+
+  Map<String, dynamic> toJson() {
+    return {
+      "nickname": this.nickname,
+      "email": this.email,
+      "password": this.password,
+    };
+  }
+}

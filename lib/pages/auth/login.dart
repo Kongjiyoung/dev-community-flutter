@@ -78,11 +78,7 @@ class LoginPage extends ConsumerWidget {
                 children: [
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        Move.mainPage,
-                        (route) => false,
-                      );
+                      Navigator.pushNamed(context, Move.joinPage);
                     },
                     child: Text(
                       "회원가입",
