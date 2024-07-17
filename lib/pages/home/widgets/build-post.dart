@@ -46,7 +46,7 @@ class BuildPost extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => BoardDetailPage(), //프로필페이지로 바꾸기
+                  builder: (context) => BoardDetailPage(boardId), //프로필페이지로 바꾸기
                 ),
               );
             },
