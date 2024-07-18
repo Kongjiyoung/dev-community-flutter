@@ -11,25 +11,29 @@ class Reply extends StatefulWidget {
   var profileImage;
 
   /// 사용자 이름
-  var user;
+  var name;
 
   /// 사용자 설명
   var content;
 
-  Reply(this.comment, this.profileImage, this.user, this.content);
+  Reply(
+      {required this.comment,
+      required this.profileImage,
+      required this.name,
+      required this.content});
 
   @override
   _ReplyState createState() =>
-      _ReplyState(comment, profileImage, user, content);
+      _ReplyState(comment, profileImage, name, content);
 }
 
 class _ReplyState extends State<Reply> {
   var comment;
   var profileImage;
-  var user;
+  var name;
   var content;
 
-  _ReplyState(this.comment, this.profileImage, this.user, this.content);
+  _ReplyState(this.comment, this.profileImage, this.name, this.content);
 
   List<String> replies = [];
   bool showReplyField = false;
@@ -39,10 +43,13 @@ class _ReplyState extends State<Reply> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ReplyUp(profileImage, user, content),
+        ReplyUp(profileImage, name, content),
         ReplyDown(widget.comment),
         SizedBox(height: 10),
-        Divider(thickness: 1, color: Colors.grey,),
+        Divider(
+          thickness: 1,
+          color: Colors.grey,
+        ),
         SizedBox(height: 10),
       ],
     );

@@ -19,7 +19,6 @@ class _BoardDetailPageState extends ConsumerState<BoardDetailPage> {
   final boardId;
 
   late quill.QuillController _quillController;
-  late String dynamicText;
 
   _BoardDetailPageState(this.boardId); // dynamicText 변수 추가
 
@@ -35,17 +34,13 @@ class _BoardDetailPageState extends ConsumerState<BoardDetailPage> {
       selection: TextSelection.collapsed(offset: 0),
       readOnly: true,
     );
-
-    // dynamicText에 값을 할당
-    dynamicText = document.toPlainText(); // 예시로 간단히 플레인 텍스트를 가져옴
   }
 
   @override
   Widget build(BuildContext context) {
-    BoardDetailModel? model = ref.watch(boardDetailProvider);
-    print("boardContent : ${model!.boardContent}");
+    BoardDetailModel? model = ref.watch(boardDetailProvider(boardId));
 
-    final boardContent = model!.boardContent;
+    final boardContent = model!.boardDetailDTO.boardContent;
     loadContent(boardContent); // Quill 컨트롤러를 초기화
 
     return Scaffold(
@@ -66,8 +61,18 @@ class _BoardDetailPageState extends ConsumerState<BoardDetailPage> {
       ),
       body: Stack(
         children: [
-          BoardAll(title: model!.boardTitle, quillController: _quillController),
-          ReplySave("assets/images/kakao_button.png"),
+          BoardAll(
+            title: model.boardDetailDTO.boardTitle,
+            content: model.boardDetailDTO.userPosition,
+            name: model.boardDetailDTO.userNickname,
+            profileImg: model.boardDetailDTO.userImage,
+            replies: model.boardDetailDTO.replies,
+            quillController: _quillController,
+            boardHit: model.boardDetailDTO.boardHit,
+            replyCount: model.boardDetailDTO.replyCount,
+            createdAt: model.boardDetailDTO.boardCreatedAtDuration,
+          ),
+          ReplySave(model.boardDetailDTO.userImage),
         ],
       ),
     );

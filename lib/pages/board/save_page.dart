@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:dev_community/pages/board/widgets/save-page-widgets/board-content.dart';
 import 'package:dev_community/pages/board/widgets/save-page-widgets/board-content2.dart';
@@ -99,7 +100,7 @@ class _SavePageState extends State<SavePage> {
 
   void _printContent() {
     final title = titleController.text;
-    final content = quillController.document.toDelta().toJson();
+    final content = jsonEncode(quillController.document.toDelta().toJson());
     final imagePaths = images.map((image) => image.path).join(', ');
 
     print('제목: $title');

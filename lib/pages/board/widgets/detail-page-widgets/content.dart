@@ -5,15 +5,14 @@ import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'like-class.dart';
 import 'like-manager.dart';
 
-class Content extends StatelessWidget {
-  const Content({
-    super.key,
+class Content2 extends StatelessWidget {
+  final quill.QuillController _quillController;
+  final LikeManager likeManager;
+
+  const Content2({
     required quill.QuillController quillController,
     required this.likeManager,
   }) : _quillController = quillController;
-
-  final quill.QuillController _quillController;
-  final LikeManager likeManager;
 
   @override
   Widget build(BuildContext context) {

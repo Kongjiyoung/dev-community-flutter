@@ -6,40 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class BoardDetailModel {
-  final int boardId;
-  final String boardTitle;
-  final String boardContent;
-  final int boardHit;
-  final String boardCreatedAt;
-  final String boardCreatedAtDuration;
-  final int userId;
-  final String userNickname;
-  final String? userPosition;
-  final String userImage;
-  final bool myLike;
-  final bool myBookmark;
-  final int likeCount;
-  final int bookmarkCount;
-  final int replyCount;
-  final List<ReplyDTO> replies;
+  BoardDetailDTO boardDetailDTO;
 
-  BoardDetailModel(
-      this.boardId,
-      this.boardTitle,
-      this.boardContent,
-      this.boardHit,
-      this.boardCreatedAt,
-      this.boardCreatedAtDuration,
-      this.userId,
-      this.userNickname,
-      this.userPosition,
-      this.userImage,
-      this.myLike,
-      this.myBookmark,
-      this.likeCount,
-      this.bookmarkCount,
-      this.replyCount,
-      this.replies);
+  BoardDetailModel(this.boardDetailDTO);
 }
 
 class BoardDetailViewModel extends StateNotifier<BoardDetailModel?> {
@@ -48,11 +17,11 @@ class BoardDetailViewModel extends StateNotifier<BoardDetailModel?> {
 
   BoardDetailViewModel(super._state, this.ref);
 
-  Future<void> notifyInit() async {
-    ResponseDTO responseDTO = await BoardRepository().fetchBoardDetail();
+  Future<void> notifyInit(int boardId) async {
+    ResponseDTO responseDTO = await BoardRepository().fetchBoardDetail(boardId);
 
     if (responseDTO.status == 200) {
-      state = responseDTO.body;
+      state = BoardDetailModel(responseDTO.body);
     } else {
       ScaffoldMessenger.of(mContext!).showSnackBar(
           SnackBar(content: Text("게시물 리스트 불러오기 실패 : ${responseDTO.msg}")));
@@ -60,7 +29,8 @@ class BoardDetailViewModel extends StateNotifier<BoardDetailModel?> {
   }
 }
 
-final boardDetailProvider =
-    StateNotifierProvider<BoardDetailViewModel, BoardDetailModel?>((ref) {
-  return BoardDetailViewModel(null, ref)..notifyInit();
+final boardDetailProvider = StateNotifierProvider.family
+    .autoDispose<BoardDetailViewModel, BoardDetailModel?, int>(
+        (ref, challengeId) {
+  return BoardDetailViewModel(null, ref)..notifyInit(challengeId);
 });
