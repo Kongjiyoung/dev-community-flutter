@@ -1,44 +1,48 @@
+import 'package:dev_community/dtos/mypage/my_page_response.dart';
 import 'package:flutter/material.dart';
 
 class MyProfileTabBarView extends StatelessWidget {
-  const MyProfileTabBarView({
-    super.key,
-  });
+  final MyPageDTO myPageDTO;
+
+  MyProfileTabBarView(this.myPageDTO);
 
   @override
   Widget build(BuildContext context) {
     return TabBarView(
       children: [
-        ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: 10,
-          itemBuilder: (context, index) {
-            return InkWell(
-              onTap: () {},
-              child: ListTile(
-                title: Text("제목${index}"),
-                subtitle: Text("내용${index}"),
-                trailing: Text("날짜${index}"),
+        myPageDTO.myBoardList.isEmpty
+            ? Center(child: Text("작성한 게시물 없음"))
+            : ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: myPageDTO.myBoardList.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () {},
+                    child: ListTile(
+                      title: Text("${myPageDTO.myBoardList[index].title}"),
+                      trailing:
+                          Text("${myPageDTO.myBoardList[index].updatedAt}"),
+                    ),
+                  );
+                },
               ),
-            );
-          },
-        ),
-        ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: 10,
-          itemBuilder: (context, index) {
-            return InkWell(
-              onTap: () {},
-              child: ListTile(
-                title: Text("댓글${index}"),
-                subtitle: Text("글 제목${index}"),
-                trailing: Text("날짜${index}"),
-              ),
-            );
-          },
-        ),
+        myPageDTO.myReplyList.isEmpty
+            ? Center(child: Text("작성한 댓글 없음"))
+            : ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: myPageDTO.myReplyList.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () {},
+                    child: ListTile(
+                      title: Text("${myPageDTO.myReplyList[0].comment}"),
+                      subtitle: Text("글 제목${index}"),
+                      trailing: Text("날짜${index}"),
+                    ),
+                  );
+                }),
       ],
     );
   }
