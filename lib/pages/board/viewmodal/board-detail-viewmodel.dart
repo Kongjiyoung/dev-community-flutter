@@ -27,10 +27,14 @@ class BoardDetailViewModel extends StateNotifier<BoardDetailModel?> {
           SnackBar(content: Text("게시물 리스트 불러오기 실패 : ${responseDTO.msg}")));
     }
   }
+
+  Future<void> addReply(int boardId) async {
+    await notifyInit(boardId);
+  }
 }
 
 final boardDetailProvider = StateNotifierProvider.family
     .autoDispose<BoardDetailViewModel, BoardDetailModel?, int>(
         (ref, challengeId) {
-  return BoardDetailViewModel(null, ref)..notifyInit(challengeId);
-});
+      return BoardDetailViewModel(null, ref)..notifyInit(challengeId);
+    });

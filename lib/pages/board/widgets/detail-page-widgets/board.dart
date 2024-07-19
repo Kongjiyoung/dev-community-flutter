@@ -30,55 +30,47 @@ class Board extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (images.length == 0) {
-      return Padding(
-        padding: const EdgeInsets.all(10),
-        child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 10),
-              MyTitle(title: title),
-              Content2(
-                quillController: _quillController,
-                likeManager: likeManager,
-                images: images,
-              ),
-              ReplyAll(
-                replies: replies,
-                boardHit: boardHit,
-                createdAt: createdAt,
-                replyCount: replyCount,
-              ),
-              Container(height: 230),
-            ],
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: Stack(
+        children: [
+          // Main content with scrollable area
+          SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 10),
+                MyTitle(title: title),
+                Content2(
+                  quillController: _quillController,
+                  likeManager: likeManager,
+                  images: images,
+                ),
+                ReplyAll(
+                  replies: replies,
+                  boardHit: boardHit,
+                  createdAt: createdAt,
+                  replyCount: replyCount,
+                ),
+                SizedBox(height: 50), // This adds spacing at the bottom
+              ],
+            ),
           ),
-        ),
-      );
-    } else {
-      return Padding(
-        padding: const EdgeInsets.all(10),
-        child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 10),
-              MyTitle(title: title),
-              Content2(
-                quillController: _quillController,
-                likeManager: likeManager,
-                images: images,
+          // Fixed container at the bottom
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: 50, // Adjust the height as needed
+              color: Colors.white, // Adjust the color as needed
+              child: Center(
+                child: Text('Fixed Footer Content'), // Replace with your desired widget
               ),
-              ReplyAll(
-                replies: replies,
-                boardHit: boardHit,
-                createdAt: createdAt,
-                replyCount: replyCount,
-              ),
-            ],
+            ),
           ),
-        ),
-      );
-    }
+        ],
+      ),
+    );
   }
 }
