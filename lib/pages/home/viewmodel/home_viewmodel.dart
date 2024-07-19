@@ -1,3 +1,5 @@
+import 'package:dev_community/_core/constants/move.dart';
+import 'package:dev_community/dtos/board/board-request.dart';
 import 'package:dev_community/dtos/board/board_response.dart';
 import 'package:dev_community/dtos/repository/board_repository.dart';
 import 'package:dev_community/dtos/response_dto.dart';
@@ -25,6 +27,18 @@ class HomeViewmodel extends StateNotifier<HomeModel?> {
     } else {
       ScaffoldMessenger.of(mContext!).showSnackBar(
           SnackBar(content: Text("게시물 리스트 불러오기 실패 : ${responseDTO.msg}")));
+    }
+  }
+
+  Future<void> saveBoard(SaveBoardDTO saveBoardDTO) async {
+    ResponseDTO responseDTO = await BoardRepository().boardSave(saveBoardDTO);
+
+    if (responseDTO.status == 200) {
+      notifyInit();
+      Navigator.pushNamedAndRemoveUntil(mContext!, Move.mainPage, (route) => false,);
+    } else {
+      ScaffoldMessenger.of(mContext!).showSnackBar(
+          SnackBar(content: Text("글 작성 실패 : ${responseDTO.msg}")));
     }
   }
 }

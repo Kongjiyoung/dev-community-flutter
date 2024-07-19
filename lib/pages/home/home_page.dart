@@ -26,6 +26,7 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     HomeModel? model = ref.watch(homeBoardListProvider);
+    HomeViewmodel viewmodel = ref.read(homeBoardListProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -167,7 +168,7 @@ class HomePage extends ConsumerWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => SavePage(),
+              builder: (context) => SavePage(viewmodel),
             ),
           );
         },
