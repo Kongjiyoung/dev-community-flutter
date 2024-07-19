@@ -14,6 +14,7 @@ class BoardAll extends ConsumerWidget {
   final String name;
   final String profileImg;
   final List<ReplyDTO> replies;
+  final List<BoardImagesDTO> images;
   final quill.QuillController _quillController;
   final int boardHit;
   final String createdAt;
@@ -25,6 +26,7 @@ class BoardAll extends ConsumerWidget {
     required this.name,
     required this.profileImg,
     required this.replies,
+    required this.images,
     required this.createdAt,
     required this.replyCount,
     required this.boardHit,
@@ -55,6 +57,7 @@ class BoardAll extends ConsumerWidget {
                   quillController: _quillController,
                   likeManager: likeManager,
                   createdAt: createdAt,
+                  images: images,
                   replyCount: replyCount,
                   boardHit: boardHit,
                 ),

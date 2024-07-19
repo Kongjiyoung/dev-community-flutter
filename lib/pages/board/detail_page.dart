@@ -67,6 +67,7 @@ class _BoardDetailPageState extends ConsumerState<BoardDetailPage> {
             name: model.boardDetailDTO.userNickname,
             profileImg: model.boardDetailDTO.userImage,
             replies: model.boardDetailDTO.replies,
+            images: model.boardDetailDTO.images,
             quillController: _quillController,
             boardHit: model.boardDetailDTO.boardHit,
             replyCount: model.boardDetailDTO.replyCount,
