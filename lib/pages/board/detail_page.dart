@@ -40,42 +40,45 @@ class _BoardDetailPageState extends ConsumerState<BoardDetailPage> {
   Widget build(BuildContext context) {
     BoardDetailModel? model = ref.watch(boardDetailProvider(boardId));
 
-    final boardContent = model!.boardDetailDTO.boardContent;
-    loadContent(boardContent); // Quill 컨트롤러를 초기화
-
-    return Scaffold(
-      appBar: AppBar(
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(20.0),
-          child: Container(
-            decoration: BoxDecoration(
-              border: Border(
-                top: BorderSide(
-                  width: 1.0,
-                  color: Colors.grey[300]!,
+    if (model == null) {
+      return const Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.black26)));
+    } else {
+      final boardContent = model.boardDetailDTO.boardContent;
+      loadContent(boardContent); // Quill 컨트롤러를 초기화
+      return Scaffold(
+        appBar: AppBar(
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(20.0),
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    width: 1.0,
+                    color: Colors.grey[300]!,
+                  ),
                 ),
               ),
             ),
           ),
         ),
-      ),
-      body: Stack(
-        children: [
-          BoardAll(
-            title: model.boardDetailDTO.boardTitle,
-            content: model.boardDetailDTO.userPosition,
-            name: model.boardDetailDTO.userNickname,
-            profileImg: model.boardDetailDTO.userImage,
-            replies: model.boardDetailDTO.replies,
-            images: model.boardDetailDTO.images,
-            quillController: _quillController,
-            boardHit: model.boardDetailDTO.boardHit,
-            replyCount: model.boardDetailDTO.replyCount,
-            createdAt: model.boardDetailDTO.boardCreatedAtDuration,
-          ),
-          ReplySave(model.boardDetailDTO.userImage),
-        ],
-      ),
-    );
+        body: Stack(
+          children: [
+            BoardAll(
+              title: model.boardDetailDTO.boardTitle,
+              content: model.boardDetailDTO.userPosition,
+              name: model.boardDetailDTO.userNickname,
+              profileImg: model.boardDetailDTO.userImage,
+              replies: model.boardDetailDTO.replies,
+              images: model.boardDetailDTO.images,
+              quillController: _quillController,
+              boardHit: model.boardDetailDTO.boardHit,
+              replyCount: model.boardDetailDTO.replyCount,
+              createdAt: model.boardDetailDTO.boardCreatedAtDuration,
+            ),
+            ReplySave(model.boardDetailDTO.userImage, model.boardDetailDTO.boardId),
+          ],
+        ),
+      );
+    }
   }
 }

@@ -61,7 +61,6 @@ class BoardAll extends ConsumerWidget {
                   replyCount: replyCount,
                   boardHit: boardHit,
                 ),
-                SizedBox(height: 50), // 댓글 입력창 높이만큼의 여백 추가
               ],
             ),
           ],
