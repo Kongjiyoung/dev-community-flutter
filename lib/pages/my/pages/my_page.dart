@@ -14,13 +14,33 @@ class MyPage extends ConsumerWidget {
 
     return DefaultTabController(
       length: 2,
-      child: NestedScrollView(
-        headerSliverBuilder: (context, innerBoxIsScrolled) {
-          return [
-            MyProfileSliverAppBar(model!.myPageDTO),
-          ];
+      child: Builder(
+        builder: (context) {
+          final tabController = DefaultTabController.of(context);
+          bool hasInitialized = false;
+          if (!tabController.hasListeners) {
+            tabController.addListener(() {
+              if (tabController.indexIsChanging && !hasInitialized) {
+                hasInitialized = true; // 호출 후 플래그 설정
+                if (tabController.index == 1) {
+                  viewmodel.getListForTab("replies");
+                }
+              }
+            });
+          }
+
+          return NestedScrollView(
+            headerSliverBuilder: (context, innerBoxIsScrolled) {
+              return [
+                MyProfileSliverAppBar(model!.myPageDTO),
+              ];
+            },
+            body: MyProfileTabBarView(
+              myPageDTO: model!.myPageDTO,
+              myPageViewmodel: viewmodel,
+            ),
+          );
         },
-        body: MyProfileTabBarView(model!.myPageDTO),
       ),
     );
   }

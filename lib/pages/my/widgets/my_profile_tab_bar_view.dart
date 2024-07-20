@@ -1,45 +1,89 @@
+import 'package:dev_community/_core/util/string_convertor.dart';
 import 'package:dev_community/dtos/mypage/my_page_response.dart';
+import 'package:dev_community/pages/my/viewmodel/my_page_viewmodel.dart';
 import 'package:flutter/material.dart';
 
-class MyProfileTabBarView extends StatelessWidget {
+class MyProfileTabBarView extends StatefulWidget {
   final MyPageDTO myPageDTO;
+  final MyPageViewmodel myPageViewmodel;
 
-  MyProfileTabBarView(this.myPageDTO);
+  MyProfileTabBarView({required this.myPageDTO, required this.myPageViewmodel});
+
+  @override
+  _MyProfileTabBarViewState createState() => _MyProfileTabBarViewState();
+}
+
+class _MyProfileTabBarViewState extends State<MyProfileTabBarView> {
+  late ScrollController boardScrollController;
+  late ScrollController replyScrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    boardScrollController = ScrollController()
+      ..addListener(() {
+        if (boardScrollController.position.pixels ==
+            boardScrollController.position.maxScrollExtent) {
+          widget.myPageViewmodel.getListForTab("boards");
+        }
+      });
+
+    replyScrollController = ScrollController()
+      ..addListener(() {
+        if (replyScrollController.position.pixels ==
+            replyScrollController.position.maxScrollExtent) {
+          widget.myPageViewmodel.getListForTab("replies");
+        }
+      });
+  }
+
+  @override
+  void dispose() {
+    boardScrollController.dispose();
+    replyScrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return TabBarView(
       children: [
-        myPageDTO.myBoardList.isEmpty
+        widget.myPageDTO.myBoardList.isEmpty
             ? Center(child: Text("작성한 게시물 없음"))
             : ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
+                controller: boardScrollController,
+                physics: AlwaysScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: myPageDTO.myBoardList.length,
+                itemCount: widget.myPageDTO.myBoardList.length,
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {},
                     child: ListTile(
-                      title: Text("${myPageDTO.myBoardList[index].title}"),
-                      trailing:
-                          Text("${myPageDTO.myBoardList[index].updatedAt}"),
+                      title:
+                          Text("${widget.myPageDTO.myBoardList[index].title}"),
+                      trailing: Text(
+                          "${widget.myPageDTO.myBoardList[index].updatedAt}"),
                     ),
                   );
                 },
               ),
-        myPageDTO.myReplyList.isEmpty
+        widget.myPageDTO.myReplyList.isEmpty
             ? Center(child: Text("작성한 댓글 없음"))
             : ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
+                controller: replyScrollController,
+                physics: AlwaysScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: myPageDTO.myReplyList.length,
+                itemCount: widget.myPageDTO.myReplyList.length,
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {},
                     child: ListTile(
-                      title: Text("${myPageDTO.myReplyList[0].comment}"),
-                      subtitle: Text("글 제목${index}"),
-                      trailing: Text("날짜${index}"),
+                      title: Text(maxStringLength(
+                          20, widget.myPageDTO.myReplyList[index].comment)),
+                      subtitle:
+                          Text(widget.myPageDTO.myReplyList[index].boardTitle),
+                      trailing:
+                          Text(widget.myPageDTO.myReplyList[index].updatedAt),
                     ),
                   );
                 }),

@@ -39,9 +39,29 @@ class UserRepository {
 
     ResponseDTO responseDTO = ResponseDTO.fromJson(response.data);
     if (responseDTO.status == 200) {
-      MyPageDTO myPageDTO = MyPageDTO.fromJson(responseDTO.body);
-      print("Repository : ${myPageDTO.nickname}");
-      responseDTO.body = myPageDTO;
+      switch (type) {
+        case "boards":
+          {
+            List<dynamic> prevBoardList = responseDTO.body;
+            List<MyBoardList> newBoardList = prevBoardList
+                .map((board) => MyBoardList.fromJson(board))
+                .toList();
+            responseDTO.body = newBoardList;
+          }
+        case "replies":
+          {
+            List<dynamic> prevReplyList = responseDTO.body;
+            List<MyReplyList> newReplyList = prevReplyList
+                .map((reply) => MyReplyList.fromJson(reply))
+                .toList();
+            responseDTO.body = newReplyList;
+          }
+        default:
+          {
+            MyPageDTO myPageDTO = MyPageDTO.fromJson(responseDTO.body);
+            responseDTO.body = myPageDTO;
+          }
+      }
     }
 
     return responseDTO;

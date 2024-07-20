@@ -17,6 +17,26 @@ class MyPageDTO {
     required this.myReplyList,
   });
 
+  MyPageDTO copyWith({
+    int? userId,
+    String? image,
+    String? nickname,
+    String? position,
+    String? introduce,
+    List<MyBoardList>? myBoardList,
+    List<MyReplyList>? myReplyList,
+  }) {
+    return MyPageDTO(
+      userId: userId ?? this.userId,
+      image: image ?? this.image,
+      nickname: nickname ?? this.nickname,
+      position: position ?? this.position,
+      introduce: introduce ?? this.introduce,
+      myBoardList: myBoardList ?? this.myBoardList,
+      myReplyList: myReplyList ?? this.myReplyList,
+    );
+  }
+
   factory MyPageDTO.fromJson(Map<String, dynamic> json) => MyPageDTO(
         userId: json["userId"],
         image: json["image"],
@@ -43,6 +63,18 @@ class MyBoardList {
     required this.updatedAt,
   });
 
+  MyBoardList copyWith({
+    int? boardId,
+    String? title,
+    String? updatedAt,
+  }) {
+    return MyBoardList(
+      boardId: boardId ?? this.boardId,
+      title: title ?? this.title,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
+
   factory MyBoardList.fromJson(Map<String, dynamic> json) => MyBoardList(
         boardId: json["boardId"],
         title: json["title"],
@@ -64,6 +96,22 @@ class MyReplyList {
     required this.boardTitle,
     required this.updatedAt,
   });
+
+  MyReplyList copyWith({
+    int? replyId,
+    int? boardId,
+    String? comment,
+    String? boardTitle,
+    String? updatedAt,
+  }) {
+    return MyReplyList(
+      replyId: replyId ?? this.replyId,
+      boardId: boardId ?? this.boardId,
+      comment: comment ?? this.comment,
+      boardTitle: boardTitle ?? this.boardTitle,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
 
   factory MyReplyList.fromJson(Map<String, dynamic> json) => MyReplyList(
         replyId: json["replyId"],
