@@ -1,17 +1,32 @@
+import 'dart:convert';
+
 import 'package:dev_community/pages/board/save_page.dart';
 import 'package:dev_community/pages/home/popular-post-page.dart';
 import 'package:dev_community/pages/home/saved-post-page.dart';
 import 'package:dev_community/pages/home/viewmodel/home_viewmodel.dart';
 import 'package:dev_community/pages/home/widgets/build-post.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HomePage extends ConsumerWidget {
-  const HomePage({super.key});
+
+  late quill.QuillController _quillController;
+
+
+  void loadContent(String jsonString) {
+    var document = quill.Document.fromJson(jsonDecode(jsonString));
+    _quillController = quill.QuillController(
+      document: document,
+      selection: TextSelection.collapsed(offset: 0),
+      readOnly: true,
+    );
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     HomeModel? model = ref.watch(homeBoardListProvider);
+    HomeViewmodel viewmodel = ref.read(homeBoardListProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -122,7 +137,10 @@ class HomePage extends ConsumerWidget {
                   child: ListView.builder(
                     itemCount: model!.contentList!.length,
                     itemBuilder: (context, index) {
+
                       final post = model.contentList![index];
+                      loadContent(post.boardContent); // Quill 컨트롤러를 초기화
+
                       return Column(
                         children: [
                           BuildPost(
@@ -131,7 +149,7 @@ class HomePage extends ConsumerWidget {
                             job: post.userPosition,
                             time: post.boardCreatedAtDuration!,
                             title: post.boardTitle!,
-                            content: post.boardContent!,
+                            content: _quillController!,
                             profileImage: post.userImage,
                             views: post.boardHit!,
                             loveCount: post.likeCount!,
@@ -150,7 +168,7 @@ class HomePage extends ConsumerWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => SavePage(),
+              builder: (context) => SavePage(viewmodel),
             ),
           );
         },

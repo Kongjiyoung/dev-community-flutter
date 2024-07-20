@@ -1,6 +1,5 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_quill/flutter_quill.dart' as quill;
 import '../../board/detail_page.dart';
 
 class BuildPost extends StatelessWidget {
@@ -9,11 +8,12 @@ class BuildPost extends StatelessWidget {
   final String? job;
   final String time;
   final String title;
-  final String content;
+  final quill.QuillController content;
   final String profileImage;
-  final views;
-  final loveCount;
-  final replyCount;
+  final int views;
+  final int loveCount;
+  final int replyCount;
+  final int maxContentLength = 60; // 최대 글자 수 설정
 
   const BuildPost({
     required this.boardId,
@@ -28,8 +28,26 @@ class BuildPost extends StatelessWidget {
     required this.replyCount,
   });
 
+  String _truncateText(String text, int maxLength) {
+    if (text.length <= maxLength) {
+      return text;
+    } else {
+      return '${text.substring(0, maxLength)}...';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    String truncatedContent = _truncateText(content.document.toPlainText(), maxContentLength);
+
+    quill.QuillController truncatedContentController = quill.QuillController(
+      document: quill.Document()..insert(0, truncatedContent),
+      selection: TextSelection.collapsed(offset: 0),
+    );
+
+    truncatedContentController.readOnly = true;
+
+
     return Container(
       padding: const EdgeInsets.fromLTRB(25, 20, 25, 20),
       color: Color(0xFFF5FEF5),
@@ -75,28 +93,13 @@ class BuildPost extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 8),
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: content,
-                        style: TextStyle(fontSize: 16, color: Colors.black),
-                      ),
-                      TextSpan(
-                        text: "더보기",
-                        style: TextStyle(fontSize: 16, color: Colors.blue),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => BoardDetailPage(boardId),
-                              ),
-                            );
-                          },
-                      ),
-                    ],
+                quill.QuillEditor(
+                  configurations: quill.QuillEditorConfigurations(
+                    controller: truncatedContentController,
+                    customStyles: quill.DefaultStyles(),
                   ),
+                  focusNode: FocusNode(),
+                  scrollController: ScrollController(),
                 ),
                 SizedBox(height: 20),
               ],
@@ -105,7 +108,7 @@ class BuildPost extends StatelessWidget {
           Row(
             children: [
               Text("조회 "),
-              Text("${views}"),
+              Text("$views"),
               Spacer(),
               TextButton(
                 onPressed: () {
@@ -118,7 +121,7 @@ class BuildPost extends StatelessWidget {
                       color: Color(0xFFafe897),
                     ),
                     Text(
-                      "${loveCount}",
+                      "$loveCount",
                       style: TextStyle(
                         fontSize: 14,
                         color: Color(0xff323b27),
@@ -139,7 +142,7 @@ class BuildPost extends StatelessWidget {
                       color: Color(0xFFafe897),
                     ),
                     Text(
-                      "${replyCount}",
+                      "$replyCount",
                       style: TextStyle(
                         fontSize: 14,
                         color: Color(0xff323b27),

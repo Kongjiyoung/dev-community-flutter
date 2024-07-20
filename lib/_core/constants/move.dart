@@ -27,7 +27,7 @@ Map<String, Widget Function(BuildContext)> getRouters() {
     Move.loginPage: (context) => const LoginPage(),
     Move.joinPage: (context) => const JoinPage(),
     Move.mainPage: (context) => const MainPage(),
-    Move.homePage: (context) => const HomePage(),
+    Move.homePage: (context) => HomePage(),
     Move.myPage: (context) => const MyPage(),
     Move.profileUpdatePage: (context) => const ProfileUpdatePage(),
     Move.savedPostPage: (context) => SavedPostPage(),

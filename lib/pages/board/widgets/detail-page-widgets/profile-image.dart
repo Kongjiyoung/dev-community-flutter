@@ -1,6 +1,8 @@
 import 'package:dev_community/_core/constants/move.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../_core/constants/http.dart';
+
 class ProfileImage extends StatelessWidget {
   var imgPath;
 
@@ -17,7 +19,7 @@ class ProfileImage extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 25,
-              backgroundImage: AssetImage(imgPath),
+              backgroundImage: NetworkImage(serverAddress + imgPath),
             ),
           ],
         ),

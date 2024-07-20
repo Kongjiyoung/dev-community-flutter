@@ -60,18 +60,18 @@ class SavedPostPage extends StatelessWidget {
             final post = posts[index];
             return Column(
               children: [
-                BuildPost(
-                  boardId: 1,
-                  name: post["name"]!,
-                  job: post["position"]!,
-                  time: post["time"]!,
-                  title: post["title"]!,
-                  content: post["content"]!,
-                  profileImage: "",
-                  views: post["views"]!,
-                  loveCount: post["loveCount"]!,
-                  replyCount: post["replyCount"]!,
-                ),
+                // BuildPost(
+                //   boardId: 1,
+                //   name: post["name"]!,
+                //   job: post["position"]!,
+                //   time: post["time"]!,
+                //   title: post["title"]!,
+                //   content: ,
+                //   profileImage: "",
+                //   views: post["views"]!,
+                //   loveCount: post["loveCount"]!,
+                //   replyCount: post["replyCount"]!,
+                // ),
                 SizedBox(height: 10),
               ],
             );

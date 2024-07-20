@@ -1,18 +1,27 @@
+import 'dart:convert';
 import 'dart:io';
+import 'package:dev_community/_core/util/image_parse_util.dart';
+import 'package:dev_community/dtos/board/board-request.dart';
 import 'package:dev_community/pages/board/widgets/save-page-widgets/board-content.dart';
 import 'package:dev_community/pages/board/widgets/save-page-widgets/board-content2.dart';
 import 'package:dev_community/pages/board/widgets/save-page-widgets/board-save-app-bar.dart';
 import 'package:dev_community/pages/board/widgets/save-page-widgets/board-title.dart';
+import 'package:dev_community/pages/home/viewmodel/home_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:image_picker/image_picker.dart';
 
 class SavePage extends StatefulWidget {
+  final HomeViewmodel viewmodel;
+
+  SavePage(this.viewmodel);
+
   @override
   _SavePageState createState() => _SavePageState();
 }
 
 class _SavePageState extends State<SavePage> {
+  late final HomeViewmodel viewmodel;
   final TextEditingController titleController = TextEditingController();
   final quill.QuillController quillController = quill.QuillController.basic();
   final ScrollController _editorScrollController = ScrollController();
@@ -20,13 +29,21 @@ class _SavePageState extends State<SavePage> {
   final picker = ImagePicker();
   List<XFile> images = [];
   List<ImageProvider<Object>> _profileImages = [];
+  List<ImagesDTO> imageList = [];
 
   Future<void> _pickImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
+      // 비동기 작업을 setState 호출 밖에서 처리
+      final base64Data = await encodeXFileToBase64(pickedFile);
+      final imageProvider = FileImage(File(pickedFile.path));
+
       setState(() {
         images.add(pickedFile);
-        _profileImages.add(FileImage(File(pickedFile.path)));
+        imageList.add(ImagesDTO(
+            imageData: base64Data,
+            fileName: images.map((image) => image.path).join(', ')));
+        _profileImages.add(imageProvider);
       });
     }
   }
@@ -97,14 +114,10 @@ class _SavePageState extends State<SavePage> {
     );
   }
 
-  void _printContent() {
-    final title = titleController.text;
-    final content = quillController.document.toDelta().toJson();
-    final imagePaths = images.map((image) => image.path).join(', ');
-
-    print('제목: $title');
-    print('내용: $content');
-    print('이미지 경로: $imagePaths');
+  @override
+  void initState() {
+    super.initState();
+    viewmodel = widget.viewmodel;
   }
 
   @override
@@ -112,7 +125,14 @@ class _SavePageState extends State<SavePage> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          BoardSaveAppBar(onSave: _printContent),
+          BoardSaveAppBar(
+            viewmodel: viewmodel,
+            saveBoardDTO: SaveBoardDTO(
+              title: titleController.text,
+              content: jsonEncode(quillController.document.toDelta().toJson()),
+              images: imageList,
+            ),
+          ),
         ],
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(20.0),
@@ -151,7 +171,11 @@ class _SavePageState extends State<SavePage> {
                     ],
                   ),
                   SizedBox(height: 10),
-                  BoardContent2(quillController: quillController, editorScrollController: _editorScrollController, editorFocusNode: _editorFocusNode),
+                  BoardContent2(
+                    quillController: quillController,
+                    editorScrollController: _editorScrollController,
+                    editorFocusNode: _editorFocusNode,
+                  ),
                   SizedBox(height: 10),
                   if (_profileImages.isNotEmpty)
                     Container(
@@ -159,7 +183,8 @@ class _SavePageState extends State<SavePage> {
                       child: ListView(
                         scrollDirection: Axis.horizontal,
                         children: List.generate(_profileImages.length, (index) {
-                          return _buildImagePreview(index, _profileImages[index]);
+                          return _buildImagePreview(
+                              index, _profileImages[index]);
                         }),
                       ),
                     ),
@@ -172,6 +197,3 @@ class _SavePageState extends State<SavePage> {
     );
   }
 }
-
-
-
