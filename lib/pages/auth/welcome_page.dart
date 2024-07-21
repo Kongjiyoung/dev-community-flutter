@@ -1,12 +1,16 @@
 import 'package:dev_community/_core/constants/move.dart';
+import 'package:dev_community/dtos/store/session_store.dart';
 import 'package:dev_community/pages/auth/widgets/welcome-widgets/oauth_login_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class WelcomePage extends StatelessWidget {
+class WelcomePage extends ConsumerWidget {
   const WelcomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    SessionStore sessionStore = ref.read(sessionProvider);
+
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
@@ -54,9 +58,19 @@ class WelcomePage extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min, // Column이 가능한 최소 크기만큼만 차지하도록 설정합니다.
           children: [
-            OauthLoginButton("assets/images/naver_button.png", 64.0, 250.0),
+            OauthLoginButton(
+                assetImage: "assets/images/naver_button.png",
+                height: 64.0,
+                width: 250.0),
             SizedBox(height: 20),
-            OauthLoginButton("assets/images/kakao_button.png", 60.0, 250.0),
+            OauthLoginButton(
+              assetImage: "assets/images/kakao_button.png",
+              height: 60.0,
+              width: 250.0,
+              onTap: () {
+                sessionStore.kakaoLogin();
+              },
+            ),
             SizedBox(height: 20),
             InkWell(
               onTap: () {
