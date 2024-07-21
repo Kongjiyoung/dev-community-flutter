@@ -1,8 +1,10 @@
 import 'package:dev_community/_core/constants/custom_widgets.dart';
 import 'package:dev_community/_core/constants/http.dart';
+import 'package:dev_community/dtos/store/session_store.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MyInfo extends StatelessWidget {
+class MyInfo extends ConsumerWidget {
   final String? profileImage;
   final String nickname;
   final String? position;
@@ -16,7 +18,9 @@ class MyInfo extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    SessionStore sessionStore = ref.read(sessionProvider);
+
     return Column(
       children: [
         Row(
@@ -25,14 +29,16 @@ class MyInfo extends StatelessWidget {
               width: 100,
               height: 100,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(50)),
+                borderRadius: BorderRadius.circular(50),
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: profileImage == null
+                      ? AssetImage("assets/images/profile.jpeg")
+                      : sessionStore.loginType == "kakao"
+                          ? NetworkImage(profileImage!) as ImageProvider
+                          : NetworkImage(serverAddress + profileImage!),
+                ),
               ),
-              child: profileImage == null
-                  ? Image.asset(
-                      "assets/images/profile.jpeg",
-                      fit: BoxFit.cover,
-                    )
-                  : Image.network(serverAddress + profileImage!),
             ),
             const SizedBox(width: 15),
             Column(
