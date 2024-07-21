@@ -5,23 +5,12 @@ import 'package:dev_community/pages/home/popular_post_page.dart';
 import 'package:dev_community/pages/home/saved_post_page.dart';
 import 'package:dev_community/pages/home/viewmodel/home_viewmodel.dart';
 import 'package:dev_community/pages/home/widgets/build-post.dart';
+import 'package:dev_community/pages/home/widgets/post_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HomePage extends ConsumerWidget {
-
-  late quill.QuillController _quillController;
-
-
-  void loadContent(String jsonString) {
-    var document = quill.Document.fromJson(jsonDecode(jsonString));
-    _quillController = quill.QuillController(
-      document: document,
-      selection: TextSelection.collapsed(offset: 0),
-      readOnly: true,
-    );
-  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -133,34 +122,10 @@ class HomePage extends ConsumerWidget {
                     ],
                   ),
                 ),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: model!.contentList!.length,
-                    itemBuilder: (context, index) {
-
-                      final post = model.contentList![index];
-                      loadContent(post.boardContent); // Quill 컨트롤러를 초기화
-
-                      return Column(
-                        children: [
-                          BuildPost(
-                            boardId: post.boardId,
-                            name: post.userNickname!,
-                            job: post.userPosition,
-                            time: post.boardCreatedAtDuration!,
-                            title: post.boardTitle!,
-                            content: _quillController!,
-                            profileImage: post.userImage,
-                            views: post.boardHit!,
-                            loveCount: post.likeCount!,
-                            replyCount: post.replyCount!,
-                          ),
-                          SizedBox(height: 10),
-                        ],
-                      );
-                    },
-                  ),
-                ),
+                PostView(
+                  contentList: model!.contentList,
+                  homeViewmodel: viewmodel,
+                )
               ],
             ),
       floatingActionButton: FloatingActionButton(

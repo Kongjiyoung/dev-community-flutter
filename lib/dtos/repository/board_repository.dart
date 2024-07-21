@@ -5,8 +5,9 @@ import 'package:dev_community/dtos/response_dto.dart';
 import '../board/board_request.dart';
 
 class BoardRepository {
-  Future<ResponseDTO> fetchBoardList({int page = 1}) async {
-    final response = await dio.get("/api/boards/list?page=${page}");
+  Future<ResponseDTO> fetchBoardList({int? page}) async {
+    final response = await dio.get("/api/boards/list",
+        queryParameters: {"page": page});
 
     ResponseDTO responseDTO = ResponseDTO.fromJson(response.data);
 
