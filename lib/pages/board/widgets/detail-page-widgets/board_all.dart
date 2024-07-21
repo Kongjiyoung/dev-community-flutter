@@ -4,11 +4,12 @@ import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'board.dart';
-import 'bookmark-manager.dart';
-import 'like-manager.dart';
+import '../../../../dtos/bookmark/bookmark_manager.dart';
+import '../../../../dtos/like/like_manager.dart';
 import 'profile.dart';
 
 class BoardAll extends ConsumerWidget {
+  final int boardId;
   final String title;
   final String? content;
   final String name;
@@ -19,8 +20,11 @@ class BoardAll extends ConsumerWidget {
   final int boardHit;
   final String createdAt;
   final int replyCount;
+  final bool isBookMark;
 
-  BoardAll({
+  const BoardAll({
+    super.key,
+    required this.boardId,
     required this.title,
     required this.content,
     required this.name,
@@ -30,13 +34,13 @@ class BoardAll extends ConsumerWidget {
     required this.createdAt,
     required this.replyCount,
     required this.boardHit,
+    required this.isBookMark,
     required quill.QuillController quillController,
   }) : _quillController = quillController;
 
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final bookmarkManager = ref.watch(bookmarkManagerProvider.notifier);
+
     final likeManager = ref.watch(likeManagerProvider.notifier);
 
     return Padding(
@@ -47,9 +51,11 @@ class BoardAll extends ConsumerWidget {
             Column(
               children: [
                 Profile(
+                  boardId: boardId,
                   content: content,
                   name: name,
                   profileImg: profileImg,
+                  isBookMark: isBookMark,
                 ),
                 Board(
                   replies: replies,

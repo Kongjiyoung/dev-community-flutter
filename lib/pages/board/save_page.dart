@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:dev_community/_core/util/image_parse_util.dart';
-import 'package:dev_community/dtos/board/board-request.dart';
-import 'package:dev_community/pages/board/widgets/save-page-widgets/board-content.dart';
-import 'package:dev_community/pages/board/widgets/save-page-widgets/board-content2.dart';
-import 'package:dev_community/pages/board/widgets/save-page-widgets/board-save-app-bar.dart';
-import 'package:dev_community/pages/board/widgets/save-page-widgets/board-title.dart';
+import 'package:dev_community/dtos/board/board_request.dart';
+import 'package:dev_community/pages/board/widgets/save-page-widgets/board_content.dart';
+import 'package:dev_community/pages/board/widgets/save-page-widgets/board_content2.dart';
+import 'package:dev_community/pages/board/widgets/save-page-widgets/board_save_app_bar.dart';
+import 'package:dev_community/pages/board/widgets/save-page-widgets/board_title.dart';
 import 'package:dev_community/pages/home/viewmodel/home_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;

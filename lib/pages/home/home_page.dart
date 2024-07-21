@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:dev_community/pages/board/save_page.dart';
-import 'package:dev_community/pages/home/popular-post-page.dart';
-import 'package:dev_community/pages/home/saved-post-page.dart';
+import 'package:dev_community/pages/home/popular_post_page.dart';
+import 'package:dev_community/pages/home/saved_post_page.dart';
 import 'package:dev_community/pages/home/viewmodel/home_viewmodel.dart';
 import 'package:dev_community/pages/home/widgets/build-post.dart';
 import 'package:flutter/material.dart';

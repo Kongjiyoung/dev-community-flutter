@@ -1,10 +1,10 @@
 import 'package:dev_community/dtos/board/board_response.dart';
-import 'package:dev_community/pages/board/widgets/detail-page-widgets/board-imgs.dart';
+import 'package:dev_community/pages/board/widgets/detail-page-widgets/board_imgs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 
-import 'like-class.dart';
-import 'like-manager.dart';
+import 'like_class.dart';
+import '../../../../dtos/like/like_manager.dart';
 
 class Content2 extends StatelessWidget {
   final quill.QuillController _quillController;

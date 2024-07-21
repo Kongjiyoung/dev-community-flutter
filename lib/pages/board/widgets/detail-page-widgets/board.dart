@@ -1,11 +1,11 @@
-import 'package:dev_community/pages/board/widgets/detail-page-widgets/reply-all.dart';
+import 'package:dev_community/pages/board/widgets/detail-page-widgets/reply_all.dart';
 import 'package:dev_community/pages/board/widgets/detail-page-widgets/title.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 
 import '../../../../dtos/board/board_response.dart';
 import 'content.dart';
-import 'like-manager.dart';
+import '../../../../dtos/like/like_manager.dart';
 
 class Board extends StatelessWidget {
   final String title;
