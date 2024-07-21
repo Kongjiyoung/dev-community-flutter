@@ -8,9 +8,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HomeModel {
-  List<Content>? contentList;
+  List<Content> contentList;
+  int? boardPage;
+  bool isBoardLastPage;
 
-  HomeModel({this.contentList});
+  HomeModel(
+      {required this.contentList,
+        this.boardPage,
+        this.isBoardLastPage = false});
+
+  HomeModel copyWith({
+    List<Content>? contentList,
+    int? boardPage,
+    bool? isBoardLastPage
+  }) {
+    return HomeModel(
+        contentList: contentList ?? this.contentList,
+      boardPage: boardPage ?? this.boardPage,
+      isBoardLastPage: isBoardLastPage ?? this.isBoardLastPage
+    );
+  }
 }
 
 class HomeViewmodel extends StateNotifier<HomeModel?> {
@@ -23,10 +40,35 @@ class HomeViewmodel extends StateNotifier<HomeModel?> {
     ResponseDTO responseDTO = await BoardRepository().fetchBoardList();
 
     if (responseDTO.status == 200) {
-      state = HomeModel(contentList: responseDTO.body);
+      state = HomeModel(contentList: responseDTO.body, boardPage: 1);
     } else {
       ScaffoldMessenger.of(mContext!).showSnackBar(
           SnackBar(content: Text("게시물 리스트 불러오기 실패 : ${responseDTO.msg}")));
+    }
+
+  }
+
+  Future<void> getListForTab() async {
+    if (!state!.isBoardLastPage) {
+      ResponseDTO responseDTO = await BoardRepository()
+          .fetchBoardList(page: state!.boardPage! + 1);
+
+      if (responseDTO.status == 200) {
+        if (responseDTO.body.isNotEmpty) {
+          List<Content> contentList = state!.contentList;
+          state!.contentList.addAll(responseDTO.body);
+          state = state!.copyWith(
+            boardPage: state!.boardPage! + 1,
+            contentList: List.from(state!.contentList)
+              ..addAll(responseDTO.body),
+          );
+        } else {
+          state = state!.copyWith(isBoardLastPage: true);
+        }
+      } else {
+        ScaffoldMessenger.of(mContext!).showSnackBar(SnackBar(
+            content: Text("게시글 불러오기 실패 : ${responseDTO.msg}")));
+      }
     }
   }
 
