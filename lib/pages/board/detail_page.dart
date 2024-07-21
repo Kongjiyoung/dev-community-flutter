@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:dev_community/pages/board/viewmodal/board-detail-viewmodel.dart';
-import 'package:dev_community/pages/board/widgets/detail-page-widgets/board-all.dart';
+import 'package:dev_community/pages/board/viewmodal/board_detail_viewmodel.dart';
+import 'package:dev_community/pages/board/widgets/detail-page-widgets/board_all.dart';
 import 'package:dev_community/pages/board/widgets/detail-page-widgets/reply-save.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
@@ -64,6 +64,7 @@ class _BoardDetailPageState extends ConsumerState<BoardDetailPage> {
         body: Stack(
           children: [
             BoardAll(
+              boardId: model.boardDetailDTO.boardId,
               title: model.boardDetailDTO.boardTitle,
               content: model.boardDetailDTO.userPosition,
               name: model.boardDetailDTO.userNickname,
@@ -73,6 +74,7 @@ class _BoardDetailPageState extends ConsumerState<BoardDetailPage> {
               quillController: _quillController,
               boardHit: model.boardDetailDTO.boardHit,
               replyCount: model.boardDetailDTO.replyCount,
+              isBookMark: model.boardDetailDTO.myBookmark,
               createdAt: model.boardDetailDTO.boardCreatedAtDuration,
             ),
             ReplySave(model.boardDetailDTO.userImage, model.boardDetailDTO.boardId),

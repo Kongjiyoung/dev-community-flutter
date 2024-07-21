@@ -1,5 +1,5 @@
 import 'package:dev_community/pages/my/viewmodel/my_page_viewmodel.dart';
-import 'package:dev_community/pages/my/widgets/my-profile-sliver-app-bar.dart';
+import 'package:dev_community/pages/my/widgets/my_profile_sliver_app_bar.dart';
 import 'package:dev_community/pages/my/widgets/my_profile_tab_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

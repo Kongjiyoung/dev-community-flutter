@@ -1,28 +1,30 @@
-import 'package:dev_community/pages/board/widgets/detail-page-widgets/profile-content.dart';
-import 'package:dev_community/pages/board/widgets/detail-page-widgets/profile-image.dart';
-import 'package:dev_community/pages/board/widgets/detail-page-widgets/upper-right.dart';
+import 'package:dev_community/pages/board/widgets/detail-page-widgets/profile_content.dart';
+import 'package:dev_community/pages/board/widgets/detail-page-widgets/profile_image.dart';
+import 'package:dev_community/pages/board/widgets/detail-page-widgets/upper_right.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'bookmark-manager.dart';
-import 'confirm-dialog.dart';
+import '../../../../dtos/bookmark/bookmark_manager.dart';
 
 class Profile extends ConsumerWidget {
-  var profileImg;
-  var name;
-  var content;
+  final int boardId;
+  final String profileImg;
+  final String name;
+  final String? content;
+  final bool isBookMark;
 
   Profile({
+    required this.boardId,
     required this.profileImg,
     required this.name,
     required this.content,
+    required this.isBookMark,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final bookmarkManager = ref.watch(bookmarkManagerProvider);
-    final bookmarkManagerNotifier = ref.read(bookmarkManagerProvider.notifier);
-
+    // 상태 초기화: 서버에서 받은 isBookMark 값을 초기 상태로 설정
+    final bookmarkManagerState = ref.watch(bookmarkManagerProvider(isBookMark));
+    final bookmarkManagerNotifier = ref.read(bookmarkManagerProvider(isBookMark).notifier);
     return Row(
       children: [
         ProfileImage(profileImg),
@@ -33,19 +35,11 @@ class Profile extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             UpperRight(
-              bookmarkManager ? Icons.bookmark : Icons.bookmark_border,
+              bookmarkManagerState ? Icons.bookmark : Icons.bookmark_border,
               30,
-              bookmarkManager ? Colors.yellow : Colors.black,
-              onTap: () {
-                bookmarkManagerNotifier.toggleBookmark();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      bookmarkManager ? '북마크를 추가하였습니다.' : '북마크를 제거하였습니다.',
-                    ),
-                    duration: Duration(seconds: 2),
-                  ),
-                );
+              bookmarkManagerState ? Colors.yellow : Colors.black,
+              onTap: () async {
+                await bookmarkManagerNotifier.toggleBookmark(boardId);
               },
             ),
             SizedBox(width: 10),

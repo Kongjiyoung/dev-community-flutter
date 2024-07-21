@@ -1,5 +1,5 @@
 import 'package:dev_community/_core/constants/move.dart';
-import 'package:dev_community/dtos/board/board-request.dart';
+import 'package:dev_community/dtos/board/board_request.dart';
 import 'package:dev_community/dtos/board/board_response.dart';
 import 'package:dev_community/dtos/repository/board_repository.dart';
 import 'package:dev_community/dtos/response_dto.dart';

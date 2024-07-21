@@ -35,6 +35,6 @@ class BoardDetailViewModel extends StateNotifier<BoardDetailModel?> {
 
 final boardDetailProvider = StateNotifierProvider.family
     .autoDispose<BoardDetailViewModel, BoardDetailModel?, int>(
-        (ref, challengeId) {
-      return BoardDetailViewModel(null, ref)..notifyInit(challengeId);
+        (ref, boardId) {
+      return BoardDetailViewModel(null, ref)..notifyInit(boardId);
     });

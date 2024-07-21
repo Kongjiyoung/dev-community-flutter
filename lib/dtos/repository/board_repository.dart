@@ -2,7 +2,7 @@ import 'package:dev_community/_core/constants/http.dart';
 import 'package:dev_community/dtos/board/board_response.dart';
 import 'package:dev_community/dtos/response_dto.dart';
 
-import '../board/board-request.dart';
+import '../board/board_request.dart';
 
 class BoardRepository {
   Future<ResponseDTO> fetchBoardList({int page = 1}) async {

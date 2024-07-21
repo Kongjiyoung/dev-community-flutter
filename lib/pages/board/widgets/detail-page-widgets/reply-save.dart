@@ -1,9 +1,9 @@
-import 'package:dev_community/pages/board/widgets/detail-page-widgets/profile-image.dart';
+import 'package:dev_community/pages/board/widgets/detail-page-widgets/profile_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../dtos/repository/reply_repository.dart';
 import '../../../../dtos/reply/reply_request.dart';
-import '../../viewmodal/board-detail-viewmodel.dart';
+import '../../viewmodal/board_detail_viewmodel.dart';
 
 class ReplySave extends ConsumerStatefulWidget {
   final String profileImg;

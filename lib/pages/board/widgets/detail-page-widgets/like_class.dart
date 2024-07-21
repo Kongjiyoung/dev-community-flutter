@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'like-manager.dart';
+import '../../../../dtos/like/like_manager.dart';
 import 'like.dart';
 
 class LikeClass extends ConsumerWidget {
