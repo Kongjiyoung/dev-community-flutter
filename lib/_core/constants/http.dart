@@ -4,6 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 // Spring 서버 주소 (서버 열어 놓은 컴퓨터)
 String serverAddress = "http://192.168.0.13:8080";
 
+
 final dio = Dio(
   BaseOptions(
     baseUrl: serverAddress, // IPConfig 로 ip 확인하기⁷
