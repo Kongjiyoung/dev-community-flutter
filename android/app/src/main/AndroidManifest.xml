@@ -1,14 +1,24 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
-        android:label="dev_community"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:label="dev_community">
+        <meta-data
+            android:name="com.naver.sdk.clientId"
+            android:value="@string/client_id" />
+        <meta-data
+            android:name="com.naver.sdk.clientSecret"
+            android:value="@string/client_secret" />
+        <meta-data
+            android:name="com.naver.sdk.clientName"
+            android:value="@string/client_name" />
 
         <!-- 카카오 로그인 커스텀 URL 스킴 설정 -->
         <activity
             android:name="com.kakao.sdk.flutter.AuthCodeCustomTabsActivity"
             android:exported="true">
+
             <intent-filter android:label="flutter_web_auth">
                 <action android:name="android.intent.action.VIEW" />
 
@@ -18,18 +28,18 @@
                 <!-- "kakao${YOUR_NATIVE_APP_KEY}://oauth" 형식의 앱 실행 스킴 설정 -->
                 <!-- 카카오 로그인 Redirect URI -->
                 <data
-                    android:scheme="kakaobfa341b9c46dc9b681af30f3323c5dce"
-                    android:host="oauth" />
+                    android:host="oauth"
+                    android:scheme="kakaobfa341b9c46dc9b681af30f3323c5dce" />
             </intent-filter>
         </activity>
 
         <activity
             android:name=".MainActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:exported="true"
+            android:hardwareAccelerated="true"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
-            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-            android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize">
             <!-- Specifies an Android theme to apply to this Activity as soon as
                  the Android process has started. This theme is visible to the user
