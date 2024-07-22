@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:dev_community/pages/board/viewmodal/board_detail_viewmodel.dart';
 import 'package:dev_community/pages/board/widgets/detail-page-widgets/board_all.dart';
 import 'package:dev_community/pages/board/widgets/detail-page-widgets/reply-save.dart';
+import 'package:dev_community/pages/home/viewmodel/home_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -51,6 +52,15 @@ class _BoardDetailPageState extends ConsumerState<BoardDetailPage> {
       loadContent(boardContent); // Quill 컨트롤러를 초기화
       return Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              if (model.isChanged == true) {
+                ref.read(homeBoardListProvider.notifier).notifyInit();
+              }
+              Navigator.of(context).pop();
+            },
+          ),
           bottom: PreferredSize(
             preferredSize: Size.fromHeight(20.0),
             child: Container(
@@ -72,11 +82,8 @@ class _BoardDetailPageState extends ConsumerState<BoardDetailPage> {
               boardDetailDTO: model.boardDetailDTO,
               quillController: _quillController,
             ),
-            ReplySave(
-              model.boardDetailDTO.userImage,
-              model.boardDetailDTO.boardId,
-              viewmodel
-            ),
+            ReplySave(model.boardDetailDTO.userImage,
+                model.boardDetailDTO.boardId, viewmodel),
           ],
         ),
       );

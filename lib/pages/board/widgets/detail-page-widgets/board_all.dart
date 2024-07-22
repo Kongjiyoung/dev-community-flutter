@@ -5,7 +5,6 @@ import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'board.dart';
-import '../../../../dtos/like/like_manager.dart';
 import 'profile.dart';
 
 class BoardAll extends ConsumerWidget {
@@ -21,7 +20,6 @@ class BoardAll extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final likeManager = ref.watch(likeManagerProvider.notifier);
 
     return Padding(
       padding: EdgeInsets.all(20),
@@ -42,11 +40,14 @@ class BoardAll extends ConsumerWidget {
                   replies: boardDetailDTO.replies,
                   title: boardDetailDTO.boardTitle,
                   quillController: _quillController,
-                  likeManager: likeManager,
                   createdAt: boardDetailDTO.boardCreatedAtDuration,
                   images: boardDetailDTO.images,
                   replyCount: boardDetailDTO.replyCount,
                   boardHit: boardDetailDTO.boardHit,
+                  viewmodel: viewmodel,
+                  isLiked: boardDetailDTO.myLike,
+                  likeCount: boardDetailDTO.likeCount,
+                  boardId: boardDetailDTO.boardId,
                 ),
               ],
             ),

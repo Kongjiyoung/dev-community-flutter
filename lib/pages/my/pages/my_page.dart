@@ -12,36 +12,42 @@ class MyPage extends ConsumerWidget {
     MyPageModel? model = ref.watch(myPageProvider);
     MyPageViewmodel viewmodel = ref.read(myPageProvider.notifier);
 
-    return DefaultTabController(
-      length: 2,
-      child: Builder(
-        builder: (context) {
-          final tabController = DefaultTabController.of(context);
-          bool hasInitialized = false;
-          if (!tabController.hasListeners) {
-            tabController.addListener(() {
-              if (tabController.indexIsChanging && !hasInitialized) {
-                hasInitialized = true; // 호출 후 플래그 설정
-                if (tabController.index == 1) {
-                  viewmodel.getListForTab("replies");
+    if (model == null) {
+      return const Center(
+          child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.black26)));
+    } else {
+      return DefaultTabController(
+        length: 2,
+        child: Builder(
+          builder: (context) {
+            final tabController = DefaultTabController.of(context);
+            bool hasInitialized = false;
+            if (!tabController.hasListeners) {
+              tabController.addListener(() {
+                if (tabController.indexIsChanging && !hasInitialized) {
+                  hasInitialized = true; // 호출 후 플래그 설정
+                  if (tabController.index == 1) {
+                    viewmodel.getListForTab("replies");
+                  }
                 }
-              }
-            });
-          }
+              });
+            }
 
-          return NestedScrollView(
-            headerSliverBuilder: (context, innerBoxIsScrolled) {
-              return [
-                MyProfileSliverAppBar(model!.myPageDTO),
-              ];
-            },
-            body: MyProfileTabBarView(
-              myPageDTO: model!.myPageDTO,
-              myPageViewmodel: viewmodel,
-            ),
-          );
-        },
-      ),
-    );
+            return NestedScrollView(
+              headerSliverBuilder: (context, innerBoxIsScrolled) {
+                return [
+                  MyProfileSliverAppBar(model!.myPageDTO),
+                ];
+              },
+              body: MyProfileTabBarView(
+                myPageDTO: model!.myPageDTO,
+                myPageViewmodel: viewmodel,
+              ),
+            );
+          },
+        ),
+      );
+    }
   }
 }

@@ -2,30 +2,35 @@ import 'package:dev_community/pages/board/widgets/detail-page-widgets/reply_all.
 import 'package:dev_community/pages/board/widgets/detail-page-widgets/title.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
-
 import '../../../../dtos/board/board_response.dart';
+import '../../viewmodal/board_detail_viewmodel.dart';
 import 'content.dart';
-import '../../../../dtos/like/like_manager.dart';
 
 class Board extends StatelessWidget {
   final String title;
   final quill.QuillController _quillController;
-  final LikeManager likeManager;
   final int boardHit;
   final List<BoardImagesDTO> images;
   final String createdAt;
   final int replyCount;
+  final int likeCount;
+  final int boardId;
+  final bool isLiked;
   final List<ReplyDTO> replies;
+  final BoardDetailViewModel viewmodel;
 
   const Board({
     required this.title,
     required quill.QuillController quillController,
-    required this.likeManager,
     required this.createdAt,
     required this.replyCount,
     required this.images,
     required this.boardHit,
     required this.replies,
+    required this.viewmodel,
+    required this.isLiked,
+    required this.likeCount,
+    required this.boardId,
   }) : _quillController = quillController;
 
   @override
@@ -43,8 +48,11 @@ class Board extends StatelessWidget {
                 MyTitle(title: title),
                 Content2(
                   quillController: _quillController,
-                  likeManager: likeManager,
+                  isLiked: isLiked,
                   images: images,
+                  viewmodel: viewmodel,
+                  likeCount: likeCount,
+                  boardId: boardId,
                 ),
                 ReplyAll(
                   replies: replies,
@@ -65,7 +73,8 @@ class Board extends StatelessWidget {
               height: 50, // Adjust the height as needed
               color: Colors.white, // Adjust the color as needed
               child: Center(
-                child: Text('Fixed Footer Content'), // Replace with your desired widget
+                child: Text(
+                    'Fixed Footer Content'), // Replace with your desired widget
               ),
             ),
           ),

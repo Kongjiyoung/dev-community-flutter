@@ -1,3 +1,4 @@
+import 'package:dev_community/_core/constants/http.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import '../../board/detail_page.dart';
@@ -57,7 +58,7 @@ class BuildPost extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 20,
-                backgroundImage: NetworkImage(profileImage),
+                backgroundImage: NetworkImage(serverAddress + profileImage),
               ),
               SizedBox(width: 16),
               Column(

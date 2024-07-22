@@ -2,19 +2,24 @@ import 'package:dev_community/dtos/board/board_response.dart';
 import 'package:dev_community/pages/board/widgets/detail-page-widgets/board_imgs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
-
+import '../../viewmodal/board_detail_viewmodel.dart';
 import 'like_class.dart';
-import '../../../../dtos/like/like_manager.dart';
 
 class Content2 extends StatelessWidget {
   final quill.QuillController _quillController;
   final List<BoardImagesDTO> images;
-  final LikeManager likeManager;
+  final BoardDetailViewModel viewmodel;
+  final bool isLiked;
+  final int likeCount;
+  final int boardId;
 
   const Content2({
     required quill.QuillController quillController,
-    required this.likeManager,
     required this.images,
+    required this.viewmodel,
+    required this.isLiked,
+    required this.likeCount,
+    required this.boardId,
   }) : _quillController = quillController;
 
   @override
@@ -32,7 +37,7 @@ class Content2 extends StatelessWidget {
             scrollController: ScrollController(),
           ),
           SizedBox(height: 10),
-          LikeClass(),
+          LikeClass(viewmodel, isLiked, likeCount, boardId),
           SizedBox(height: 10),
         ],
       );
@@ -51,7 +56,7 @@ class Content2 extends StatelessWidget {
           SizedBox(height: 10),
           BoardImgs(images.length, images),
           SizedBox(height: 10),
-          LikeClass(),
+          LikeClass(viewmodel, isLiked, likeCount, boardId),
           SizedBox(height: 10),
         ],
       );

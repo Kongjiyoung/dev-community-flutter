@@ -14,7 +14,6 @@ class PostView extends StatefulWidget {
   final List<Content> contentList;
   final HomeViewmodel homeViewmodel;
 
-
   PostView({required this.contentList, required this.homeViewmodel});
 
   @override
@@ -24,7 +23,6 @@ class PostView extends StatefulWidget {
 class _HomeViewState extends State<PostView> {
   late ScrollController boardScrollController;
   late quill.QuillController _quillController;
-
 
   void loadContent(String jsonString) {
     var document = quill.Document.fromJson(jsonDecode(jsonString));
@@ -55,37 +53,36 @@ class _HomeViewState extends State<PostView> {
 
   @override
   Widget build(BuildContext context) {
-    return
-      Expanded(
-        child: widget.contentList.isEmpty
-            ? Center(child: Text("작성한 게시물 없음"))
-            : ListView.builder(
-          controller: boardScrollController,
-          physics: AlwaysScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: widget.contentList.length,
-          itemBuilder: (context, index) {
-            final post = widget.contentList[index];
-            loadContent(post.boardContent);
-            return Column(
-              children: [
-                BuildPost(
-                  boardId: widget.contentList[index].boardId,
-                  name: widget.contentList[index].userNickname!,
-                  job: widget.contentList[index].userPosition,
-                  time: widget.contentList[index].boardCreatedAtDuration!,
-                  title: widget.contentList[index].boardTitle!,
-                  content: _quillController!,
-                  profileImage: widget.contentList[index].userImage,
-                  views: widget.contentList[index].boardHit!,
-                  loveCount: widget.contentList[index].likeCount!,
-                  replyCount: widget.contentList[index].replyCount!,
-                ),
-                SizedBox(height: 10),
-              ],
-            );
-          },
-        ),
-      );
+    return Expanded(
+      child: widget.contentList.isEmpty
+          ? Center(child: Text("작성한 게시물 없음"))
+          : ListView.builder(
+              controller: boardScrollController,
+              physics: AlwaysScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: widget.contentList.length,
+              itemBuilder: (context, index) {
+                final post = widget.contentList[index];
+                loadContent(post.boardContent);
+                return Column(
+                  children: [
+                    BuildPost(
+                      boardId: widget.contentList[index].boardId,
+                      name: widget.contentList[index].userNickname!,
+                      job: widget.contentList[index].userPosition,
+                      time: widget.contentList[index].boardCreatedAtDuration!,
+                      title: widget.contentList[index].boardTitle!,
+                      content: _quillController!,
+                      profileImage: widget.contentList[index].userImage,
+                      views: widget.contentList[index].boardHit!,
+                      loveCount: widget.contentList[index].likeCount!,
+                      replyCount: widget.contentList[index].replyCount!,
+                    ),
+                    SizedBox(height: 10),
+                  ],
+                );
+              },
+            ),
+    );
   }
 }
