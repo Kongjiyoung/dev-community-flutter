@@ -44,6 +44,8 @@ dependencies:
   flutter_quill: ^9.5.7
   image_picker: ^1.1.2
   tuple: ^2.0.2
+  kakao_flutter_sdk: ^1.9.2
+  flutter_naver_login: ^1.8.0
 
 dev_dependencies:
   flutter_test:

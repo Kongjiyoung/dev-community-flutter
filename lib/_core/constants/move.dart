@@ -2,8 +2,8 @@ import 'package:dev_community/pages/auth/join.dart';
 import 'package:dev_community/pages/auth/login.dart';
 import 'package:dev_community/pages/auth/welcome_page.dart';
 import 'package:dev_community/pages/home/home_page.dart';
-import 'package:dev_community/pages/home/popular-post-page.dart';
-import 'package:dev_community/pages/home/saved-post-page.dart';
+import 'package:dev_community/pages/home/popular_post_page.dart';
+import 'package:dev_community/pages/home/saved_post_page.dart';
 import 'package:dev_community/pages/main_page.dart';
 import 'package:dev_community/pages/my/pages/my_page.dart';
 import 'package:dev_community/pages/my/pages/profile_update.dart';
@@ -27,7 +27,7 @@ Map<String, Widget Function(BuildContext)> getRouters() {
     Move.loginPage: (context) => const LoginPage(),
     Move.joinPage: (context) => const JoinPage(),
     Move.mainPage: (context) => const MainPage(),
-    Move.homePage: (context) => const HomePage(),
+    Move.homePage: (context) => HomePage(),
     Move.myPage: (context) => const MyPage(),
     Move.profileUpdatePage: (context) => const ProfileUpdatePage(),
     Move.savedPostPage: (context) => SavedPostPage(),

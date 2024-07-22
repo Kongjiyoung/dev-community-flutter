@@ -1,7 +1,7 @@
 import 'package:dev_community/pages/my/pages/profile_detail.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_quill/flutter_quill.dart' as quill;
 import '../../board/detail_page.dart';
 
 class BuildPost extends StatelessWidget {
@@ -11,8 +11,12 @@ class BuildPost extends StatelessWidget {
   final String? job;
   final String time;
   final String title;
-  final String content;
+  final quill.QuillController content;
   final String profileImage;
+  final int views;
+  final int loveCount;
+  final int replyCount;
+  final int maxContentLength = 60; // 최대 글자 수 설정
   final views;
   final loveCount;
   final replyCount;
@@ -37,8 +41,26 @@ class BuildPost extends StatelessWidget {
     required this.isBookmark,
   });
 
+  String _truncateText(String text, int maxLength) {
+    if (text.length <= maxLength) {
+      return text;
+    } else {
+      return '${text.substring(0, maxLength)}...';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    String truncatedContent = _truncateText(content.document.toPlainText(), maxContentLength);
+
+    quill.QuillController truncatedContentController = quill.QuillController(
+      document: quill.Document()..insert(0, truncatedContent),
+      selection: TextSelection.collapsed(offset: 0),
+    );
+
+    truncatedContentController.readOnly = true;
+
+
     return Container(
       padding: const EdgeInsets.fromLTRB(25, 20, 25, 20),
       color: Color(0xFFF5FEF5),
@@ -57,7 +79,7 @@ class BuildPost extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 20,
-                  backgroundImage: NetworkImage(profileImage),
+                  backgroundImage: NetworkImage(serverAddress + profileImage),
                 ),
                 SizedBox(width: 16),
                 Column(
@@ -94,13 +116,13 @@ class BuildPost extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 8),
-                RichText(
-                  text: TextSpan(
-                    text: content.length > 40
-                        ? content.substring(0, 40) + "..."
-                        : content,
-                    style: TextStyle(fontSize: 16, color: Colors.black),
+                quill.QuillEditor(
+                  configurations: quill.QuillEditorConfigurations(
+                    controller: truncatedContentController,
+                    customStyles: quill.DefaultStyles(),
                   ),
+                  focusNode: FocusNode(),
+                  scrollController: ScrollController(),
                 ),
                 SizedBox(height: 20),
               ],
@@ -109,7 +131,7 @@ class BuildPost extends StatelessWidget {
           Row(
             children: [
               Text("조회 "),
-              Text("${views}"),
+              Text("$views"),
               Spacer(),
               TextButton(
                 onPressed: () {
@@ -128,7 +150,7 @@ class BuildPost extends StatelessWidget {
                         color: Color(0xFFafe897),
                       ),
                     Text(
-                      "${loveCount}",
+                      "$loveCount",
                       style: TextStyle(
                         fontSize: 14,
                         color: Color(0xff323b27),
@@ -149,7 +171,7 @@ class BuildPost extends StatelessWidget {
                       color: Color(0xFFafe897),
                     ),
                     Text(
-                      "${replyCount}",
+                      "$replyCount",
                       style: TextStyle(
                         fontSize: 14,
                         color: Color(0xff323b27),

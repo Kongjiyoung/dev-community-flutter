@@ -1,17 +1,21 @@
+import 'dart:convert';
+
 import 'package:dev_community/pages/board/save_page.dart';
-import 'package:dev_community/pages/home/popular-post-page.dart';
-import 'package:dev_community/pages/home/saved-post-page.dart';
+import 'package:dev_community/pages/home/popular_post_page.dart';
+import 'package:dev_community/pages/home/saved_post_page.dart';
 import 'package:dev_community/pages/home/viewmodel/home_viewmodel.dart';
 import 'package:dev_community/pages/home/widgets/build-post.dart';
+import 'package:dev_community/pages/home/widgets/post_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HomePage extends ConsumerWidget {
-  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     HomeModel? model = ref.watch(homeBoardListProvider);
+    HomeViewmodel viewmodel = ref.read(homeBoardListProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -118,34 +122,10 @@ class HomePage extends ConsumerWidget {
                     ],
                   ),
                 ),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: model!.contentList!.length,
-                    itemBuilder: (context, index) {
-                      final post = model.contentList![index];
-                      return Column(
-                        children: [
-                          BuildPost(
-                            userId: post.userId,
-                            boardId: post.boardId,
-                            name: post.userNickname!,
-                            job: post.userPosition,
-                            time: post.boardCreatedAtDuration!,
-                            title: post.boardTitle!,
-                            content: post.boardContent!,
-                            profileImage: post.userImage,
-                            views: post.boardHit!,
-                            loveCount: post.likeCount!,
-                            replyCount: post.replyCount!,
-                            isLove: post.myLike  == "true",
-                            isBookmark: post.myBookmark  == "true",
-                          ),
-                          SizedBox(height: 10),
-                        ],
-                      );
-                    },
-                  ),
-                ),
+                PostView(
+                  contentList: model!.contentList,
+                  homeViewmodel: viewmodel,
+                )
               ],
             ),
       floatingActionButton: FloatingActionButton(
@@ -153,7 +133,7 @@ class HomePage extends ConsumerWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => SavePage(),
+              builder: (context) => SavePage(viewmodel),
             ),
           );
         },

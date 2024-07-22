@@ -1,5 +1,5 @@
-import 'package:dev_community/pages/board/widgets/detail-page-widgets/profile-content.dart';
-import 'package:dev_community/pages/board/widgets/detail-page-widgets/profile-image.dart';
+import 'package:dev_community/pages/board/widgets/detail-page-widgets/profile_content.dart';
+import 'package:dev_community/pages/board/widgets/detail-page-widgets/profile_image.dart';
 import 'package:flutter/material.dart';
 
 class ReplyUp extends StatelessWidget {
