@@ -57,6 +57,8 @@ class SessionStore extends SessionUser {
 
         if (responseDTO.status == 200) {
           await secureStorage.write(key: "accessToken", value: accessToken);
+          await secureStorage.write(
+              key: "kakaoAccessToken", value: token.accessToken);
           this.accessToken = accessToken;
           this.isLogin = true;
           this.loginType = "kakao";
