@@ -7,20 +7,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 
 import '../../../dtos/board/board_response.dart';
+import '../viewmodel/bookmark_viewmodel.dart';
 import '../viewmodel/home_viewmodel.dart';
 import 'build-post.dart';
 
-class PostView extends StatefulWidget {
-  final List<Content> contentList;
-  final HomeViewmodel homeViewmodel;
+class SavedPostView extends StatefulWidget {
+  final List<BookmarkContent> contentList;
+  final BookmarkViewmodel bookmarkViewmodel;
 
-  PostView({required this.contentList, required this.homeViewmodel});
+  SavedPostView({required this.contentList, required this.bookmarkViewmodel});
 
   @override
-  _HomeViewState createState() => _HomeViewState();
+  _SaveHomeViewState createState() => _SaveHomeViewState();
 }
 
-class _HomeViewState extends State<PostView> {
+class _SaveHomeViewState extends State<SavedPostView> {
   late ScrollController boardScrollController;
   late quill.QuillController _quillController;
 
@@ -40,7 +41,7 @@ class _HomeViewState extends State<PostView> {
       ..addListener(() {
         if (boardScrollController.position.pixels ==
             boardScrollController.position.maxScrollExtent) {
-          widget.homeViewmodel.getListForTab();
+          widget.bookmarkViewmodel.getListForTab();
         }
       });
   }
@@ -70,15 +71,15 @@ class _HomeViewState extends State<PostView> {
                       boardId: widget.contentList[index].boardId,
                       name: widget.contentList[index].userNickname!,
                       job: widget.contentList[index].userPosition,
-                      time: widget.contentList[index].boardCreatedAtDuration!,
+                      time: widget.contentList[index].boardCreatedAt!,
                       title: widget.contentList[index].boardTitle!,
                       content: _quillController!,
                       profileImage: widget.contentList[index].userImage,
-                      views: widget.contentList[index].boardHit!,
-                      loveCount: widget.contentList[index].likeCount!,
+                      views: widget.contentList[index].boardViews!,
+                      loveCount: widget.contentList[index].loveCount!,
                       replyCount: widget.contentList[index].replyCount!,
-                      isLove : widget.contentList[index].myLike!,
-                      isBookmark : widget.contentList[index].myBookmark,
+                      isLove : widget.contentList[index].love!,
+                      isBookmark : widget.contentList[index].bookmark,
                       userId: widget.contentList[index].userId,
                     ),
                     SizedBox(height: 10),

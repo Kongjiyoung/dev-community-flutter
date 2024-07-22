@@ -44,10 +44,6 @@ class BoardRepository {
   Future<ResponseDTO> fetchBoardDetail(int boardId) async {
     final response = await dio.get("/api/boards/${boardId}/detail");
 
-  Future<ResponseDTO> fetchBoardDetail({int boardId = 1}) async {
-    try {
-      final response = await dio.get("/api/boards/${boardId}/detail");
-
     // 서버에서 받은 데이터를 ResponseDTO로 변환
     ResponseDTO responseDTO = ResponseDTO.fromJson(response.data);
 
@@ -75,7 +71,7 @@ class BoardRepository {
     return responseDTO;
   }
 
-  Future<ResponseDTO> fetchBookmarkBoardList({int page = 1}) async {
+  Future<ResponseDTO> fetchBookmarkBoardList({int? page}) async {
     final response = await dio.get("/api/bookmark/list?page=${page}");
 
     ResponseDTO responseDTO = ResponseDTO.fromJson(response.data);

@@ -2,6 +2,7 @@ import 'package:dev_community/pages/my/pages/profile_detail.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
+import '../../../_core/constants/http.dart';
 import '../../board/detail_page.dart';
 
 class BuildPost extends StatelessWidget {
@@ -17,10 +18,6 @@ class BuildPost extends StatelessWidget {
   final int loveCount;
   final int replyCount;
   final int maxContentLength = 60; // 최대 글자 수 설정
-  final views;
-  final loveCount;
-  final replyCount;
-  // final bookmarkCount;
   final bool isLove;
   final bool isBookmark;
 
@@ -36,7 +33,6 @@ class BuildPost extends StatelessWidget {
     required this.views,
     required this.loveCount,
     required this.replyCount,
-    // required this.bookmarkCount,
     required this.isLove,
     required this.isBookmark,
   });
