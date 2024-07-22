@@ -8,8 +8,13 @@ import '../../viewmodal/board_detail_viewmodel.dart';
 class ReplySave extends ConsumerStatefulWidget {
   final String profileImg;
   final int boardId;
+  final BoardDetailViewModel viewmodel;
 
-  ReplySave(this.profileImg, this.boardId);
+  ReplySave(
+    this.profileImg,
+    this.boardId,
+    this.viewmodel
+  );
 
   @override
   _ReplySaveState createState() => _ReplySaveState();
@@ -17,40 +22,6 @@ class ReplySave extends ConsumerStatefulWidget {
 
 class _ReplySaveState extends ConsumerState<ReplySave> {
   final TextEditingController _commentController = TextEditingController();
-
-  Future<void> _submitComment() async {
-    final comment = _commentController.text.trim();
-    if (comment.isEmpty) {
-      // 댓글이 비어 있으면 아무 것도 하지 않음
-      return;
-    }
-
-    try {
-      final replyRepository = ReplyRepository();
-      final responseDTO = await replyRepository.replySave(widget.boardId, ReplySaveDTO(comment));
-
-      if (responseDTO.status == 200) {
-        // 댓글 작성 성공
-
-        _commentController.clear(); // 입력 필드 초기화
-
-        // 필요하다면 댓글 목록을 갱신하거나 다른 상태 업데이트를 수행할 수 있습니다.
-        // 댓글 작성 후 게시글 상세정보를 다시 로드하여 상태를 업데이트
-        ref.read(boardDetailProvider(widget.boardId).notifier).addReply(widget.boardId);
-      } else {
-        // 댓글 작성 실패
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("댓글 작성 실패: ${responseDTO.msg}")),
-        );
-      }
-    } catch (e) {
-      // 오류 발생 시
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("댓글 작성 중 오류가 발생했습니다.")),
-      );
-      print('Error: $e');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +60,16 @@ class _ReplySaveState extends ConsumerState<ReplySave> {
                       style: TextButton.styleFrom(
                         backgroundColor: Colors.transparent,
                       ),
-                      onPressed: _submitComment,
+                      onPressed: () async {
+                        if (_commentController.text.isEmpty) {
+                          // 댓글이 비어 있으면 아무 것도 하지 않음
+                          return;
+                        }
+                        bool success = await widget.viewmodel.replySave(widget.boardId, _commentController.text);
+                        if (success) {
+                          _commentController.clear();
+                        }
+                      },
                       child: Text(
                         '등록',
                         style: TextStyle(color: Colors.black),
