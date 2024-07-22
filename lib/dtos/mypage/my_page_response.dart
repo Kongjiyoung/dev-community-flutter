@@ -2,8 +2,8 @@ class MyPageDTO {
   final int userId;
   final String image;
   final String nickname;
-  final String position;
-  final String introduce;
+  final String? position;
+  final String? introduce;
   final List<MyBoardList> myBoardList;
   final List<MyReplyList> myReplyList;
 
@@ -11,8 +11,8 @@ class MyPageDTO {
     required this.userId,
     required this.image,
     required this.nickname,
-    required this.position,
-    required this.introduce,
+    this.position,
+    this.introduce,
     required this.myBoardList,
     required this.myReplyList,
   });
