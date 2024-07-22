@@ -1,3 +1,4 @@
+import 'package:dev_community/pages/my/pages/profile_detail.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -5,6 +6,7 @@ import '../../board/detail_page.dart';
 
 class BuildPost extends StatelessWidget {
   final int boardId;
+  final int userId;
   final String name;
   final String? job;
   final String time;
@@ -14,12 +16,13 @@ class BuildPost extends StatelessWidget {
   final views;
   final loveCount;
   final replyCount;
-  final bookmarkCount;
+  // final bookmarkCount;
   final bool isLove;
   final bool isBookmark;
 
   const BuildPost({
     required this.boardId,
+    required this.userId,
     required this.name,
     required this.job,
     required this.time,
@@ -29,7 +32,7 @@ class BuildPost extends StatelessWidget {
     required this.views,
     required this.loveCount,
     required this.replyCount,
-    required this.bookmarkCount,
+    // required this.bookmarkCount,
     required this.isLove,
     required this.isBookmark,
   });
@@ -46,7 +49,7 @@ class BuildPost extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => BoardDetailPage(boardId), //프로필페이지로 바꾸기
+                  builder: (context) => ProfileDetail(userId), //프로필페이지로 바꾸기
                 ),
               );
             },
@@ -93,27 +96,8 @@ class BuildPost extends StatelessWidget {
                 SizedBox(height: 8),
                 RichText(
                   text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: content,
-                        style: TextStyle(fontSize: 16, color: Colors.black),
-                      ),
-                      TextSpan(
-                        text: "더보기",
-                        style: TextStyle(fontSize: 16, color: Colors.blue),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => BoardDetailPage(boardId),
-                              ),
-                            );
-                          },
-                      ),
-                    ],
                     text: content.length > 40
-                        ? content.substring(0, 40)+ "..."
+                        ? content.substring(0, 40) + "..."
                         : content,
                     style: TextStyle(fontSize: 16, color: Colors.black),
                   ),
@@ -191,13 +175,13 @@ class BuildPost extends StatelessWidget {
                         Icons.bookmark_add_outlined,
                         color: Color(0xFFafe897),
                       ),
-                    Text(
-                      "${bookmarkCount}",
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Color(0xff323b27),
-                      ),
-                    )
+                    // Text(
+                    //   "${bookmarkCount}",
+                    //   style: TextStyle(
+                    //     fontSize: 14,
+                    //     color: Color(0xff323b27),
+                    //   ),
+                    // )
                   ],
                 ),
               ),

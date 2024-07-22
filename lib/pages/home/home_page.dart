@@ -126,6 +126,7 @@ class HomePage extends ConsumerWidget {
                       return Column(
                         children: [
                           BuildPost(
+                            userId: post.userId,
                             boardId: post.boardId,
                             name: post.userNickname!,
                             job: post.userPosition,
@@ -136,7 +137,6 @@ class HomePage extends ConsumerWidget {
                             views: post.boardHit!,
                             loveCount: post.likeCount!,
                             replyCount: post.replyCount!,
-                            bookmarkCount: post.bookmarkCount!,
                             isLove: post.myLike  == "true",
                             isBookmark: post.myBookmark  == "true",
                           ),

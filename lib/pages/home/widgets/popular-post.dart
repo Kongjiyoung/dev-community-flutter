@@ -111,7 +111,7 @@ class PopularPost extends StatelessWidget {
                     Spacer(),
                     CircleAvatar(
                       radius: 30,
-                      backgroundImage: AssetImage("assets/images/logo.png"),
+                      backgroundImage: NetworkImage(userImage),
                     )
                   ],
                 ),

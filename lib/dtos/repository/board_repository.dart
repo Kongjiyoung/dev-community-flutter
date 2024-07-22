@@ -64,4 +64,22 @@ class BoardRepository {
       throw Exception('Error: $e');
     }
   }
+
+  Future<ResponseDTO> fetchBookmarkBoardList({int page = 1}) async {
+    final response = await dio.get("/api/bookmark/list?page=${page}");
+
+    ResponseDTO responseDTO = ResponseDTO.fromJson(response.data);
+
+    if (responseDTO.status == 200) {
+      List<dynamic> prevContentList = responseDTO.body["boardDTO"];
+
+      List<BookmarkContent> newContentList =
+      prevContentList.map((bookmarkContent) => BookmarkContent.fromJson(bookmarkContent)).toList();
+
+      responseDTO.body = newContentList;
+    }
+
+    return responseDTO;
+  }
+
 }
