@@ -59,9 +59,13 @@ class WelcomePage extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min, // Column이 가능한 최소 크기만큼만 차지하도록 설정합니다.
           children: [
             OauthLoginButton(
-                assetImage: "assets/images/naver_button.png",
-                height: 64.0,
-                width: 250.0),
+              assetImage: "assets/images/naver_button.png",
+              height: 64.0,
+              width: 250.0,
+              onTap: () {
+                sessionStore.naverLogin();
+              },
+            ),
             SizedBox(height: 20),
             OauthLoginButton(
               assetImage: "assets/images/kakao_button.png",

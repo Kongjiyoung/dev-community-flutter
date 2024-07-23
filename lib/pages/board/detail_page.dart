@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:dev_community/pages/board/viewmodal/board_detail_viewmodel.dart';
 import 'package:dev_community/pages/board/widgets/detail-page-widgets/board_all.dart';
 import 'package:dev_community/pages/board/widgets/detail-page-widgets/reply-save.dart';
+import 'package:dev_community/pages/home/viewmodel/home_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -39,14 +40,27 @@ class _BoardDetailPageState extends ConsumerState<BoardDetailPage> {
   @override
   Widget build(BuildContext context) {
     BoardDetailModel? model = ref.watch(boardDetailProvider(boardId));
+    BoardDetailViewModel viewmodel =
+        ref.read(boardDetailProvider(boardId).notifier);
 
     if (model == null) {
-      return const Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.black26)));
+      return const Center(
+          child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.black26)));
     } else {
       final boardContent = model.boardDetailDTO.boardContent;
       loadContent(boardContent); // Quill 컨트롤러를 초기화
       return Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              if (model.isChanged == true) {
+                ref.read(homeBoardListProvider.notifier).notifyInit();
+              }
+              Navigator.of(context).pop();
+            },
+          ),
           bottom: PreferredSize(
             preferredSize: Size.fromHeight(20.0),
             child: Container(
@@ -64,20 +78,12 @@ class _BoardDetailPageState extends ConsumerState<BoardDetailPage> {
         body: Stack(
           children: [
             BoardAll(
-              boardId: model.boardDetailDTO.boardId,
-              title: model.boardDetailDTO.boardTitle,
-              content: model.boardDetailDTO.userPosition,
-              name: model.boardDetailDTO.userNickname,
-              profileImg: model.boardDetailDTO.userImage,
-              replies: model.boardDetailDTO.replies,
-              images: model.boardDetailDTO.images,
+              viewmodel: viewmodel,
+              boardDetailDTO: model.boardDetailDTO,
               quillController: _quillController,
-              boardHit: model.boardDetailDTO.boardHit,
-              replyCount: model.boardDetailDTO.replyCount,
-              isBookMark: model.boardDetailDTO.myBookmark,
-              createdAt: model.boardDetailDTO.boardCreatedAtDuration,
             ),
-            ReplySave(model.boardDetailDTO.userImage, model.boardDetailDTO.boardId),
+            ReplySave(model.boardDetailDTO.userImage,
+                model.boardDetailDTO.boardId, viewmodel),
           ],
         ),
       );

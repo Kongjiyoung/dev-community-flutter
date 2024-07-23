@@ -4,6 +4,7 @@ import 'package:dev_community/dtos/repository/user_repository.dart';
 import 'package:dev_community/dtos/user/user_request.dart';
 import 'package:dev_community/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_naver_login/flutter_naver_login.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 
@@ -73,6 +74,35 @@ class SessionStore extends SessionUser {
         ScaffoldMessenger.of(mContext!)
             .showSnackBar(SnackBar(content: Text("카카오 로그인 실패 : ${error}")));
       }
+    }
+  }
+
+  Future<void> naverLogin() async {
+    try {
+      await FlutterNaverLogin.logIn();
+      final NaverAccessToken res = await FlutterNaverLogin.currentAccessToken;
+      final naverAccessToken = res.accessToken;
+      print("네이버 로그인 : ${naverAccessToken}");
+
+      //2. 토큰을 스프링 서버에 전달하기(스프링 서버한테 나 인증했어!! 라고 알려주는 것)
+      var (responseDTO, accessToken) =
+      await UserRepository().fetchNaverLogin(naverAccessToken);
+
+      print("👍👍👍👍👍👍👍👍👍👍");
+      responseDTO.toString();
+
+      //3. 토큰(스프링서버)의 토큰 응답받기
+      print("blogAccessToken : ${accessToken}");
+
+      //4. 시큐어 스토리지에 저장
+      secureStorage.write(key: "blogAccessToken", value: accessToken);
+
+      Navigator.pushNamedAndRemoveUntil(
+          mContext!, Move.mainPage, (route) => false);
+
+      //5. static, const 변수, riverpod 상태관리(생략)
+    } catch (error) {
+      print('네이버 로그인 실패 $error');
     }
   }
 }

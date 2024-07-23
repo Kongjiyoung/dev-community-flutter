@@ -149,6 +149,46 @@ class BoardDetailDTO {
     "replies": List<dynamic>.from(replies.map((x) => x.toJson())),
     "images": List<dynamic>.from(images.map((x) => x.toJson())),
   };
+
+  BoardDetailDTO copyWith({
+    int? boardId,
+    String? boardTitle,
+    String? boardContent,
+    int? boardHit,
+    String? boardCreatedAt,
+    String? boardCreatedAtDuration,
+    int? userId,
+    String? userNickname,
+    String? userPosition,
+    String? userImage,
+    bool? myLike,
+    bool? myBookmark,
+    int? likeCount,
+    int? bookmarkCount,
+    int? replyCount,
+    List<ReplyDTO>? replies,
+    List<BoardImagesDTO>? images,
+  }) {
+    return BoardDetailDTO(
+      boardId: boardId ?? this.boardId,
+      boardTitle: boardTitle ?? this.boardTitle,
+      boardContent: boardContent ?? this.boardContent,
+      boardHit: boardHit ?? this.boardHit,
+      boardCreatedAt: boardCreatedAt ?? this.boardCreatedAt,
+      boardCreatedAtDuration: boardCreatedAtDuration ?? this.boardCreatedAtDuration,
+      userId: userId ?? this.userId,
+      userNickname: userNickname ?? this.userNickname,
+      userPosition: userPosition ?? this.userPosition,
+      userImage: userImage ?? this.userImage,
+      myLike: myLike ?? this.myLike,
+      myBookmark: myBookmark ?? this.myBookmark,
+      likeCount: likeCount ?? this.likeCount,
+      bookmarkCount: bookmarkCount ?? this.bookmarkCount,
+      replyCount: replyCount ?? this.replyCount,
+      replies: replies ?? this.replies,
+      images: images ?? this.images,
+    );
+  }
 }
 
 class ReplyDTO {
@@ -193,6 +233,28 @@ class ReplyDTO {
     "comment": comment,
     "updatedAt": updatedAt,
   };
+
+  ReplyDTO copyWith({
+    int? id,
+    int? boardId,
+    int? userId,
+    String? userNickname,
+    String? userPosition,
+    String? userImage,
+    String? comment,
+    String? updatedAt,
+  }) {
+    return ReplyDTO(
+      id: id ?? this.id,
+      boardId: boardId ?? this.boardId,
+      userId: userId ?? this.userId,
+      userNickname: userNickname ?? this.userNickname,
+      userPosition: userPosition ?? this.userPosition,
+      userImage: userImage ?? this.userImage,
+      comment: comment ?? this.comment,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
 }
 
 
