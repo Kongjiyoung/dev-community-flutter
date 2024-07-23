@@ -64,24 +64,23 @@ class _HomeViewState extends State<PostView> {
               itemBuilder: (context, index) {
                 final post = widget.contentList[index];
                 loadContent(post.boardContent);
-
                 return Column(
                   children: [
                     BuildPost(
-                      boardId: widget.contentList[index].boardId,
-                      name: widget.contentList[index].userNickname!,
-                      job: widget.contentList[index].userPosition,
-                      time: widget.contentList[index].boardCreatedAtDuration!,
-                      title: widget.contentList[index].boardTitle!,
+                      boardId: post.boardId,
+                      name: post.userNickname!,
+                      job: post.userPosition,
+                      time: post.boardCreatedAtDuration!,
+                      title: post.boardTitle!,
                       content: _quillController!,
-                      profileImage: widget.contentList[index].userImage,
-                      views: widget.contentList[index].boardHit!,
-                      loveCount: widget.contentList[index].likeCount!,
-                      replyCount: widget.contentList[index].replyCount!,
-                      myLike: widget.contentList[index].myLike,
-                      myBookMark: widget.contentList[index].myBookmark,
+                      profileImage: post.userImage,
+                      views: post.boardHit!,
+                      loveCount: post.likeCount!,
+                      replyCount: post.replyCount!,
+                      myLike: post.myLike,
+                      myBookMark: post.myBookmark,
                       homeViewmodel: widget.homeViewmodel,
-                      contentList: widget.contentList,
+                      userId: post.userId,
                     ),
                     SizedBox(height: 10),
                   ],

@@ -7,8 +7,8 @@ import '../../../_core/constants/http.dart';
 import '../../board/detail_page.dart';
 import '../viewmodel/home_viewmodel.dart';
 
-class BuildPost extends StatelessWidget {
-  final HomeViewmodel homeViewmodel;
+class SavedPostList extends StatelessWidget {
+  final BookmarkViewmodel bookmarkViewmodel;
   final int boardId;
   final int userId;
   final String name;
@@ -24,10 +24,9 @@ class BuildPost extends StatelessWidget {
   final bool myLike;
   final bool myBookMark;
 
-  const BuildPost({
+  const SavedPostList({
     required this.boardId,
     required this.userId,
-    required this.homeViewmodel,
     required this.name,
     required this.job,
     required this.time,
@@ -39,6 +38,7 @@ class BuildPost extends StatelessWidget {
     required this.replyCount,
     required this.myLike,
     required this.myBookMark,
+    required this.bookmarkViewmodel,
   });
 
   String _truncateText(String text, int maxLength) {
@@ -141,9 +141,9 @@ class BuildPost extends StatelessWidget {
                     InkWell(
                       onTap: () async {
                         if (myLike) {
-                          homeViewmodel.likeDelete(boardId);
+                          bookmarkViewmodel.likeDelete(boardId);
                         } else {
-                          homeViewmodel.likeSave(boardId);
+                          bookmarkViewmodel.likeSave(boardId);
                         }
                       },
                       child: Icon(
@@ -192,9 +192,9 @@ class BuildPost extends StatelessWidget {
                     InkWell(
                       onTap: () {
                         if (myBookMark) {
-                          homeViewmodel.bookMarkDelete(boardId);
+                          bookmarkViewmodel.bookMarkDelete(boardId);
                         } else {
-                          homeViewmodel.bookMarkSave(boardId);
+                          bookmarkViewmodel.bookMarkSave(boardId);
                         }
                       },
                       child: Icon(

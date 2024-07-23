@@ -23,6 +23,24 @@ class BoardRepository {
     return responseDTO;
   }
 
+  Future<ResponseDTO> fetchPopularBoardList({int page = 1}) async {
+    final response = await dio.get("/api/boards/top10List");
+
+    ResponseDTO responseDTO = ResponseDTO.fromJson(response.data);
+
+    if (responseDTO.status == 200) {
+      List<dynamic> prevContentList = responseDTO.body;
+
+      List<TopTenContent> newContentList =
+      prevContentList.map((content) => TopTenContent.fromJson(content)).toList();
+
+      responseDTO.body = newContentList;
+    }
+
+    return responseDTO;
+  }
+
+
   Future<ResponseDTO> fetchBoardDetail(int boardId) async {
     final response = await dio.get("/api/boards/${boardId}/detail");
 
@@ -52,4 +70,22 @@ class BoardRepository {
 
     return responseDTO;
   }
+
+  Future<ResponseDTO> fetchBookmarkBoardList({int? page}) async {
+    final response = await dio.get("/api/bookmark/list?page=${page}");
+
+    ResponseDTO responseDTO = ResponseDTO.fromJson(response.data);
+
+    if (responseDTO.status == 200) {
+      List<dynamic> prevContentList = responseDTO.body["boardDTO"];
+
+      List<BookmarkContent> newContentList =
+      prevContentList.map((bookmarkContent) => BookmarkContent.fromJson(bookmarkContent)).toList();
+
+      responseDTO.body = newContentList;
+    }
+
+    return responseDTO;
+  }
+
 }
