@@ -6,8 +6,8 @@ import '../board/board_request.dart';
 
 class BoardRepository {
   Future<ResponseDTO> fetchBoardList({int? page}) async {
-    final response = await dio.get("/api/boards/list",
-        queryParameters: {"page": page});
+    final response =
+        await dio.get("/api/boards/list", queryParameters: {"page": page});
 
     ResponseDTO responseDTO = ResponseDTO.fromJson(response.data);
 
@@ -31,15 +31,15 @@ class BoardRepository {
     if (responseDTO.status == 200) {
       List<dynamic> prevContentList = responseDTO.body;
 
-      List<TopTenContent> newContentList =
-      prevContentList.map((content) => TopTenContent.fromJson(content)).toList();
+      List<TopTenContent> newContentList = prevContentList
+          .map((content) => TopTenContent.fromJson(content))
+          .toList();
 
       responseDTO.body = newContentList;
     }
 
     return responseDTO;
   }
-
 
   Future<ResponseDTO> fetchBoardDetail(int boardId) async {
     final response = await dio.get("/api/boards/${boardId}/detail");
@@ -59,8 +59,8 @@ class BoardRepository {
   }
 
   Future<ResponseDTO> boardSave(SaveBoardDTO saveBoardDTO) async {
-    final response = await dio.post("/api/boards/write",
-        data: saveBoardDTO.toJson());
+    final response =
+        await dio.post("/api/boards/write", data: saveBoardDTO.toJson());
 
     ResponseDTO responseDTO = ResponseDTO.fromJson(response.data);
 
@@ -72,15 +72,17 @@ class BoardRepository {
   }
 
   Future<ResponseDTO> fetchBookmarkBoardList({int? page}) async {
-    final response = await dio.get("/api/bookmark/list?page=${page}");
+    final response =
+        await dio.get("/api/bookmark/list?", queryParameters: {"page": page});
 
     ResponseDTO responseDTO = ResponseDTO.fromJson(response.data);
 
     if (responseDTO.status == 200) {
       List<dynamic> prevContentList = responseDTO.body["boardDTO"];
 
-      List<BookmarkContent> newContentList =
-      prevContentList.map((bookmarkContent) => BookmarkContent.fromJson(bookmarkContent)).toList();
+      List<BookmarkContent> newContentList = prevContentList
+          .map((bookmarkContent) => BookmarkContent.fromJson(bookmarkContent))
+          .toList();
 
       responseDTO.body = newContentList;
     }
@@ -88,4 +90,18 @@ class BoardRepository {
     return responseDTO;
   }
 
+  Future<ResponseDTO> fetchSearchedBoardList(String query, {int? page}) async {
+    final response = await dio.get("/api/boards/search",
+        queryParameters: {"query": query, "page": page});
+
+    ResponseDTO responseDTO = ResponseDTO.fromJson(response.data);
+
+    if (responseDTO.status == 200) {
+      List<dynamic> prevList = responseDTO.body["content"];
+      responseDTO.body =
+          prevList.map((board) => SearchBoardListDTO.fromJson(board)).toList();
+    }
+
+    return responseDTO;
+  }
 }

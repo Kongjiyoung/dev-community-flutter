@@ -35,41 +35,40 @@ class Content {
   });
 
   factory Content.fromJson(Map<String, dynamic> json) => Content(
-    boardId: json["boardId"],
-    boardTitle: json["boardTitle"],
-    boardContent: json["boardContent"],
-    boardHit: json["boardHit"],
-    boardCreatedAt: json["boardCreatedAt"],
-    boardCreatedAtDuration: json["boardCreatedAtDuration"] ?? "1초 전",
-    userId: json["userId"],
-    userNickname: json["userNickname"],
-    userPosition: json["userPosition"],
-    userImage: json["userImage"],
-    myLike: json["myLike"],
-    myBookmark: json["myBookmark"],
-    likeCount: json["likeCount"],
-    bookmarkCount: json["bookmarkCount"],
-    replyCount: json["replyCount"],
-  );
+        boardId: json["boardId"],
+        boardTitle: json["boardTitle"],
+        boardContent: json["boardContent"],
+        boardHit: json["boardHit"],
+        boardCreatedAt: json["boardCreatedAt"],
+        boardCreatedAtDuration: json["boardCreatedAtDuration"] ?? "1초 전",
+        userId: json["userId"],
+        userNickname: json["userNickname"],
+        userPosition: json["userPosition"],
+        userImage: json["userImage"],
+        myLike: json["myLike"],
+        myBookmark: json["myBookmark"],
+        likeCount: json["likeCount"],
+        bookmarkCount: json["bookmarkCount"],
+        replyCount: json["replyCount"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "boardId": boardId,
-    "boardTitle": boardTitle,
-    "boardContent": boardContent,
-    "boardHit": boardHit,
-    "boardCreatedAt": boardCreatedAt,
-    "boardCreatedAtDuration": boardCreatedAtDuration,
-    "userId": userId,
-    "userNickname": userNickname,
-    "userPosition": userPosition,
-    "userImage": userImage,
-    "myLike": myLike,
-    "myBookmark": myBookmark,
-    "likeCount": likeCount,
-    "bookmarkCount": bookmarkCount,
-    "replyCount": replyCount,
-  };
-
+        "boardId": boardId,
+        "boardTitle": boardTitle,
+        "boardContent": boardContent,
+        "boardHit": boardHit,
+        "boardCreatedAt": boardCreatedAt,
+        "boardCreatedAtDuration": boardCreatedAtDuration,
+        "userId": userId,
+        "userNickname": userNickname,
+        "userPosition": userPosition,
+        "userImage": userImage,
+        "myLike": myLike,
+        "myBookmark": myBookmark,
+        "likeCount": likeCount,
+        "bookmarkCount": bookmarkCount,
+        "replyCount": replyCount,
+      };
 
   Content copyWith({
     int? boardId,
@@ -94,7 +93,8 @@ class Content {
       boardContent: boardContent ?? this.boardContent,
       boardHit: boardHit ?? this.boardHit,
       boardCreatedAt: boardCreatedAt ?? this.boardCreatedAt,
-      boardCreatedAtDuration: boardCreatedAtDuration ?? this.boardCreatedAtDuration,
+      boardCreatedAtDuration:
+          boardCreatedAtDuration ?? this.boardCreatedAtDuration,
       userId: userId ?? this.userId,
       userNickname: userNickname ?? this.userNickname,
       userPosition: userPosition ?? this.userPosition,
@@ -133,31 +133,32 @@ class TopTenContent {
   });
 
   factory TopTenContent.fromJson(Map<String, dynamic> json) => TopTenContent(
-    boardId: json["boardId"],
-    boardTitle: json["boardTitle"],
-    boardCreatedAt: json["boardCreatedAt"],
-    boardCreatedAtDuration: json["boardCreatedAtDuration"],
-    userId: json["userId"],
-    userNickname: json["userNickname"],
-    userPosition: json["userPosition"],
-    userImage: json["userImage"],
-    rank: json["rank"],
-  );
+        boardId: json["boardId"],
+        boardTitle: json["boardTitle"],
+        boardCreatedAt: json["boardCreatedAt"],
+        boardCreatedAtDuration: json["boardCreatedAtDuration"],
+        userId: json["userId"],
+        userNickname: json["userNickname"],
+        userPosition: json["userPosition"],
+        userImage: json["userImage"],
+        rank: json["rank"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "boardId": boardId,
-    "boardTitle": boardTitle,
-    "boardCreatedAt": boardCreatedAt,
-    "boardCreatedAtDuration": boardCreatedAtDuration,
-    "userId": userId,
-    "userNickname": userNickname,
-    "userPosition": userPosition,
-    "userImage": userImage,
-    "rank": rank,
-  };
+        "boardId": boardId,
+        "boardTitle": boardTitle,
+        "boardCreatedAt": boardCreatedAt,
+        "boardCreatedAtDuration": boardCreatedAtDuration,
+        "userId": userId,
+        "userNickname": userNickname,
+        "userPosition": userPosition,
+        "userImage": userImage,
+        "rank": rank,
+      };
 }
+
 //bookmark list
-class BookmarkContent{
+class BookmarkContent {
   int userId;
   String userNickname;
   String userPosition;
@@ -188,37 +189,38 @@ class BookmarkContent{
     required this.bookmark,
   });
 
-  factory BookmarkContent.fromJson(Map<String, dynamic> json) => BookmarkContent(
-    userId: json["userId"],
-    userNickname: json["userNickname"],
-    userPosition: json["userPosition"],
-    userImage: json["userImage"],
-    boardId: json["boardId"],
-    boardTitle: json["boardTitle"],
-    boardContent: json["boardContent"],
-    boardViews: json["boardViews"],
-    boardCreatedAt: json["boardCreatedAt"],
-    replyCount: json["replyCount"],
-    loveCount: json["loveCount"],
-    love: json["love"],
-    bookmark: json["bookmark"],
-  );
+  factory BookmarkContent.fromJson(Map<String, dynamic> json) =>
+      BookmarkContent(
+        userId: json["userId"],
+        userNickname: json["userNickname"],
+        userPosition: json["userPosition"],
+        userImage: json["userImage"],
+        boardId: json["boardId"],
+        boardTitle: json["boardTitle"],
+        boardContent: json["boardContent"],
+        boardViews: json["boardViews"],
+        boardCreatedAt: json["boardCreatedAt"],
+        replyCount: json["replyCount"],
+        loveCount: json["loveCount"],
+        love: json["love"],
+        bookmark: json["bookmark"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "userId": userId,
-    "userNickname": userNickname,
-    "userPosition": userPosition,
-    "userImage": userImage,
-    "boardId": boardId,
-    "boardTitle": boardTitle,
-    "boardContent": boardContent,
-    "boardViews": boardViews,
-    "boardCreatedAt": boardCreatedAt,
-    "replyCount": replyCount,
-    "loveCount": loveCount,
-    "love": love,
-    "bookmark": bookmark,
-  };
+        "userId": userId,
+        "userNickname": userNickname,
+        "userPosition": userPosition,
+        "userImage": userImage,
+        "boardId": boardId,
+        "boardTitle": boardTitle,
+        "boardContent": boardContent,
+        "boardViews": boardViews,
+        "boardCreatedAt": boardCreatedAt,
+        "replyCount": replyCount,
+        "loveCount": loveCount,
+        "love": love,
+        "bookmark": bookmark,
+      };
 
   BookmarkContent copyWith({
     int? userId,
@@ -252,7 +254,6 @@ class BookmarkContent{
     );
   }
 }
-
 
 // BoardDetail ==========================================================
 
@@ -296,43 +297,50 @@ class BoardDetailDTO {
   }) : userPosition = userPosition ?? 'Default Position'; // null일 경우 기본값 설정
 
   factory BoardDetailDTO.fromJson(Map<String, dynamic> json) => BoardDetailDTO(
-    boardId: json["boardId"],
-    boardTitle: json["boardTitle"],
-    boardContent: json["boardContent"],
-    boardHit: json["boardHit"],
-    boardCreatedAt: json["boardCreatedAt"],
-    boardCreatedAtDuration: json["boardCreatedAtDuration"],
-    userId: json["userId"],
-    userNickname: json["userNickname"],
-    userPosition: json["userPosition"],
-    userImage: json["userImage"],
-    myLike: json["myLike"],
-    myBookmark: json["myBookmark"],
-    likeCount: json["likeCount"],
-    bookmarkCount: json["bookmarkCount"],
-    replyCount: json["replyCount"],
-    replies: json["replies"] != null ? List<ReplyDTO>.from(json["replies"].map((x) => ReplyDTO.fromJson(x))) : [],
-    images: json["images"] != null ? List<BoardImagesDTO>.from(json["images"].map((x) => BoardImagesDTO.fromJson(x))) : [],
-  );
+        boardId: json["boardId"],
+        boardTitle: json["boardTitle"],
+        boardContent: json["boardContent"],
+        boardHit: json["boardHit"],
+        boardCreatedAt: json["boardCreatedAt"],
+        boardCreatedAtDuration: json["boardCreatedAtDuration"],
+        userId: json["userId"],
+        userNickname: json["userNickname"],
+        userPosition: json["userPosition"],
+        userImage: json["userImage"],
+        myLike: json["myLike"],
+        myBookmark: json["myBookmark"],
+        likeCount: json["likeCount"],
+        bookmarkCount: json["bookmarkCount"],
+        replyCount: json["replyCount"],
+        replies: json["replies"] != null
+            ? List<ReplyDTO>.from(
+                json["replies"].map((x) => ReplyDTO.fromJson(x)))
+            : [],
+        images: json["images"] != null
+            ? List<BoardImagesDTO>.from(
+                json["images"].map((x) => BoardImagesDTO.fromJson(x)))
+            : [],
+      );
+
   Map<String, dynamic> toJson() => {
-    "boardId": boardId,
-    "boardTitle": boardTitle,
-    "boardContent": boardContent,
-    "boardHit": boardHit,
-    "boardCreatedAt": boardCreatedAt,
-    "boardCreatedAtDuration": boardCreatedAtDuration,
-    "userId": userId,
-    "userNickname": userNickname,
-    "userPosition": userPosition,
-    "userImage": userImage,
-    "myLike": myLike,
-    "myBookmark": myBookmark,
-    "likeCount": likeCount,
-    "bookmarkCount": bookmarkCount,
-    "replyCount": replyCount,
-    "replies": List<dynamic>.from(replies.map((x) => x.toJson())),
-    "images": List<dynamic>.from(images.map((x) => x.toJson())),
-  };
+        "boardId": boardId,
+        "boardTitle": boardTitle,
+        "boardContent": boardContent,
+        "boardHit": boardHit,
+        "boardCreatedAt": boardCreatedAt,
+        "boardCreatedAtDuration": boardCreatedAtDuration,
+        "userId": userId,
+        "userNickname": userNickname,
+        "userPosition": userPosition,
+        "userImage": userImage,
+        "myLike": myLike,
+        "myBookmark": myBookmark,
+        "likeCount": likeCount,
+        "bookmarkCount": bookmarkCount,
+        "replyCount": replyCount,
+        "replies": List<dynamic>.from(replies.map((x) => x.toJson())),
+        "images": List<dynamic>.from(images.map((x) => x.toJson())),
+      };
 
   BoardDetailDTO copyWith({
     int? boardId,
@@ -359,7 +367,8 @@ class BoardDetailDTO {
       boardContent: boardContent ?? this.boardContent,
       boardHit: boardHit ?? this.boardHit,
       boardCreatedAt: boardCreatedAt ?? this.boardCreatedAt,
-      boardCreatedAtDuration: boardCreatedAtDuration ?? this.boardCreatedAtDuration,
+      boardCreatedAtDuration:
+          boardCreatedAtDuration ?? this.boardCreatedAtDuration,
       userId: userId ?? this.userId,
       userNickname: userNickname ?? this.userNickname,
       userPosition: userPosition ?? this.userPosition,
@@ -397,26 +406,26 @@ class ReplyDTO {
   }) : userPosition = userPosition ?? 'Default Position'; // null일 경우 기본값 설정
 
   factory ReplyDTO.fromJson(Map<String, dynamic> json) => ReplyDTO(
-    id: json["id"],
-    boardId: json["boardId"],
-    userId: json["userId"],
-    userNickname: json["userNickname"],
-    userPosition: json["userPosition"],
-    userImage: json["userImage"],
-    comment: json["comment"],
-    updatedAt: json["updatedAt"],
-  );
+        id: json["id"],
+        boardId: json["boardId"],
+        userId: json["userId"],
+        userNickname: json["userNickname"],
+        userPosition: json["userPosition"],
+        userImage: json["userImage"],
+        comment: json["comment"],
+        updatedAt: json["updatedAt"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "boardId": boardId,
-    "userId": userId,
-    "userNickname": userNickname,
-    "userPosition": userPosition,
-    "userImage": userImage,
-    "comment": comment,
-    "updatedAt": updatedAt,
-  };
+        "id": id,
+        "boardId": boardId,
+        "userId": userId,
+        "userNickname": userNickname,
+        "userPosition": userPosition,
+        "userImage": userImage,
+        "comment": comment,
+        "updatedAt": updatedAt,
+      };
 
   ReplyDTO copyWith({
     int? id,
@@ -441,7 +450,6 @@ class ReplyDTO {
   }
 }
 
-
 class BoardImagesDTO {
   final String filePath;
 
@@ -450,12 +458,12 @@ class BoardImagesDTO {
   });
 
   factory BoardImagesDTO.fromJson(Map<String, dynamic> json) => BoardImagesDTO(
-    filePath: json["filePath"],
-  );
+        filePath: json["filePath"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "filePath": filePath,
-  };
+        "filePath": filePath,
+      };
 }
 
 // BoardDetail ==========================================================
@@ -470,8 +478,9 @@ class SaveBoardResponseDTO {
 
   factory SaveBoardResponseDTO.fromJson(Map<String, dynamic> json) {
     List<dynamic> prevEatDTOList = json["images"];
-    List<ImagesResponseDTO> imagesList =
-    prevEatDTOList.map((images) => ImagesResponseDTO.fromJson(images)).toList();
+    List<ImagesResponseDTO> imagesList = prevEatDTOList
+        .map((images) => ImagesResponseDTO.fromJson(images))
+        .toList();
 
     return SaveBoardResponseDTO(
         title: json["title"], content: json["content"], images: imagesList);
@@ -493,4 +502,24 @@ class ImagesResponseDTO {
       fileName: json["fileName"],
     );
   }
+}
+
+class SearchBoardListDTO {
+  final int boardId;
+  final String boardTitle;
+  final String boardContent;
+
+  SearchBoardListDTO(
+      {required this.boardId,
+      required this.boardTitle,
+      required this.boardContent});
+
+  factory SearchBoardListDTO.fromJson(Map<String, dynamic> json) {
+    return SearchBoardListDTO(
+      boardId: json["boardId"],
+      boardTitle: json["boardTitle"],
+      boardContent: json["boardContent"],
+    );
+  }
+//
 }
