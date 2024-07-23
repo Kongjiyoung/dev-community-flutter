@@ -68,6 +68,43 @@ class Content {
     "bookmarkCount": bookmarkCount,
     "replyCount": replyCount,
   };
+
+
+  Content copyWith({
+    int? boardId,
+    String? boardTitle,
+    String? boardContent,
+    int? boardHit,
+    String? boardCreatedAt,
+    String? boardCreatedAtDuration,
+    int? userId,
+    String? userNickname,
+    String? userPosition,
+    String? userImage,
+    bool? myLike,
+    bool? myBookmark,
+    int? likeCount,
+    int? bookmarkCount,
+    int? replyCount,
+  }) {
+    return Content(
+      boardId: boardId ?? this.boardId,
+      boardTitle: boardTitle ?? this.boardTitle,
+      boardContent: boardContent ?? this.boardContent,
+      boardHit: boardHit ?? this.boardHit,
+      boardCreatedAt: boardCreatedAt ?? this.boardCreatedAt,
+      boardCreatedAtDuration: boardCreatedAtDuration ?? this.boardCreatedAtDuration,
+      userId: userId ?? this.userId,
+      userNickname: userNickname ?? this.userNickname,
+      userPosition: userPosition ?? this.userPosition,
+      userImage: userImage ?? this.userImage,
+      myLike: myLike ?? this.myLike,
+      myBookmark: myBookmark ?? this.myBookmark,
+      likeCount: likeCount ?? this.likeCount,
+      bookmarkCount: bookmarkCount ?? this.bookmarkCount,
+      replyCount: replyCount ?? this.replyCount,
+    );
+  }
 }
 
 // BoardDetail ==========================================================

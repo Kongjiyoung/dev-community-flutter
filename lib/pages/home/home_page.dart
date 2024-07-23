@@ -1,14 +1,10 @@
-import 'dart:convert';
-
 import 'package:dev_community/pages/board/save_page.dart';
 import 'package:dev_community/pages/home/popular_post_page.dart';
 import 'package:dev_community/pages/home/saved_post_page.dart';
 import 'package:dev_community/pages/home/search_result_page.dart';
 import 'package:dev_community/pages/home/viewmodel/home_viewmodel.dart';
-import 'package:dev_community/pages/home/widgets/build-post.dart';
 import 'package:dev_community/pages/home/widgets/post_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HomePage extends ConsumerWidget {
