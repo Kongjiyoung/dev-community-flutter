@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import '../../../_core/constants/http.dart';
 import '../../board/detail_page.dart';
+import '../viewmodel/home_viewmodel.dart';
 
 class BuildPost extends StatelessWidget {
+  final HomeViewmodel homeViewmodel;
   final int boardId;
   final int userId;
   final String name;
@@ -18,12 +20,13 @@ class BuildPost extends StatelessWidget {
   final int loveCount;
   final int replyCount;
   final int maxContentLength = 60; // 최대 글자 수 설정
-  final bool isLove;
-  final bool isBookmark;
+  final bool myLike;
+  final bool myBookMark;
 
   const BuildPost({
     required this.boardId,
     required this.userId,
+    required this.homeViewmodel,
     required this.name,
     required this.job,
     required this.time,
@@ -33,8 +36,8 @@ class BuildPost extends StatelessWidget {
     required this.views,
     required this.loveCount,
     required this.replyCount,
-    required this.isLove,
-    required this.isBookmark,
+    required this.myLike,
+    required this.myBookMark,
   });
 
   String _truncateText(String text, int maxLength) {
@@ -47,15 +50,14 @@ class BuildPost extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String truncatedContent = _truncateText(content.document.toPlainText(), maxContentLength);
-
+    String truncatedContent =
+        _truncateText(content.document.toPlainText(), maxContentLength);
     quill.QuillController truncatedContentController = quill.QuillController(
       document: quill.Document()..insert(0, truncatedContent),
       selection: TextSelection.collapsed(offset: 0),
     );
 
     truncatedContentController.readOnly = true;
-
 
     return Container(
       padding: const EdgeInsets.fromLTRB(25, 20, 25, 20),
@@ -135,16 +137,19 @@ class BuildPost extends StatelessWidget {
                 },
                 child: Row(
                   children: [
-                    if (isLove)
-                      Icon(
-                        Icons.favorite,
-                        color: Color(0xFFafe897),
-                      )
-                    else
-                      Icon(
-                        Icons.favorite_border,
+                    InkWell(
+                      onTap: () async {
+                        if (myLike) {
+                          homeViewmodel.likeDelete(boardId);
+                        } else {
+                          homeViewmodel.likeSave(boardId);
+                        }
+                      },
+                      child: Icon(
+                        myLike ? Icons.favorite : Icons.favorite_border,
                         color: Color(0xFFafe897),
                       ),
+                    ),
                     Text(
                       "$loveCount",
                       style: TextStyle(
@@ -183,23 +188,19 @@ class BuildPost extends StatelessWidget {
                 },
                 child: Row(
                   children: [
-                    if (isBookmark)
-                      Icon(
-                        Icons.bookmark,
-                        color: Color(0xFFafe897),
-                      )
-                    else
-                      Icon(
-                        Icons.bookmark_add_outlined,
+                    InkWell(
+                      onTap: () {
+                        if (myBookMark) {
+                          homeViewmodel.bookMarkDelete(boardId);
+                        } else {
+                          homeViewmodel.bookMarkSave(boardId);
+                        }
+                      },
+                      child: Icon(
+                        myBookMark ? Icons.bookmark : Icons.bookmark_border,
                         color: Color(0xFFafe897),
                       ),
-                    // Text(
-                    //   "${bookmarkCount}",
-                    //   style: TextStyle(
-                    //     fontSize: 14,
-                    //     color: Color(0xff323b27),
-                    //   ),
-                    // )
+                    ),
                   ],
                 ),
               ),
