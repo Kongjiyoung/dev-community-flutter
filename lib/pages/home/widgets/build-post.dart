@@ -1,9 +1,12 @@
 import 'package:dev_community/_core/constants/http.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
+import '../../../dtos/board/board_response.dart';
 import '../../board/detail_page.dart';
+import '../viewmodel/home_viewmodel.dart';
 
 class BuildPost extends StatelessWidget {
+  final HomeViewmodel homeViewmodel;
   final int boardId;
   final String name;
   final String? job;
@@ -15,9 +18,14 @@ class BuildPost extends StatelessWidget {
   final int loveCount;
   final int replyCount;
   final int maxContentLength = 60; // 최대 글자 수 설정
+  final bool myLike;
+  final bool myBookMark;
+  final List<Content> contentList;
 
   const BuildPost({
     required this.boardId,
+    required this.contentList,
+    required this.homeViewmodel,
     required this.name,
     required this.job,
     required this.time,
@@ -27,6 +35,8 @@ class BuildPost extends StatelessWidget {
     required this.views,
     required this.loveCount,
     required this.replyCount,
+    required this.myLike,
+    required this.myBookMark,
   });
 
   String _truncateText(String text, int maxLength) {
@@ -39,15 +49,17 @@ class BuildPost extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String truncatedContent = _truncateText(content.document.toPlainText(), maxContentLength);
-
+    String truncatedContent =
+        _truncateText(content.document.toPlainText(), maxContentLength);
     quill.QuillController truncatedContentController = quill.QuillController(
       document: quill.Document()..insert(0, truncatedContent),
       selection: TextSelection.collapsed(offset: 0),
     );
 
+    print("aaaaa");
+    print(title);
+    print(myBookMark);
     truncatedContentController.readOnly = true;
-
 
     return Container(
       padding: const EdgeInsets.fromLTRB(25, 20, 25, 20),
@@ -117,9 +129,18 @@ class BuildPost extends StatelessWidget {
                 },
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.favorite,
-                      color: Color(0xFFafe897),
+                    InkWell(
+                      onTap: () async {
+                        if (myLike) {
+                          homeViewmodel.likeDelete(boardId);
+                        } else {
+                          homeViewmodel.likeSave(boardId);
+                        }
+                      },
+                      child: Icon(
+                        myLike ? Icons.favorite : Icons.favorite_border,
+                        color: Color(0xFFafe897),
+                      ),
                     ),
                     Text(
                       "$loveCount",
@@ -159,9 +180,18 @@ class BuildPost extends StatelessWidget {
                 },
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.bookmark,
-                      color: Color(0xFFafe897),
+                    InkWell(
+                      onTap: () {
+                        if (myBookMark) {
+                          homeViewmodel.bookMarkDelete(boardId);
+                        } else {
+                          homeViewmodel.bookMarkSave(boardId);
+                        }
+                      },
+                      child: Icon(
+                        myBookMark ? Icons.bookmark : Icons.bookmark_border,
+                        color: Color(0xFFafe897),
+                      ),
                     ),
                   ],
                 ),

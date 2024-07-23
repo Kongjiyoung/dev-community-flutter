@@ -64,6 +64,7 @@ class _HomeViewState extends State<PostView> {
               itemBuilder: (context, index) {
                 final post = widget.contentList[index];
                 loadContent(post.boardContent);
+
                 return Column(
                   children: [
                     BuildPost(
@@ -77,6 +78,10 @@ class _HomeViewState extends State<PostView> {
                       views: widget.contentList[index].boardHit!,
                       loveCount: widget.contentList[index].likeCount!,
                       replyCount: widget.contentList[index].replyCount!,
+                      myLike: widget.contentList[index].myLike,
+                      myBookMark: widget.contentList[index].myBookmark,
+                      homeViewmodel: widget.homeViewmodel,
+                      contentList: widget.contentList,
                     ),
                     SizedBox(height: 10),
                   ],
