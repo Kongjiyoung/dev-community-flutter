@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dev_community/_core/util/string_convertor.dart';
 import 'package:dev_community/dtos/mypage/my_page_response.dart';
-import 'package:dev_community/pages/home/widgets/saved-post-list.dart';
+import 'package:dev_community/pages/home/widgets/saved_post_list.dart';
 import 'package:dev_community/pages/my/viewmodel/my_page_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
