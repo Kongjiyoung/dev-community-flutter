@@ -41,8 +41,8 @@ class MyPageDTO {
         userId: json["userId"],
         image: json["image"],
         nickname: json["nickname"],
-        position: json["position"],
-        introduce: json["introduce"],
+        position: json["position"] ?? "포지션 없음",
+        introduce: json["introduce"] ?? "소개 없음",
         myBoardList: List<MyBoardList>.from(
             json["myBoardList"].map((x) => MyBoardList.fromJson(x))),
         myReplyList: json["myReplyList"] != null

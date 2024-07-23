@@ -2,6 +2,7 @@ import 'package:dev_community/_core/constants/http.dart';
 import 'package:dev_community/dtos/mypage/my_page_response.dart';
 import 'package:dev_community/dtos/response_dto.dart';
 import 'package:dev_community/dtos/user/user_request.dart';
+import 'package:dev_community/dtos/user/user_response.dart';
 
 class UserRepository {
   // 로그인
@@ -92,6 +93,34 @@ class UserRepository {
             responseDTO.body = myPageDTO;
           }
       }
+    }
+
+    return responseDTO;
+  }
+
+  // 프로필 편집 view
+  Future<ResponseDTO> fetchEditProfileView() async {
+    final response = await dio.get("/api/users/profile/update");
+
+    ResponseDTO responseDTO = ResponseDTO.fromJson(response.data);
+
+    if (responseDTO.status == 200) {
+      responseDTO.body = UpdateProfileDTO.fromJson(responseDTO.body);
+    }
+
+    return responseDTO;
+  }
+
+  // 프로필 편집
+  Future<ResponseDTO> fetchUpdateProfile(
+      UpdateProfileRequestDTO requestDTO) async {
+    final response =
+        await dio.put("/api/users/profile/update", data: requestDTO.toJson());
+
+    ResponseDTO responseDTO = ResponseDTO.fromJson(response.data);
+
+    if (responseDTO.status == 200) {
+      responseDTO.body = UpdateProfileDTO.fromJson(responseDTO.body);
     }
 
     return responseDTO;

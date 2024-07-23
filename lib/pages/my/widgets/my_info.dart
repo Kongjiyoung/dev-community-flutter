@@ -32,11 +32,7 @@ class MyInfo extends ConsumerWidget {
                 borderRadius: BorderRadius.circular(50),
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: profileImage == null
-                      ? AssetImage("assets/images/profile.jpeg")
-                      : sessionStore.loginType == "kakao"
-                          ? NetworkImage(profileImage!) as ImageProvider
-                          : NetworkImage(serverAddress + profileImage!),
+                  image: NetworkImage(serverAddress + profileImage!),
                 ),
               ),
             ),

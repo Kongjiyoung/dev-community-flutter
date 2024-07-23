@@ -25,8 +25,8 @@ class MyProfileSliverHeaderData extends StatelessWidget {
             MyInfo(
                 profileImage: profileImage,
                 nickname: nickname,
-                position: position ?? "포지션 없음",
-                introduce: introduce ?? "자기 소개"),
+                position: position,
+                introduce: introduce),
             SizedBox(width: double.infinity, child: MyEditBtn()),
           ],
         ),
