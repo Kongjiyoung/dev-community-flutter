@@ -1,6 +1,7 @@
 import 'package:dev_community/dtos/mypage/my_page_response.dart';
 import 'package:dev_community/dtos/repository/user_repository.dart';
 import 'package:dev_community/dtos/response_dto.dart';
+import 'package:dev_community/dtos/user/user_response.dart';
 import 'package:dev_community/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -103,6 +104,15 @@ class MyPageViewmodel extends StateNotifier<MyPageModel?> {
           }
         }
     }
+  }
+
+  void updateMyPage(UpdateProfileDTO dto) {
+    state = state!.copyWith(
+        myPageDTO: state!.myPageDTO.copyWith(
+            image: dto.profileImg,
+            nickname: dto.nickname,
+            position: dto.position,
+            introduce: dto.introduce));
   }
 }
 
