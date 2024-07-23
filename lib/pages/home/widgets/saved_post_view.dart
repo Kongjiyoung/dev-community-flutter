@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dev_community/_core/util/string_convertor.dart';
 import 'package:dev_community/dtos/mypage/my_page_response.dart';
+import 'package:dev_community/pages/home/widgets/saved-post-list.dart';
 import 'package:dev_community/pages/my/viewmodel/my_page_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
@@ -54,39 +55,38 @@ class _SaveHomeViewState extends State<SavedPostView> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: widget.contentList.isEmpty
-          ? Center(child: Text("작성한 게시물 없음"))
-          : ListView.builder(
-              controller: boardScrollController,
-              physics: AlwaysScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: widget.contentList.length,
-              itemBuilder: (context, index) {
-                final post = widget.contentList[index];
-                loadContent(post.boardContent);
-                return Column(
-                  children: [
-                    BuildPost(
-                      boardId: widget.contentList[index].boardId,
-                      name: widget.contentList[index].userNickname!,
-                      job: widget.contentList[index].userPosition,
-                      time: widget.contentList[index].boardCreatedAt!,
-                      title: widget.contentList[index].boardTitle!,
-                      content: _quillController!,
-                      profileImage: widget.contentList[index].userImage,
-                      views: widget.contentList[index].boardViews!,
-                      loveCount: widget.contentList[index].loveCount!,
-                      replyCount: widget.contentList[index].replyCount!,
-                      isLove : widget.contentList[index].love!,
-                      isBookmark : widget.contentList[index].bookmark,
-                      userId: widget.contentList[index].userId,
-                    ),
-                    SizedBox(height: 10),
-                  ],
-                );
-              },
+    return widget.contentList.isEmpty
+        ? Center(child: Text("저장한 게시물 없음"))
+        : ListView.builder(
+      controller: boardScrollController,
+      physics: AlwaysScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: widget.contentList.length,
+      itemBuilder: (context, index) {
+        final post = widget.contentList[index];
+        loadContent(post.boardContent);
+        return Column(
+          children: [
+            SavedPostList(
+              boardId: post.boardId,
+              name: post.userNickname,
+              job: post.userPosition,
+              time: post.boardCreatedAt,
+              title: post.boardTitle,
+              content: _quillController,
+              profileImage: post.userImage,
+              views: post.boardViews,
+              loveCount: post.loveCount,
+              replyCount: post.replyCount,
+              myLike: post.love,
+              myBookMark: post.bookmark,
+              userId: post.userId,
+              bookmarkViewmodel: widget.bookmarkViewmodel,
             ),
+            SizedBox(height: 10),
+          ],
+        );
+      },
     );
   }
 }

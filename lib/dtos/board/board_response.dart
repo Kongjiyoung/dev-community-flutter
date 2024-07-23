@@ -219,6 +219,38 @@ class BookmarkContent{
     "love": love,
     "bookmark": bookmark,
   };
+
+  BookmarkContent copyWith({
+    int? userId,
+    String? userNickname,
+    String? userPosition,
+    String? userImage,
+    int? boardId,
+    String? boardTitle,
+    String? boardContent,
+    int? boardViews,
+    String? boardCreatedAt,
+    int? replyCount,
+    int? loveCount,
+    bool? love,
+    bool? bookmark,
+  }) {
+    return BookmarkContent(
+      userId: userId ?? this.userId,
+      userNickname: userNickname ?? this.userNickname,
+      userPosition: userPosition ?? this.userPosition,
+      userImage: userImage ?? this.userImage,
+      boardId: boardId ?? this.boardId,
+      boardTitle: boardTitle ?? this.boardTitle,
+      boardContent: boardContent ?? this.boardContent,
+      boardViews: boardViews ?? this.boardViews,
+      boardCreatedAt: boardCreatedAt ?? this.boardCreatedAt,
+      replyCount: replyCount ?? this.replyCount,
+      loveCount: loveCount ?? this.loveCount,
+      love: love ?? this.love,
+      bookmark: bookmark ?? this.bookmark,
+    );
+  }
 }
 
 
