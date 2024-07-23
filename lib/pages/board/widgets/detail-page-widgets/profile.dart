@@ -43,7 +43,7 @@ class Profile extends ConsumerWidget {
               child: Icon(
                 isBookMark ? Icons.bookmark : Icons.bookmark_border,
                 size: 30,
-                color: isBookMark ? Colors.yellow : Colors.black,
+                color: isBookMark ? Color(0xFFafe897) : Colors.black,
               ),
             ),
             SizedBox(width: 10),

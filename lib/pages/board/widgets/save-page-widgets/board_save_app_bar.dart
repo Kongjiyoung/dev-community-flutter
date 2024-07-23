@@ -21,7 +21,7 @@ class BoardSaveAppBar extends StatelessWidget {
           children: [
             SizedBox(
               width: 60,
-              child: BoardSaveAppBarBtn(55, Colors.black54, "완료"),
+              child: BoardSaveAppBarBtn(55, Color(0xff3e5239), "완료"),
             ),
           ],
         ),

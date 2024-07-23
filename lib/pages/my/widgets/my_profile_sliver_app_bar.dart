@@ -15,13 +15,19 @@ class MyProfileSliverAppBar extends StatelessWidget {
       automaticallyImplyLeading: false,
       pinned: true,
       backgroundColor: Colors.white,
-      flexibleSpace: FlexibleSpaceBar(
-          background: MyProfileSliverHeaderData(
-        profileImage: myPageDTO.image,
-        nickname: myPageDTO.nickname,
-        introduce: myPageDTO.introduce,
-        position: myPageDTO.position,
-      )),
+      flexibleSpace:  FlexibleSpaceBar(
+          background: Column(
+            children: [
+              SizedBox(height: 70.0), // 원하는 높이를 설정하세요
+              MyProfileSliverHeaderData(
+                profileImage: myPageDTO.image,
+                nickname: myPageDTO.nickname,
+                introduce: myPageDTO.introduce,
+                position: myPageDTO.position,
+              ),
+            ],
+          ),
+      ),
       bottom: TabBar(
         onTap: (value) {},
         labelColor: Colors.black,

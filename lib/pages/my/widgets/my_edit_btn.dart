@@ -11,7 +11,7 @@ class MyEditBtn extends StatelessWidget {
     return TextButton(
       style: ButtonStyle(
         foregroundColor: WidgetStatePropertyAll(Colors.black),
-        backgroundColor: WidgetStatePropertyAll(Colors.grey[300]),
+        backgroundColor: WidgetStatePropertyAll(Color(0xffa2d594)),
         shape: WidgetStatePropertyAll(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5),

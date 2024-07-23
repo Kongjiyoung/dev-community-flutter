@@ -1,6 +1,6 @@
 import 'package:dev_community/pages/home/viewmodel/popular_viewmodel.dart';
 import 'package:dev_community/pages/home/widgets/build-post.dart';
-import 'package:dev_community/pages/home/widgets/popular_post.dart';
+import 'package:dev_community/pages/home/widgets/popular-post.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,7 +24,7 @@ class PopularPostPage extends ConsumerWidget {
             return Column(
               children: [
                 PopularPost(
-                  boardId: 1,
+                  boardId: post.boardId,
                   name: post.userNickname!,
                   job: post.userPosition,
                   title: post.boardTitle,

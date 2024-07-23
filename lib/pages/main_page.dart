@@ -17,7 +17,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildProfileAppBar(),
+      // appBar: _buildProfileAppBar(),
       body: IndexedStack(
         index: _selectedIndex,
         children: [
