@@ -1,21 +1,18 @@
 import 'dart:convert';
 
-import 'package:dev_community/_core/util/string_convertor.dart';
-import 'package:dev_community/dtos/mypage/my_page_response.dart';
+import 'package:dev_community/pages/home/viewmodel/search_post_viewmodel.dart';
 import 'package:dev_community/pages/home/widgets/search_post.dart';
-import 'package:dev_community/pages/my/viewmodel/my_page_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 
 import '../../../dtos/board/board_response.dart';
-import '../viewmodel/home_viewmodel.dart';
-import 'build-post.dart';
 
 class SearchPostView extends StatefulWidget {
-  final List<Content> contentList;
-  final HomeViewmodel homeViewmodel;
+  final List<SearchBoardListDTO> searchBoardList;
+  final SearchPostViewmodel searchPostViewmodel;
 
-  SearchPostView({required this.contentList, required this.homeViewmodel});
+  SearchPostView(
+      {required this.searchBoardList, required this.searchPostViewmodel});
 
   @override
   _HomeViewState createState() => _HomeViewState();
@@ -41,7 +38,7 @@ class _HomeViewState extends State<SearchPostView> {
       ..addListener(() {
         if (boardScrollController.position.pixels ==
             boardScrollController.position.maxScrollExtent) {
-          widget.homeViewmodel.getListForTab();
+          widget.searchPostViewmodel.addNewBoardList();
         }
       });
   }
@@ -55,28 +52,28 @@ class _HomeViewState extends State<SearchPostView> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: widget.contentList.isEmpty
+      child: widget.searchBoardList.isEmpty
           ? Center(child: Text("작성한 게시물 없음"))
           : ListView.builder(
-        controller: boardScrollController,
-        physics: AlwaysScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: widget.contentList.length,
-        itemBuilder: (context, index) {
-          final post = widget.contentList[index];
-          loadContent(post.boardContent);
-          return Column(
-            children: [
-              SearchPost(
-                boardId: post.boardId,
-                title: post.boardTitle!,
-                content: _quillController!,
-              ),
-              SizedBox(height: 10),
-            ],
-          );
-        },
-      ),
+              controller: boardScrollController,
+              physics: AlwaysScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: widget.searchBoardList.length,
+              itemBuilder: (context, index) {
+                final post = widget.searchBoardList[index];
+                loadContent(post.boardContent);
+                return Column(
+                  children: [
+                    SearchPost(
+                      boardId: post.boardId,
+                      title: post.boardTitle!,
+                      content: _quillController!,
+                    ),
+                    SizedBox(height: 10),
+                  ],
+                );
+              },
+            ),
     );
   }
 }
