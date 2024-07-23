@@ -1,13 +1,10 @@
-import 'dart:convert';
-
 import 'package:dev_community/pages/board/save_page.dart';
 import 'package:dev_community/pages/home/popular_post_page.dart';
 import 'package:dev_community/pages/home/saved_post_page.dart';
+import 'package:dev_community/pages/home/search_result_page.dart';
 import 'package:dev_community/pages/home/viewmodel/home_viewmodel.dart';
-import 'package:dev_community/pages/home/widgets/build-post.dart';
 import 'package:dev_community/pages/home/widgets/post_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HomePage extends ConsumerWidget {
@@ -16,6 +13,19 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     HomeModel? model = ref.watch(homeBoardListProvider);
     HomeViewmodel viewmodel = ref.read(homeBoardListProvider.notifier);
+    TextEditingController searchController = TextEditingController();
+
+
+    void _performSearch(String query) {
+      if (query.isNotEmpty) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SearchResultsPage(query: query),
+          ),
+        );
+      }
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -31,8 +41,8 @@ class HomePage extends ConsumerWidget {
               child: Container(
                 height: 40, // 원하는 높이로 설정
                 child: TextField(
+                  controller: searchController,
                   decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.search),
                     hintText: 'Enter text',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
@@ -42,8 +52,17 @@ class HomePage extends ConsumerWidget {
                     fillColor: Colors.grey[200],
                   ),
                   style: TextStyle(color: Colors.black),
+                  onSubmitted: (query) {
+                    _performSearch(query);
+                  },
                 ),
               ),
+            ),
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                _performSearch(searchController.text);
+              },
             ),
           ],
         ),

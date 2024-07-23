@@ -1,3 +1,4 @@
+//main-page list
 class Content {
   final int boardId;
   final String boardTitle;
@@ -68,7 +69,190 @@ class Content {
     "bookmarkCount": bookmarkCount,
     "replyCount": replyCount,
   };
+
+
+  Content copyWith({
+    int? boardId,
+    String? boardTitle,
+    String? boardContent,
+    int? boardHit,
+    String? boardCreatedAt,
+    String? boardCreatedAtDuration,
+    int? userId,
+    String? userNickname,
+    String? userPosition,
+    String? userImage,
+    bool? myLike,
+    bool? myBookmark,
+    int? likeCount,
+    int? bookmarkCount,
+    int? replyCount,
+  }) {
+    return Content(
+      boardId: boardId ?? this.boardId,
+      boardTitle: boardTitle ?? this.boardTitle,
+      boardContent: boardContent ?? this.boardContent,
+      boardHit: boardHit ?? this.boardHit,
+      boardCreatedAt: boardCreatedAt ?? this.boardCreatedAt,
+      boardCreatedAtDuration: boardCreatedAtDuration ?? this.boardCreatedAtDuration,
+      userId: userId ?? this.userId,
+      userNickname: userNickname ?? this.userNickname,
+      userPosition: userPosition ?? this.userPosition,
+      userImage: userImage ?? this.userImage,
+      myLike: myLike ?? this.myLike,
+      myBookmark: myBookmark ?? this.myBookmark,
+      likeCount: likeCount ?? this.likeCount,
+      bookmarkCount: bookmarkCount ?? this.bookmarkCount,
+      replyCount: replyCount ?? this.replyCount,
+    );
+  }
 }
+
+//인기 리스트
+class TopTenContent {
+  final int boardId;
+  final String boardTitle;
+  final String boardCreatedAt;
+  final String boardCreatedAtDuration;
+  final int userId;
+  final String userNickname;
+  final String? userPosition;
+  final String userImage;
+  final int rank;
+
+  TopTenContent({
+    required this.boardId,
+    required this.boardTitle,
+    required this.boardCreatedAt,
+    required this.boardCreatedAtDuration,
+    required this.userId,
+    required this.userNickname,
+    required this.userPosition,
+    required this.userImage,
+    required this.rank,
+  });
+
+  factory TopTenContent.fromJson(Map<String, dynamic> json) => TopTenContent(
+    boardId: json["boardId"],
+    boardTitle: json["boardTitle"],
+    boardCreatedAt: json["boardCreatedAt"],
+    boardCreatedAtDuration: json["boardCreatedAtDuration"],
+    userId: json["userId"],
+    userNickname: json["userNickname"],
+    userPosition: json["userPosition"],
+    userImage: json["userImage"],
+    rank: json["rank"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "boardId": boardId,
+    "boardTitle": boardTitle,
+    "boardCreatedAt": boardCreatedAt,
+    "boardCreatedAtDuration": boardCreatedAtDuration,
+    "userId": userId,
+    "userNickname": userNickname,
+    "userPosition": userPosition,
+    "userImage": userImage,
+    "rank": rank,
+  };
+}
+//bookmark list
+class BookmarkContent{
+  int userId;
+  String userNickname;
+  String userPosition;
+  String userImage;
+  int boardId;
+  String boardTitle;
+  String boardContent;
+  int boardViews;
+  String boardCreatedAt;
+  int replyCount;
+  int loveCount;
+  bool love;
+  bool bookmark;
+
+  BookmarkContent({
+    required this.userId,
+    required this.userNickname,
+    required this.userPosition,
+    required this.userImage,
+    required this.boardId,
+    required this.boardTitle,
+    required this.boardContent,
+    required this.boardViews,
+    required this.boardCreatedAt,
+    required this.replyCount,
+    required this.loveCount,
+    required this.love,
+    required this.bookmark,
+  });
+
+  factory BookmarkContent.fromJson(Map<String, dynamic> json) => BookmarkContent(
+    userId: json["userId"],
+    userNickname: json["userNickname"],
+    userPosition: json["userPosition"],
+    userImage: json["userImage"],
+    boardId: json["boardId"],
+    boardTitle: json["boardTitle"],
+    boardContent: json["boardContent"],
+    boardViews: json["boardViews"],
+    boardCreatedAt: json["boardCreatedAt"],
+    replyCount: json["replyCount"],
+    loveCount: json["loveCount"],
+    love: json["love"],
+    bookmark: json["bookmark"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "userId": userId,
+    "userNickname": userNickname,
+    "userPosition": userPosition,
+    "userImage": userImage,
+    "boardId": boardId,
+    "boardTitle": boardTitle,
+    "boardContent": boardContent,
+    "boardViews": boardViews,
+    "boardCreatedAt": boardCreatedAt,
+    "replyCount": replyCount,
+    "loveCount": loveCount,
+    "love": love,
+    "bookmark": bookmark,
+  };
+
+  BookmarkContent copyWith({
+    int? userId,
+    String? userNickname,
+    String? userPosition,
+    String? userImage,
+    int? boardId,
+    String? boardTitle,
+    String? boardContent,
+    int? boardViews,
+    String? boardCreatedAt,
+    int? replyCount,
+    int? loveCount,
+    bool? love,
+    bool? bookmark,
+  }) {
+    return BookmarkContent(
+      userId: userId ?? this.userId,
+      userNickname: userNickname ?? this.userNickname,
+      userPosition: userPosition ?? this.userPosition,
+      userImage: userImage ?? this.userImage,
+      boardId: boardId ?? this.boardId,
+      boardTitle: boardTitle ?? this.boardTitle,
+      boardContent: boardContent ?? this.boardContent,
+      boardViews: boardViews ?? this.boardViews,
+      boardCreatedAt: boardCreatedAt ?? this.boardCreatedAt,
+      replyCount: replyCount ?? this.replyCount,
+      loveCount: loveCount ?? this.loveCount,
+      love: love ?? this.love,
+      bookmark: bookmark ?? this.bookmark,
+    );
+  }
+}
+
 
 // BoardDetail ==========================================================
 
@@ -149,6 +333,46 @@ class BoardDetailDTO {
     "replies": List<dynamic>.from(replies.map((x) => x.toJson())),
     "images": List<dynamic>.from(images.map((x) => x.toJson())),
   };
+
+  BoardDetailDTO copyWith({
+    int? boardId,
+    String? boardTitle,
+    String? boardContent,
+    int? boardHit,
+    String? boardCreatedAt,
+    String? boardCreatedAtDuration,
+    int? userId,
+    String? userNickname,
+    String? userPosition,
+    String? userImage,
+    bool? myLike,
+    bool? myBookmark,
+    int? likeCount,
+    int? bookmarkCount,
+    int? replyCount,
+    List<ReplyDTO>? replies,
+    List<BoardImagesDTO>? images,
+  }) {
+    return BoardDetailDTO(
+      boardId: boardId ?? this.boardId,
+      boardTitle: boardTitle ?? this.boardTitle,
+      boardContent: boardContent ?? this.boardContent,
+      boardHit: boardHit ?? this.boardHit,
+      boardCreatedAt: boardCreatedAt ?? this.boardCreatedAt,
+      boardCreatedAtDuration: boardCreatedAtDuration ?? this.boardCreatedAtDuration,
+      userId: userId ?? this.userId,
+      userNickname: userNickname ?? this.userNickname,
+      userPosition: userPosition ?? this.userPosition,
+      userImage: userImage ?? this.userImage,
+      myLike: myLike ?? this.myLike,
+      myBookmark: myBookmark ?? this.myBookmark,
+      likeCount: likeCount ?? this.likeCount,
+      bookmarkCount: bookmarkCount ?? this.bookmarkCount,
+      replyCount: replyCount ?? this.replyCount,
+      replies: replies ?? this.replies,
+      images: images ?? this.images,
+    );
+  }
 }
 
 class ReplyDTO {
@@ -193,6 +417,28 @@ class ReplyDTO {
     "comment": comment,
     "updatedAt": updatedAt,
   };
+
+  ReplyDTO copyWith({
+    int? id,
+    int? boardId,
+    int? userId,
+    String? userNickname,
+    String? userPosition,
+    String? userImage,
+    String? comment,
+    String? updatedAt,
+  }) {
+    return ReplyDTO(
+      id: id ?? this.id,
+      boardId: boardId ?? this.boardId,
+      userId: userId ?? this.userId,
+      userNickname: userNickname ?? this.userNickname,
+      userPosition: userPosition ?? this.userPosition,
+      userImage: userImage ?? this.userImage,
+      comment: comment ?? this.comment,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
 }
 
 

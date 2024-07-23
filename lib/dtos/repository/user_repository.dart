@@ -35,6 +35,21 @@ class UserRepository {
     }
   }
 
+  Future<(ResponseDTO, String)> fetchNaverLogin(String accessToken) async {
+    final response = await dio.get("/api/users/oauth/naver",
+        queryParameters: {"accessToken": accessToken});
+
+    ResponseDTO responseDTO = ResponseDTO.fromJson(response.data);
+
+    if (responseDTO.status == 200) {
+      final accessToken = response.headers["Authorization"]!.first;
+
+      return (responseDTO, accessToken);
+    } else {
+      return (responseDTO, "");
+    }
+  }
+
   // 회원가입
   Future<ResponseDTO> fetchJoin(JoinRequestDTO joinRequestDTO) async {
     final response =

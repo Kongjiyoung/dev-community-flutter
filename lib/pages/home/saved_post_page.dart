@@ -1,82 +1,36 @@
+import 'package:dev_community/pages/home/viewmodel/bookmark_viewmodel.dart';
+import 'package:dev_community/pages/home/viewmodel/home_viewmodel.dart';
 import 'package:dev_community/pages/home/widgets/build-post.dart';
+import 'package:dev_community/pages/home/widgets/post_view.dart';
+import 'package:dev_community/pages/home/widgets/saved_post_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SavedPostPage extends StatelessWidget {
+class SavedPostPage extends ConsumerWidget {
   const SavedPostPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final posts = [
-      {
-        "name": "공지영",
-        "position": "신입개발자",
-        "time": "3시간 전",
-        "title": "제목 : FlashAttention3 공개",
-        "content": "내용 : LLM의 속도 향상을 위해서 최근에 많은 방법들이 시도되고 있는데요,.. ",
-        "views": "698",
-        "loveCount": "58",
-        "replyCount": "5",
-      },
-      {
-        "name": "공지영",
-        "position": "신입개발자",
-        "time": "3시간 전",
-        "title": "제목 : FlashAttention3 공개",
-        "content": "내용 : LLM의 속도 향상을 위해서 최근에 많은 방법들이 시도되고 있는데요,.. ",
-        "views": "698",
-        "loveCount": "58",
-        "replyCount": "5",
-      },
-      {
-        "name": "공지영",
-        "position": "신입개발자",
-        "time": "3시간 전",
-        "title": "제목 : FlashAttention3 공개",
-        "content": "내용 : LLM의 속도 향상을 위해서 최근에 많은 방법들이 시도되고 있는데요,.. ",
-        "views": "698",
-        "loveCount": "58",
-        "replyCount": "5",
-      },
-      {
-        "name": "공지영",
-        "position": "신입개발자",
-        "time": "3시간 전",
-        "title": "제목 : FlashAttention3 공개",
-        "content": "내용 : LLM의 속도 향상을 위해서 최근에 많은 방법들이 시도되고 있는데요,.. ",
-        "views": "698",
-        "loveCount": "58",
-        "replyCount": "5",
-      },
-    ];
+  Widget build(BuildContext context, WidgetRef ref) {
+    BookmarkModel? model = ref.watch(bookmarkBoardListProvider);
+    BookmarkViewmodel viewmodel = ref.read(bookmarkBoardListProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
         title: Text("저장한 게시글"),
       ),
-      body: Expanded(
-        child: ListView.builder(
-          itemCount: posts.length,
-          itemBuilder: (context, index) {
-            final post = posts[index];
-            return Column(
-              children: [
-                // BuildPost(
-                //   boardId: 1,
-                //   name: post["name"]!,
-                //   job: post["position"]!,
-                //   time: post["time"]!,
-                //   title: post["title"]!,
-                //   content: ,
-                //   profileImage: "",
-                //   views: post["views"]!,
-                //   loveCount: post["loveCount"]!,
-                //   replyCount: post["replyCount"]!,
-                // ),
-                SizedBox(height: 10),
-              ],
-            );
-          },
-        ),
+      body: ListView.builder(
+        itemCount: model!.contentList.length,
+        itemBuilder: (context, index) {
+          return Column(
+            children: [
+              SavedPostView(
+                contentList: model.contentList,
+                bookmarkViewmodel: viewmodel,
+              ),
+              SizedBox(height: 10),
+            ],
+          );
+        },
       ),
     );
   }

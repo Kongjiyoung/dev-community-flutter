@@ -3,7 +3,9 @@ import 'package:dev_community/pages/my/widgets/profile_detail_sliver_list.dart';
 import 'package:flutter/material.dart';
 
 class ProfileDetail extends StatelessWidget {
-  const ProfileDetail({super.key});
+  final userId;
+
+  ProfileDetail(this.userId);
 
   @override
   Widget build(BuildContext context) {

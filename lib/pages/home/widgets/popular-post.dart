@@ -5,14 +5,18 @@ import '../../board/detail_page.dart';
 class PopularPost extends StatelessWidget {
   final boardId;
   final String name;
-  final String job;
+  final String? job;
   final String title;
+  final int rank;
+  final String userImage;
 
   const PopularPost({
     required this.boardId,
     required this.name,
     required this.job,
     required this.title,
+    required this.rank,
+    required this.userImage,
   });
 
   @override
@@ -42,13 +46,27 @@ class PopularPost extends StatelessWidget {
                         color: Color(0xFF4B5A6A), // 배경색 설정
                         borderRadius: BorderRadius.circular(20), // 모서리 곡률 설정
                       ),
-                      child: Text(
-                        'TOP 1',
-                        style: TextStyle(
-                          color: Colors.white, // 텍스트 색상
-                          fontWeight: FontWeight.bold,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'TOP',
+                              style: TextStyle(
+                                color: Colors.white, // 텍스트 색상
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(width: 8), // 간격 조정을 위해 SizedBox 추가
+                            Text(
+                              "${rank}",
+                              style: TextStyle(
+                                color: Colors.white, // 텍스트 색상
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                          ],
                         ),
-                      ),
+
                     ),
                     SizedBox(height: 10),
                   ],
@@ -80,7 +98,7 @@ class PopularPost extends StatelessWidget {
                             ),
                             SizedBox(width: 5),
                             Text(
-                              job,
+                              job ?? "없음",
                               style: TextStyle(
                                 fontSize: 15,
                                 color: Color(0xff676767),
@@ -93,7 +111,7 @@ class PopularPost extends StatelessWidget {
                     Spacer(),
                     CircleAvatar(
                       radius: 30,
-                      backgroundImage: AssetImage("assets/images/logo.png"),
+                      backgroundImage: NetworkImage(userImage),
                     )
                   ],
                 ),

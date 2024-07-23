@@ -1,9 +1,8 @@
+import 'package:dev_community/pages/board/viewmodal/board_detail_viewmodel.dart';
 import 'package:dev_community/pages/board/widgets/detail-page-widgets/profile_content.dart';
 import 'package:dev_community/pages/board/widgets/detail-page-widgets/profile_image.dart';
-import 'package:dev_community/pages/board/widgets/detail-page-widgets/upper_right.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../dtos/bookmark/bookmark_manager.dart';
 
 class Profile extends ConsumerWidget {
   final int boardId;
@@ -11,20 +10,19 @@ class Profile extends ConsumerWidget {
   final String name;
   final String? content;
   final bool isBookMark;
+  final BoardDetailViewModel viewmodel;
 
-  Profile({
+  Profile( {
     required this.boardId,
     required this.profileImg,
     required this.name,
     required this.content,
     required this.isBookMark,
+    required this.viewmodel,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // 상태 초기화: 서버에서 받은 isBookMark 값을 초기 상태로 설정
-    final bookmarkManagerState = ref.watch(bookmarkManagerProvider(isBookMark));
-    final bookmarkManagerNotifier = ref.read(bookmarkManagerProvider(isBookMark).notifier);
     return Row(
       children: [
         ProfileImage(profileImg),
@@ -34,13 +32,19 @@ class Profile extends ConsumerWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            UpperRight(
-              bookmarkManagerState ? Icons.bookmark : Icons.bookmark_border,
-              30,
-              bookmarkManagerState ? Colors.yellow : Colors.black,
+            InkWell(
               onTap: () async {
-                await bookmarkManagerNotifier.toggleBookmark(boardId);
+                if(isBookMark){
+                  viewmodel.bookMarkDelete(boardId);
+                }else{
+                  viewmodel.bookMarkSave(boardId);
+                }
               },
+              child: Icon(
+                isBookMark ? Icons.bookmark : Icons.bookmark_border,
+                size: 30,
+                color: isBookMark ? Colors.yellow : Colors.black,
+              ),
             ),
             SizedBox(width: 10),
           ],

@@ -1,34 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../dtos/like/like_manager.dart';
-import 'like.dart';
+import '../../viewmodal/board_detail_viewmodel.dart';
 
 class LikeClass extends ConsumerWidget {
+  final BoardDetailViewModel viewmodel;
+  final bool isLiked;
+  final int likeCount;
+  final int boardId;
+
+  LikeClass(this.viewmodel, this.isLiked, this.likeCount, this.boardId);
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isLiked = ref.watch(likeManagerProvider);
-    final likeManagerNotifier = ref.read(likeManagerProvider.notifier);
-
     return Row(
       children: [
-        Like(
-          isLiked ? Icons.favorite : Icons.favorite_border,
-          30,
-          isLiked ? Colors.red : Colors.black,
-          onTap: () {
-            likeManagerNotifier.toggleLike();
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  isLiked ? '좋아요를 취소하였습니다.' : '좋아요 하였습니다.',
-                ),
-                duration: Duration(seconds: 2),
-              ),
-            );
+        InkWell(
+          onTap: () async {
+            if (isLiked) {
+              viewmodel.likeDelete(boardId);
+            } else {
+              viewmodel.likeSave(boardId);
+            }
           },
+          child: Icon(
+            isLiked ? Icons.favorite : Icons.favorite_border,
+            size:  30,
+            color: isLiked ? Colors.red : Colors.black,
+          ),
         ),
         SizedBox(width: 5),
-        Text("2"),
+        Text("$likeCount"),
       ],
     );
   }
