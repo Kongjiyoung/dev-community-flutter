@@ -1,5 +1,6 @@
 import 'package:dev_community/_core/util/string_convertor.dart';
 import 'package:dev_community/dtos/mypage/my_page_response.dart';
+import 'package:dev_community/pages/board/detail_page.dart';
 import 'package:dev_community/pages/my/viewmodel/my_page_viewmodel.dart';
 import 'package:flutter/material.dart';
 
@@ -57,7 +58,14 @@ class _MyProfileTabBarViewState extends State<MyProfileTabBarView> {
                 itemCount: widget.myPageDTO.myBoardList.length,
                 itemBuilder: (context, index) {
                   return InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BoardDetailPage(
+                                widget.myPageDTO.myBoardList[index].boardId),
+                          ));
+                    },
                     child: ListTile(
                       title:
                           Text("${widget.myPageDTO.myBoardList[index].title}"),
@@ -76,7 +84,14 @@ class _MyProfileTabBarViewState extends State<MyProfileTabBarView> {
                 itemCount: widget.myPageDTO.myReplyList.length,
                 itemBuilder: (context, index) {
                   return InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BoardDetailPage(
+                                widget.myPageDTO.myReplyList[index].boardId),
+                          ));
+                    },
                     child: ListTile(
                       title: Text(maxStringLength(
                           20, widget.myPageDTO.myReplyList[index].comment)),

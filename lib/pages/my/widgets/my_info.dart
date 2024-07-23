@@ -42,7 +42,7 @@ class MyInfo extends ConsumerWidget {
               children: [
                 Text(nickname, style: inputTitleStyle(size: 25)),
                 SizedBox(height: 10),
-                Text(position ?? "포지션 없음", style: TextStyle(fontSize: 15)),
+                Text(position!, style: TextStyle(fontSize: 15)),
               ],
             ),
           ],
@@ -51,7 +51,7 @@ class MyInfo extends ConsumerWidget {
         Container(
           height: 70,
           alignment: AlignmentDirectional.topStart,
-          child: Text(introduce ?? "소개 없음"),
+          child: Text(introduce!),
         ),
       ],
     );
