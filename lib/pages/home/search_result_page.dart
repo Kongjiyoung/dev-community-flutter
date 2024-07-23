@@ -1,3 +1,5 @@
+import 'package:dev_community/pages/home/widgets/SearchPostView.dart';
+import 'package:dev_community/pages/home/widgets/post_view.dart';
 import 'package:flutter/material.dart';
 
 class SearchResultsPage extends StatelessWidget {
@@ -21,14 +23,11 @@ class SearchResultsPage extends StatelessWidget {
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return Center(child: Text('No results found'));
           } else {
-            return ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(snapshot.data![index]),
-                );
-              },
-            );
+            return Center(child: Text('No results found'));
+            // return SearchPostView(
+            //   contentList: model!.contentList,
+            //   homeViewmodel: viewmodel,
+            // );
           }
         },
       ),
@@ -36,8 +35,7 @@ class SearchResultsPage extends StatelessWidget {
   }
 
   Future<List<String>> performSearch(String query) async {
-    // 여기에 검색 로직을 추가하세요. 현재는 예시 데이터로 대체됩니다.
-    await Future.delayed(Duration(seconds: 2)); // 검색 중인 것처럼 보이기 위해 지연 추가
+    await Future.delayed(Duration(seconds: 2));
     return List<String>.generate(10, (index) => 'Result $index for "$query"');
   }
 }
