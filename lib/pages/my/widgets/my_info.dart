@@ -49,7 +49,7 @@ class MyInfo extends ConsumerWidget {
         ),
         SizedBox(height: 15),
         Container(
-          height: 125,
+          height: 70,
           alignment: AlignmentDirectional.topStart,
           child: Text(introduce ?? "소개 없음"),
         ),

@@ -141,7 +141,7 @@ class _SavePageState extends State<SavePage> {
               border: Border(
                 top: BorderSide(
                   width: 1.0,
-                  color: Colors.grey[300]!,
+                  color: Color(0x8188ff56),
                 ),
               ),
             ),

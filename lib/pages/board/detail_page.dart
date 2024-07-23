@@ -62,13 +62,13 @@ class _BoardDetailPageState extends ConsumerState<BoardDetailPage> {
             },
           ),
           bottom: PreferredSize(
-            preferredSize: Size.fromHeight(20.0),
+            preferredSize: Size.fromHeight(0.0),
             child: Container(
               decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(
-                    width: 1.0,
-                    color: Colors.grey[300]!,
+                    width: 5.0,
+                    color: Color(0x8188ff56),
                   ),
                 ),
               ),

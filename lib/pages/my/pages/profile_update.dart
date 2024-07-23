@@ -61,11 +61,11 @@ class ProfileUpdatePage extends ConsumerWidget {
                 '완료',
                 style: TextStyle(
                   fontSize: 18,
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
               ),
               style: TextButton.styleFrom(
-                backgroundColor: Colors.red, // 배경색 설정
+                backgroundColor: Color(0xffa2d594), // 배경색 설정
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5.0), // 둥근 모서리 설정
                 ),

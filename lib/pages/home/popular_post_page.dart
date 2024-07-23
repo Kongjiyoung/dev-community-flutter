@@ -24,7 +24,7 @@ class PopularPostPage extends ConsumerWidget {
             return Column(
               children: [
                 PopularPost(
-                  boardId: 1,
+                  boardId: post.boardId,
                   name: post.userNickname!,
                   job: post.userPosition,
                   title: post.boardTitle,
