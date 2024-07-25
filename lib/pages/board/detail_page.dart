@@ -82,7 +82,7 @@ class _BoardDetailPageState extends ConsumerState<BoardDetailPage> {
               boardDetailDTO: model.boardDetailDTO,
               quillController: _quillController,
             ),
-            ReplySave(model.boardDetailDTO.userImage,
+            ReplySave(model.boardDetailDTO.sessionUserImg,
                 model.boardDetailDTO.boardId, viewmodel),
           ],
         ),
