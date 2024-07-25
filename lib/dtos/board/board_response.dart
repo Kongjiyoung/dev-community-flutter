@@ -275,6 +275,7 @@ class BoardDetailDTO {
   final int replyCount;
   final List<ReplyDTO> replies;
   final List<BoardImagesDTO> images;
+  final String sessionUserImg;
 
   BoardDetailDTO({
     required this.boardId,
@@ -294,6 +295,7 @@ class BoardDetailDTO {
     required this.replyCount,
     required this.replies,
     required this.images,
+    required this.sessionUserImg,
   }) : userPosition = userPosition ?? 'Default Position'; // null일 경우 기본값 설정
 
   factory BoardDetailDTO.fromJson(Map<String, dynamic> json) => BoardDetailDTO(
@@ -307,6 +309,7 @@ class BoardDetailDTO {
         userNickname: json["userNickname"],
         userPosition: json["userPosition"],
         userImage: json["userImage"],
+        sessionUserImg: json["sessionUserImg"],
         myLike: json["myLike"],
         myBookmark: json["myBookmark"],
         likeCount: json["likeCount"],
@@ -338,6 +341,7 @@ class BoardDetailDTO {
         "likeCount": likeCount,
         "bookmarkCount": bookmarkCount,
         "replyCount": replyCount,
+        "sessionUserImg": sessionUserImg,
         "replies": List<dynamic>.from(replies.map((x) => x.toJson())),
         "images": List<dynamic>.from(images.map((x) => x.toJson())),
       };
@@ -353,6 +357,7 @@ class BoardDetailDTO {
     String? userNickname,
     String? userPosition,
     String? userImage,
+    String? sessionUserImg,
     bool? myLike,
     bool? myBookmark,
     int? likeCount,
@@ -373,6 +378,7 @@ class BoardDetailDTO {
       userNickname: userNickname ?? this.userNickname,
       userPosition: userPosition ?? this.userPosition,
       userImage: userImage ?? this.userImage,
+      sessionUserImg: sessionUserImg ?? this.sessionUserImg,
       myLike: myLike ?? this.myLike,
       myBookmark: myBookmark ?? this.myBookmark,
       likeCount: likeCount ?? this.likeCount,
