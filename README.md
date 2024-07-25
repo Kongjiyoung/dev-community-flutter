@@ -1,4 +1,4 @@
-# 1.바디키(건강 습관 관리 플랫폼)
+# 1.Dev's(개발자 커뮤니티)
 <img src="https://github.com/Kongjiyoung/dev-community-flutter/blob/dev/assets/images/fullogo.png?raw=true" alt="Dev's Logo" width="200px">
 
 ## 백엔드 github
@@ -6,7 +6,7 @@ https://github.com/tkffkels93/devs-project-backend
 
 
 ## 시연 영상
-https://youtu.be/ngoAZXk4fdQ
+[Dev's.mp4](https://drive.google.com/file/d/133rZxHd5dL-lFgSkt9oSjqkcF4pqGnLz/view?usp=drive_link)
 
 ## PPT
 [프로젝트 final 4조.pptx](https://github.com/coderyu5523/project-final-flutter/files/15402039/final.4.pptx)
