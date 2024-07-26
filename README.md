@@ -6,7 +6,7 @@ https://github.com/tkffkels93/devs-project-backend
 
 
 ## 시연 영상
-[Dev's.mp4](https://drive.google.com/file/d/133rZxHd5dL-lFgSkt9oSjqkcF4pqGnLz/view?usp=drive_link)
+[Dev's.mp4]([https://drive.google.com/file/d/133rZxHd5dL-lFgSkt9oSjqkcF4pqGnLz/view?usp=drive_link](https://www.youtube.com/watch?v=14jkfekvvg4))
 
 ## PPT
 [Dev's.pptx](https://drive.google.com/file/d/124AxBK97nZwuFge4aYj217Wkkraqp4RM/view?usp=drive_link)
